@@ -3,15 +3,15 @@ title: useReducer
 minutes: 8
 quiz:
   - question: "Was gibt `useReducer(reducer, initialState)` zurück?"
-    options: ["Nur den State", "Den aktuellen State und eine `dispatch`-Funktion", "Den Reducer und den State", "Ein Promise"]
-    answer: 1
+    options: ["Nur den State","Den Reducer und den State","Den aktuellen State und eine `dispatch`-Funktion","Ein Promise"]
+    answer: 2
   - question: "Was darf ein Reducer nicht?"
-    options: ["Einen neuen State zurückgeben", "Den bisherigen State verändern oder Nebenwirkungen auslösen", "Ein `switch` verwenden", "Mehrere Action-Typen behandeln"]
-    answer: 1
+    options: ["Einen neuen State zurückgeben","Mehrere Action-Typen behandeln","Ein `switch` verwenden","Den bisherigen State verändern oder Nebenwirkungen auslösen"]
+    answer: 3
     explanation: "Ein Reducer ist eine reine Funktion: Er berechnet aus altem State und Action den neuen State – ohne etwas zu verändern, ohne Netzwerk, ohne Zufall."
   - question: "Wann lohnt sich `useReducer` statt `useState`?"
-    options: ["Immer", "Wenn viele Event-Handler denselben State auf unterschiedliche Weise ändern", "Nur für Zahlen", "Nur mit Context"]
-    answer: 1
+    options: ["Wenn viele Event-Handler denselben State auf unterschiedliche Weise ändern","Immer","Nur für Zahlen","Nur mit Context"]
+    answer: 0
 exercise:
   example: ex-reducer
   title: Ein Warenkorb

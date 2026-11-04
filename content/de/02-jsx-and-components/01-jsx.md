@@ -3,12 +3,12 @@ title: JSX
 minutes: 7
 quiz:
   - question: "Wie setzt du in JSX eine CSS-Klasse?"
-    options: ["`class=\"card\"`", "`className=\"card\"`", "`cssClass=\"card\"`", "`style=\"card\"`"]
-    answer: 1
+    options: ["`class=\"card\"`","`cssClass=\"card\"`","`className=\"card\"`","`style=\"card\"`"]
+    answer: 2
     explanation: "`class` ist in JavaScript ein reserviertes Wort, deshalb heißt das Attribut in JSX `className`."
   - question: "Was darf zwischen geschweiften Klammern `{ }` in JSX stehen?"
-    options: ["Nur Variablen", "Jeder JavaScript-Ausdruck, z. B. `user.name` oder `a + b`", "Auch Anweisungen wie `if` und `for`", "Nur Strings"]
-    answer: 1
+    options: ["Nur Variablen","Nur Strings","Auch Anweisungen wie `if` und `for`","Jeder JavaScript-Ausdruck, z. B. `user.name` oder `a + b`"]
+    answer: 3
     explanation: "Erlaubt sind Ausdrücke, die einen Wert ergeben. Für Bedingungen nimmst du den ternären Operator oder `&&`."
   - question: "Wie gibst du zwei Elemente nebeneinander zurück, ohne ein zusätzliches `<div>`?"
     options: ["Mit einem Fragment `<>…</>`", "Mit einem Array ohne Keys", "Mit zwei `return`-Anweisungen", "Gar nicht"]

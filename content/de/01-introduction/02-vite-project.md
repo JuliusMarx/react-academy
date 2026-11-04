@@ -3,12 +3,12 @@ title: Ein Projekt mit Vite
 minutes: 6
 quiz:
   - question: "Mit welchem Befehl legst du ein neues React-Projekt mit Vite an?"
-    options: ["`npx create-react-app my-app`", "`npm create vite@latest my-app -- --template react-ts`", "`npm install react my-app`", "`ng new my-app --react`"]
-    answer: 1
+    options: ["`npx create-react-app my-app`","`ng new my-app --react`","`npm install react my-app`","`npm create vite@latest my-app -- --template react-ts`"]
+    answer: 3
     explanation: "Create React App ist veraltet. Für neue Projekte ohne Framework ist Vite der Standard."
   - question: "Welche Datei rendert die App-Komponente in die Seite?"
-    options: ["`index.html`", "`vite.config.ts`", "`src/main.tsx`", "`package.json`"]
-    answer: 2
+    options: ["`src/main.tsx`","`vite.config.ts`","`index.html`","`package.json`"]
+    answer: 0
     explanation: "`main.tsx` holt sich mit `createRoot` das Element `#root` aus der `index.html` und rendert dort `<App />`."
 ---
 

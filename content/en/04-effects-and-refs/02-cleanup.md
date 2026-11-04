@@ -6,8 +6,8 @@ quiz:
     options: ["Only when the page is reloaded", "Before the Effect runs again and when the component is removed", "After every click", "Never automatically"]
     answer: 1
   - question: "Why does an Effect run twice in development mode?"
-    options: ["A bug in Vite", "StrictMode mounts, unmounts, and remounts the component to reveal missing cleanup", "Because the dependency array is missing", "It also happens in the production build"]
-    answer: 1
+    options: ["A bug in Vite","Because the dependency array is missing","StrictMode mounts, unmounts, and remounts the component to reveal missing cleanup","It also happens in the production build"]
+    answer: 2
 exercise:
   example: ex-timer
   title: A Stopwatch

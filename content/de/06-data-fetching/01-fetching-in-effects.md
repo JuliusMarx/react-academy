@@ -3,8 +3,8 @@ title: Daten im Effekt laden
 minutes: 9
 quiz:
   - question: "Der Nutzer wechselt schnell von Profil 1 zu Profil 2. Die Antwort für Profil 1 kommt zuletzt an. Was zeigt eine Komponente ohne Cleanup?"
-    options: ["Profil 2", "Profil 1 – die veraltete Antwort überschreibt die aktuelle", "Einen Fehler", "Nichts"]
-    answer: 1
+    options: ["Profil 2","Nichts","Einen Fehler","Profil 1 – die veraltete Antwort überschreibt die aktuelle"]
+    answer: 3
     explanation: "Das ist eine Race Condition. Mit einer `ignore`-Variable oder einem `AbortController` in der Cleanup-Funktion verwirfst du veraltete Antworten."
   - question: "Warum prüfst du bei `fetch` zusätzlich `res.ok`?"
     options: ["`fetch` wirft bei HTTP-Fehlern wie 404 keinen Fehler", "Weil `res.json()` sonst langsamer ist", "Das ist nicht nötig", "Nur bei POST-Anfragen"]
@@ -61,6 +61,9 @@ Drei Zustände musst du abbilden: **lädt**, **Fehler**, **fertig**.
 
 > [!WARNING]
 > `fetch` wirft bei HTTP-Fehlern wie 404 oder 500 *keinen* Fehler – nur bei Netzwerkproblemen. Prüfe deshalb immer `res.ok`.
+
+> [!NOTE]
+> Vorsicht beim Testen mit dem Vite-Dev-Server: Er beantwortet unbekannte Pfade standardmäßig mit der `index.html` und Status **200** (SPA-Fallback). Eine fehlende JSON-Datei ergibt dann keinen 404, sondern einen Fehler beim Parsen. Im Beispiel schaltet `appType: 'mpa'` in der `vite.config.ts` das ab.
 
 ## Race Conditions
 

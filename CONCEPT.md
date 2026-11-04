@@ -49,7 +49,7 @@ Eine interaktive Lernplattform für React im Stil von W3Schools: kurze, gut stru
 4. **Effekte & Refs**: `useEffect`, Cleanup, `useRef`, „You Might Not Need an Effect“ ✅
 5. **Hooks vertieft**: `useReducer`, Context, eigene Hooks, `useMemo`/`useCallback`/`memo` ✅
 6. **Daten laden**: `fetch` im Effekt, `use()` + Suspense, Error Boundaries, TanStack Query ✅
-7. **Routing**: React Router (Routen, Parameter, verschachtelte Layouts, Loader)
+7. **Routing**: React Router 8 (Routen, Parameter, verschachtelte Layouts, Loader) ✅
 8. **Formulare & Actions**: `<form action>`, `useActionState`, `useFormStatus`, `useOptimistic`
 9. **Styling**: CSS Modules, Tailwind CSS, Klassen bedingt setzen
 10. **State Management**: Wann globaler State? Context vs. Zustand vs. Redux Toolkit
@@ -73,7 +73,7 @@ Siehe [README.md](README.md). Kurz:
 - **Kapitel 1–3** auf DE und EN, mit Live-Beispielen, Quizzen und Übungen
 
 ### Phase 2
-- Kapitel 4–6 ✅, Kapitel 7–8
+- Kapitel 4–7 ✅, Kapitel 8
 - Hosting einrichten (Netlify-Credits sparsam einsetzen)
 
 ### Phase 3

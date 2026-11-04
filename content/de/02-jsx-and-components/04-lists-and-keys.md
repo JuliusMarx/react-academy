@@ -3,11 +3,11 @@ title: Listen und key
 minutes: 8
 quiz:
   - question: "Wozu dient der `key` bei Listenelementen?"
-    options: ["Er wird als HTML-Attribut ausgegeben", "React erkennt daran, welches Element welches ist, wenn sich die Liste ändert", "Er sortiert die Liste", "Er ist nur für TypeScript wichtig"]
-    answer: 1
+    options: ["React erkennt daran, welches Element welches ist, wenn sich die Liste ändert","Er wird als HTML-Attribut ausgegeben","Er sortiert die Liste","Er ist nur für TypeScript wichtig"]
+    answer: 0
   - question: "Was ist der beste `key`?"
-    options: ["`Math.random()`", "Der Index aus `map`", "Eine stabile, eindeutige ID aus den Daten", "Der angezeigte Text"]
-    answer: 2
+    options: ["`Math.random()`","Eine stabile, eindeutige ID aus den Daten","Der Index aus `map`","Der angezeigte Text"]
+    answer: 1
     explanation: "Zufallswerte ändern sich bei jedem Rendern, der Index ändert sich beim Sortieren oder Löschen. Eine ID bleibt stabil."
 exercise:
   example: ex-lists

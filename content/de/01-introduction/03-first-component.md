@@ -3,12 +3,12 @@ title: Die erste Komponente
 minutes: 7
 quiz:
   - question: "Warum muss ein Komponentenname mit einem Großbuchstaben beginnen?"
-    options: ["Das ist nur eine Stilregel", "Sonst hält React `<welcome />` für ein HTML-Element", "Wegen TypeScript", "Damit die Datei gefunden wird"]
-    answer: 1
+    options: ["Sonst hält React `<welcome />` für ein HTML-Element","Das ist nur eine Stilregel","Wegen TypeScript","Damit die Datei gefunden wird"]
+    answer: 0
     explanation: "Kleingeschriebene Tags wie `<div>` sind für React HTML-Elemente, großgeschriebene wie `<Welcome />` eigene Komponenten."
   - question: "Wo solltest du eine Komponente definieren?"
-    options: ["Auf oberster Ebene einer Datei", "Innerhalb einer anderen Komponente", "In der `index.html`", "Egal, Hauptsache vor der Verwendung"]
-    answer: 0
+    options: ["Innerhalb einer anderen Komponente","Auf oberster Ebene einer Datei","In der `index.html`","Egal, Hauptsache vor der Verwendung"]
+    answer: 1
     explanation: "Eine Komponente in einer anderen Komponente wird bei jedem Rendern neu erzeugt. Das ist langsam und lässt ihren State verloren gehen."
 exercise:
   example: ex-first-component

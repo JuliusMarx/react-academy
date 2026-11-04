@@ -3,15 +3,15 @@ title: Objects and Arrays in State
 minutes: 8
 quiz:
   - question: "Why doesn't `items.push(x); setItems(items);` update the display?"
-    options: ["`push` is forbidden in React", "It's the same array – React sees no change and doesn't re-render", "Because `setItems` is asynchronous", "It works"]
-    answer: 1
+    options: ["`push` is forbidden in React","It works","Because `setItems` is asynchronous","It's the same array – React sees no change and doesn't re-render"]
+    answer: 3
     explanation: "React compares the reference. Create a new array, e.g. `setItems([...items, x])`."
   - question: "How do you remove the item with ID 3 from the `todos` state?"
-    options: ["`todos.splice(2, 1)`", "`setTodos(todos.filter((t) => t.id !== 3))`", "`delete todos[3]`", "`setTodos(todos.pop())`"]
-    answer: 1
+    options: ["`setTodos(todos.filter((t) => t.id !== 3))`","`todos.splice(2, 1)`","`delete todos[3]`","`setTodos(todos.pop())`"]
+    answer: 0
   - question: "How do you change only `city` in the `user` state object?"
-    options: ["`user.city = 'Paris'`", "`setUser({ city: 'Paris' })`", "`setUser({ ...user, city: 'Paris' })`", "`setUser(user, 'Paris')`"]
-    answer: 2
+    options: ["`user.city = 'Paris'`","`setUser({ ...user, city: 'Paris' })`","`setUser({ city: 'Paris' })`","`setUser(user, 'Paris')`"]
+    answer: 1
     explanation: "The setter replaces the whole object. With the spread operator, you carry over the remaining fields."
 exercise:
   example: ex-shopping-list

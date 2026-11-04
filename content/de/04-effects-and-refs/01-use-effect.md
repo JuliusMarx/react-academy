@@ -3,11 +3,11 @@ title: useEffect
 minutes: 8
 quiz:
   - question: "Wann läuft ein Effekt mit dem Abhängigkeits-Array `[count]`?"
-    options: ["Bei jedem Rendern", "Nur beim ersten Rendern", "Nach dem ersten Rendern und immer dann, wenn sich `count` geändert hat", "Bevor die Komponente rendert"]
-    answer: 2
+    options: ["Bei jedem Rendern","Nur beim ersten Rendern","Bevor die Komponente rendert","Nach dem ersten Rendern und immer dann, wenn sich `count` geändert hat"]
+    answer: 3
   - question: "Was bedeutet ein leeres Abhängigkeits-Array `[]`?"
-    options: ["Der Effekt läuft nie", "Der Effekt läuft nur nach dem ersten Rendern (Mount)", "Der Effekt läuft bei jedem Rendern", "Das ist ein Fehler"]
-    answer: 1
+    options: ["Der Effekt läuft nur nach dem ersten Rendern (Mount)","Der Effekt läuft nie","Der Effekt läuft bei jedem Rendern","Das ist ein Fehler"]
+    answer: 0
   - question: "Wofür ist `useEffect` gedacht?"
     options: ["Um Werte aus Props und State zu berechnen", "Um eine Komponente mit etwas außerhalb von React zu synchronisieren", "Um auf Klicks zu reagieren", "Um State zu initialisieren"]
     answer: 1

@@ -27,17 +27,22 @@ for (const entry of await readdir(out)) {
   if (entry !== 'node_modules' && entry !== 'package-lock.json') await rm(join(out, entry), { recursive: true, force: true });
 }
 
-async function materialize(target, layers) {
+async function materialize(target, layers, urlPath) {
   for (const layer of layers) {
     if (existsSync(layer)) await cp(layer, target, { recursive: true, filter: (src) => !/[\\/](solution|meta\.json)$/.test(src) || src === layer });
   }
-  // Every variant is served from a sub-path of the shared dev server.
+  // Every variant is served from a sub-path of the shared dev server. The app itself expects to run
+  // at "/" (like in StackBlitz, e.g. for React Router), so the URL is reset before it starts – and the
+  // entry script therefore needs its absolute path.
   const html = join(target, 'index.html');
+  const resetUrl = "<script>history.replaceState(null, '', '/');</script>";
   // Hidden pages (e.g. a background browser tab) never fire requestAnimationFrame – fall back to timers.
   const rafShim = '<script>if (document.hidden) window.requestAnimationFrame = (cb) => setTimeout(() => cb(performance.now()), 16);</script>';
   await writeFile(
     html,
-    (await readFile(html, 'utf8')).replace('src="/src/main.tsx"', 'src="./src/main.tsx"').replace('</head>', `  ${rafShim}\n  </head>`),
+    (await readFile(html, 'utf8'))
+      .replace('src="/src/main.tsx"', `src="/${urlPath}/src/main.tsx"`)
+      .replace('</head>', `  ${rafShim}\n    ${resetUrl}\n  </head>`),
   );
   for (const file of ['package.json', 'vite.config.ts', 'tsconfig.json']) await rm(join(target, file), { force: true });
 }
@@ -48,11 +53,11 @@ for (const id of ids) {
   const base = [join(EXAMPLES, '_base')];
   if (meta.exercise) {
     const kit = join(EXAMPLES, '_exercise-kit');
-    await materialize(join(out, id, 'starter'), [...base, dir, kit]);
-    await materialize(join(out, id, 'solution'), [...base, dir, join(dir, 'solution'), kit]);
+    await materialize(join(out, id, 'starter'), [...base, dir, kit], `${id}/starter`);
+    await materialize(join(out, id, 'solution'), [...base, dir, join(dir, 'solution'), kit], `${id}/solution`);
     variants.push(`${id}/starter`, `${id}/solution`);
   } else {
-    await materialize(join(out, id, 'example'), [...base, dir]);
+    await materialize(join(out, id, 'example'), [...base, dir], `${id}/example`);
   }
 }
 

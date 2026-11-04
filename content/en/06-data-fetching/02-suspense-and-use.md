@@ -6,12 +6,12 @@ quiz:
     options: ["It returns `undefined`", "It 'suspends' – the nearest `<Suspense>` boundary shows its fallback", "It throws an error that crashes the app", "It blocks and waits"]
     answer: 1
   - question: "Why must the promise passed to `use()` not be created anew on every render?"
-    options: ["Because promises are expensive", "Because every new promise suspends again – the component would never finish", "Because `use()` only accepts strings", "It can be"]
-    answer: 1
+    options: ["Because promises are expensive","Because `use()` only accepts strings","Because every new promise suspends again – the component would never finish","It can be"]
+    answer: 2
     explanation: "The promise must be cached, e.g. in a module cache, a library, or a Server Component."
   - question: "How do you prevent the fallback from appearing again when switching to new data?"
-    options: ["With `startTransition` or `useTransition`", "With `useEffect`", "With `memo`", "You can't"]
-    answer: 0
+    options: ["You can't","With `useEffect`","With `memo`","With `startTransition` or `useTransition`"]
+    answer: 3
 exercise:
   example: ex-suspense
   title: Loading a Book with Suspense

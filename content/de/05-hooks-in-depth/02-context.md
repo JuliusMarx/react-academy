@@ -3,14 +3,14 @@ title: Context
 minutes: 8
 quiz:
   - question: "Welches Problem löst Context?"
-    options: ["Langsame Komponenten", "Props durch viele Ebenen reichen zu müssen (Prop Drilling)", "Fehlende Typen", "Daten vom Server laden"]
-    answer: 1
+    options: ["Props durch viele Ebenen reichen zu müssen (Prop Drilling)","Langsame Komponenten","Fehlende Typen","Daten vom Server laden"]
+    answer: 0
   - question: "Welchen Wert liefert `useContext(ThemeContext)`, wenn es keinen Provider darüber gibt?"
     options: ["`undefined`", "Den Standardwert aus `createContext`", "Einen Fehler", "Den Wert des nächsten Geschwisters"]
     answer: 1
   - question: "Wie stellst du in React 19 einen Context-Wert bereit?"
-    options: ["`<ThemeContext value={theme}>…</ThemeContext>`", "`provide(ThemeContext, theme)`", "`ThemeContext.set(theme)`", "`useContext(ThemeContext, theme)`"]
-    answer: 0
+    options: ["`ThemeContext.set(theme)`","`provide(ThemeContext, theme)`","`<ThemeContext value={theme}>…</ThemeContext>`","`useContext(ThemeContext, theme)`"]
+    answer: 2
     explanation: "Seit React 19 ist der Context selbst der Provider. Das ältere `<ThemeContext.Provider>` funktioniert weiterhin."
 exercise:
   example: ex-context

@@ -3,15 +3,15 @@ title: useState
 minutes: 8
 quiz:
   - question: "Warum zeigt eine normale Variable `let count = 0` nach `count++` nicht den neuen Wert an?"
-    options: ["Weil `let` in React verboten ist", "Weil eine Änderung kein neues Rendern auslöst und der Wert beim nächsten Rendern wieder 0 ist", "Weil Zahlen nicht angezeigt werden", "Sie zeigt ihn an"]
-    answer: 1
+    options: ["Weil `let` in React verboten ist","Weil Zahlen nicht angezeigt werden","Weil eine Änderung kein neues Rendern auslöst und der Wert beim nächsten Rendern wieder 0 ist","Sie zeigt ihn an"]
+    answer: 2
   - question: "`count` ist 0. Was ist `count` nach einem Klick auf einen Button mit `setCount(count + 1); setCount(count + 1);`?"
-    options: ["0", "1", "2", "Ein Fehler"]
-    answer: 1
+    options: ["0","Ein Fehler","2","1"]
+    answer: 3
     explanation: "Beide Aufrufe sehen `count` aus demselben Rendern, also zweimal `0 + 1`. Mit `setCount((c) => c + 1)` wären es 2."
   - question: "Wo darfst du `useState` aufrufen?"
-    options: ["Überall, auch in Schleifen und `if`", "Nur auf oberster Ebene einer Komponente oder eines eigenen Hooks", "Nur in Event-Handlern", "Nur in `main.tsx`"]
-    answer: 1
+    options: ["Nur auf oberster Ebene einer Komponente oder eines eigenen Hooks","Überall, auch in Schleifen und `if`","Nur in Event-Handlern","Nur in `main.tsx`"]
+    answer: 0
 exercise:
   example: ex-counter
   title: Ein Zähler

@@ -3,15 +3,15 @@ title: Objekte und Arrays im State
 minutes: 8
 quiz:
   - question: "Warum aktualisiert `items.push(x); setItems(items);` die Anzeige nicht?"
-    options: ["`push` ist in React verboten", "Es ist dasselbe Array – React sieht keine Änderung und rendert nicht neu", "Weil `setItems` asynchron ist", "Es funktioniert"]
-    answer: 1
+    options: ["`push` ist in React verboten","Es funktioniert","Weil `setItems` asynchron ist","Es ist dasselbe Array – React sieht keine Änderung und rendert nicht neu"]
+    answer: 3
     explanation: "React vergleicht die Referenz. Erzeuge ein neues Array, z. B. `setItems([...items, x])`."
   - question: "Wie entfernst du das Element mit der ID 3 aus dem State `todos`?"
-    options: ["`todos.splice(2, 1)`", "`setTodos(todos.filter((t) => t.id !== 3))`", "`delete todos[3]`", "`setTodos(todos.pop())`"]
-    answer: 1
+    options: ["`setTodos(todos.filter((t) => t.id !== 3))`","`todos.splice(2, 1)`","`delete todos[3]`","`setTodos(todos.pop())`"]
+    answer: 0
   - question: "Wie änderst du nur `city` im State-Objekt `user`?"
-    options: ["`user.city = 'Paris'`", "`setUser({ city: 'Paris' })`", "`setUser({ ...user, city: 'Paris' })`", "`setUser(user, 'Paris')`"]
-    answer: 2
+    options: ["`user.city = 'Paris'`","`setUser({ ...user, city: 'Paris' })`","`setUser({ city: 'Paris' })`","`setUser(user, 'Paris')`"]
+    answer: 1
     explanation: "Der Setter ersetzt das ganze Objekt. Mit dem Spread-Operator übernimmst du die übrigen Felder."
 exercise:
   example: ex-shopping-list

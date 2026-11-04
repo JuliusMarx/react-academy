@@ -76,6 +76,7 @@ Text mit `Code`, Tabellen und Codeblöcken (```ts, ```html, ```bash …).
 - Codeblöcke in Lektionen: ```tsx, ```ts, ```jsx, ```css, ```bash …
 - Die Einbettung braucht Cross-Origin-Isolation (`Cross-Origin-Opener-Policy: same-origin`, `Cross-Origin-Embedder-Policy: credentialless`), gesetzt in `netlify.toml` und für `npm start` in `angular.json`. Externe Ressourcen auf der Plattform selbst (Bilder, Skripte) werden deshalb ohne Cookies geladen.
 - Jede Lektion muss in allen Sprachen existieren, sonst bricht `npm run content` ab.
+- Die richtige Quiz-Antwort soll nicht immer an derselben Stelle stehen. `node scripts/shuffle-quiz-answers.cjs content` verteilt sie gleichmäßig – in allen Sprachen gleich. Am besten nach dem Schreiben der deutschen Lektion und vor der Übersetzung ausführen.
 - Tabellen brauchen in jeder Kopfzelle Text (leere Kopfzellen sind ein axe-Fehler). Quiztexte können nur Inline-Code, kein Fett. `npm run content` bricht in beiden Fällen ab.
 - Frontmatter-Werte mit ` #`, `: `, `{`, `[` oder Backticks am Anfang in Anführungszeichen setzen, sonst liest YAML sie falsch (` #` startet z. B. einen Kommentar).
 
@@ -119,7 +120,7 @@ export const checks: Check[] = [
 ];
 ```
 
-Die Prüfungen laufen nacheinander auf derselben App. `t.type()` und `t.select()` setzen Werte so, dass React sie auch bei kontrollierten Feldern mitbekommt. Stürzt eine Komponente ab, schlagen die betroffenen Prüfungen mit „The app crashed: …“ fehl.
+Die Prüfungen laufen nacheinander auf derselben App. Für Routing gibt es `t.navigate('/pfad')` (wie Vor/Zurück im Browser) und `t.path()`. `t.type()` und `t.select()` setzen Werte so, dass React sie auch bei kontrollierten Feldern mitbekommt. Stürzt eine Komponente ab, schlagen die betroffenen Prüfungen mit „The app crashed: …“ fehl.
 
 Wo sich etwas nicht am Verhalten erkennen lässt (z. B. „ohne useEffect“), dürfen Prüfungen den Quelltext lesen: `import raw from '../App.tsx?raw'` (Vite liefert die Datei als String), dann `const source = code(raw)` aus dem Prüf-Kit – das entfernt Kommentare, damit TODO-Hinweise im Startcode nicht als Lösung zählen. Sparsam einsetzen – Verhalten zu prüfen ist robuster. Zeitabhängige Prüfungen messen die tatsächlich vergangene Zeit, weil Browser Timer in Hintergrund-Tabs verzögern.
 

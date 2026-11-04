@@ -6,8 +6,8 @@ quiz:
     options: ["Nur beim Neuladen der Seite", "Bevor der Effekt erneut läuft und wenn die Komponente entfernt wird", "Nach jedem Klick", "Nie automatisch"]
     answer: 1
   - question: "Warum startet ein Effekt im Entwicklungsmodus zweimal?"
-    options: ["Ein Bug in Vite", "StrictMode baut die Komponente testweise auf, ab und wieder auf, um fehlendes Aufräumen sichtbar zu machen", "Weil das Abhängigkeits-Array fehlt", "Das passiert auch im fertigen Build"]
-    answer: 1
+    options: ["Ein Bug in Vite","Weil das Abhängigkeits-Array fehlt","StrictMode baut die Komponente testweise auf, ab und wieder auf, um fehlendes Aufräumen sichtbar zu machen","Das passiert auch im fertigen Build"]
+    answer: 2
 exercise:
   example: ex-timer
   title: Eine Stoppuhr

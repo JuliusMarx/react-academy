@@ -3,8 +3,8 @@ title: Fetching Data in Effects
 minutes: 9
 quiz:
   - question: "The user quickly switches from profile 1 to profile 2. The response for profile 1 arrives last. What does a component without cleanup show?"
-    options: ["Profile 2", "Profile 1 – the stale response overwrites the current one", "An error", "Nothing"]
-    answer: 1
+    options: ["Profile 2","Nothing","An error","Profile 1 – the stale response overwrites the current one"]
+    answer: 3
     explanation: "This is a race condition. With an `ignore` variable or an `AbortController` in the cleanup function, you discard stale responses."
   - question: "Why do you also check `res.ok` when using `fetch`?"
     options: ["`fetch` doesn't throw on HTTP errors like 404", "Because `res.json()` is slower otherwise", "It isn't necessary", "Only for POST requests"]
@@ -61,6 +61,9 @@ You have to represent three states: **loading**, **error**, **done**.
 
 > [!WARNING]
 > `fetch` does *not* throw on HTTP errors like 404 or 500 – only on network problems. So always check `res.ok`.
+
+> [!NOTE]
+> Watch out when testing with the Vite dev server: by default it answers unknown paths with `index.html` and status **200** (SPA fallback). A missing JSON file then doesn't give you a 404 but a parse error. In the example, `appType: 'mpa'` in `vite.config.ts` turns this off.
 
 ## Race Conditions
 

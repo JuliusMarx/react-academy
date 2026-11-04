@@ -3,15 +3,15 @@ title: useReducer
 minutes: 8
 quiz:
   - question: "What does `useReducer(reducer, initialState)` return?"
-    options: ["Only the state", "The current state and a `dispatch` function", "The reducer and the state", "A promise"]
-    answer: 1
+    options: ["Only the state","The reducer and the state","The current state and a `dispatch` function","A promise"]
+    answer: 2
   - question: "What must a reducer not do?"
-    options: ["Return a new state", "Mutate the previous state or trigger side effects", "Use a `switch`", "Handle multiple action types"]
-    answer: 1
+    options: ["Return a new state","Handle multiple action types","Use a `switch`","Mutate the previous state or trigger side effects"]
+    answer: 3
     explanation: "A reducer is a pure function: it calculates the new state from the old state and an action – without mutating anything, without network requests, without randomness."
   - question: "When is `useReducer` worth using instead of `useState`?"
-    options: ["Always", "When many event handlers change the same state in different ways", "Only for numbers", "Only with Context"]
-    answer: 1
+    options: ["When many event handlers change the same state in different ways","Always","Only for numbers","Only with Context"]
+    answer: 0
 exercise:
   example: ex-reducer
   title: A Shopping Cart

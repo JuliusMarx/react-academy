@@ -3,12 +3,12 @@ title: JSX
 minutes: 7
 quiz:
   - question: "How do you set a CSS class in JSX?"
-    options: ["`class=\"card\"`", "`className=\"card\"`", "`cssClass=\"card\"`", "`style=\"card\"`"]
-    answer: 1
+    options: ["`class=\"card\"`","`cssClass=\"card\"`","`className=\"card\"`","`style=\"card\"`"]
+    answer: 2
     explanation: "`class` is a reserved word in JavaScript, so the attribute is called `className` in JSX."
   - question: "What can go between curly braces `{ }` in JSX?"
-    options: ["Only variables", "Any JavaScript expression, e.g. `user.name` or `a + b`", "Statements like `if` and `for` too", "Only strings"]
-    answer: 1
+    options: ["Only variables","Only strings","Statements like `if` and `for` too","Any JavaScript expression, e.g. `user.name` or `a + b`"]
+    answer: 3
     explanation: "Expressions that produce a value are allowed. For conditions, use the ternary operator or `&&`."
   - question: "How do you return two sibling elements without an extra `<div>`?"
     options: ["With a Fragment `<>…</>`", "With an array without keys", "With two `return` statements", "You can't"]

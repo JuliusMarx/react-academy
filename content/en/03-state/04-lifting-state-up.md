@@ -6,8 +6,8 @@ quiz:
     options: ["In both components, kept in sync", "In the closest common parent component", "In a global variable", "In `localStorage`"]
     answer: 1
   - question: "How does a child change state that belongs to its parent component?"
-    options: ["It changes the prop directly", "It calls a function it received as a prop", "With `this.parent.setState`", "It can't"]
-    answer: 1
+    options: ["It changes the prop directly","With `this.parent.setState`","It calls a function it received as a prop","It can't"]
+    answer: 2
 exercise:
   example: ex-temperature
   title: A Temperature Converter

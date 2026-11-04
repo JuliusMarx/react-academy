@@ -7,8 +7,8 @@ quiz:
     answer: 1
     explanation: "React takes care of the user interface. Routing, data loading, and the rest come from additional libraries or a framework like Next.js."
   - question: "What do you describe in React when you write a component?"
-    options: ["The individual DOM commands that run when a click happens", "What the UI should look like for the current state", "The CSS animations of the page", "The database tables of the app"]
-    answer: 1
+    options: ["The individual DOM commands that run when a click happens","The CSS animations of the page","What the UI should look like for the current state","The database tables of the app"]
+    answer: 2
     explanation: "React is declarative: you describe the result, and React brings the DOM up to date on its own."
 ---
 

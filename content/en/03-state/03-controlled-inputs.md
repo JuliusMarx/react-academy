@@ -3,11 +3,11 @@ title: Form Fields
 minutes: 7
 quiz:
   - question: "What makes an input field “controlled”?"
-    options: ["A `name` attribute", "`value` comes from state and `onChange` updates it", "A `<form>` around it", "The `controlled` attribute"]
-    answer: 1
+    options: ["A `name` attribute","The `controlled` attribute","A `<form>` around it","`value` comes from state and `onChange` updates it"]
+    answer: 3
   - question: "Which property do you read in `onChange` for a checkbox?"
-    options: ["`e.target.value`", "`e.target.checked`", "`e.target.selected`", "`e.checked`"]
-    answer: 1
+    options: ["`e.target.checked`","`e.target.value`","`e.target.selected`","`e.checked`"]
+    answer: 0
 exercise:
   example: ex-signup-form
   title: A Sign-Up Form

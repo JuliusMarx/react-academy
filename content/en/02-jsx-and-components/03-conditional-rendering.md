@@ -3,12 +3,12 @@ title: Conditional rendering
 minutes: 6
 quiz:
   - question: "What does `{count && <p>New</p>}` show when `count` is 0?"
-    options: ["Nothing", "A 0", "`false`", "An error"]
-    answer: 1
+    options: ["Nothing","`false`","A 0","An error"]
+    answer: 2
     explanation: "`0 && …` evaluates to `0`, and React renders numbers. Better to write `count > 0 && …`."
   - question: "How does a component make sure it displays nothing at all?"
-    options: ["`return undefined`", "`return null`", "`return false` is forbidden", "Call `hide()`"]
-    answer: 1
+    options: ["`return undefined`","Call `hide()`","`return false` is forbidden","`return null`"]
+    answer: 3
 ---
 
 # Conditional rendering

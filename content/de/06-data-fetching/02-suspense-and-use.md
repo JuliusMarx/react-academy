@@ -6,12 +6,12 @@ quiz:
     options: ["Sie gibt `undefined` zurück", "Sie „suspendiert“ – die nächste `<Suspense>`-Grenze zeigt ihr Fallback", "Sie wirft einen Fehler, der die App beendet", "Sie wartet blockierend"]
     answer: 1
   - question: "Warum darf das Promise für `use()` nicht bei jedem Rendern neu erzeugt werden?"
-    options: ["Weil Promises teuer sind", "Weil jedes neue Promise wieder suspendiert – die Komponente käme nie zum Ende", "Weil `use()` nur Strings annimmt", "Das darf es"]
-    answer: 1
+    options: ["Weil Promises teuer sind","Weil `use()` nur Strings annimmt","Weil jedes neue Promise wieder suspendiert – die Komponente käme nie zum Ende","Das darf es"]
+    answer: 2
     explanation: "Das Promise muss gecacht sein, z. B. in einem Modul-Cache, einer Bibliothek oder einer Server Component."
   - question: "Wie verhinderst du, dass beim Wechsel auf neue Daten wieder das Fallback erscheint?"
-    options: ["Mit `startTransition` bzw. `useTransition`", "Mit `useEffect`", "Mit `memo`", "Gar nicht"]
-    answer: 0
+    options: ["Gar nicht","Mit `useEffect`","Mit `memo`","Mit `startTransition` bzw. `useTransition`"]
+    answer: 3
 exercise:
   example: ex-suspense
   title: Ein Buch mit Suspense laden

@@ -3,12 +3,12 @@ title: Events
 minutes: 7
 quiz:
   - question: "Which notation calls `handleClick` only when the click happens?"
-    options: ["`onClick={handleClick()}`", "`onClick={handleClick}`", "`onclick=\"handleClick\"`", "`onClick=\"handleClick()\"`"]
-    answer: 1
+    options: ["`onClick={handleClick()}`","`onclick=\"handleClick\"`","`onClick={handleClick}`","`onClick=\"handleClick()\"`"]
+    answer: 2
     explanation: "With parentheses, the function is called immediately during rendering. You pass the function itself, or an arrow function: `onClick={() => remove(id)}`."
   - question: "How do you prevent a form from reloading the page on submit?"
-    options: ["`return false` in the handler", "`e.preventDefault()`", "`e.stopPropagation()`", "You can't"]
-    answer: 1
+    options: ["`return false` in the handler","You can't","`e.stopPropagation()`","`e.preventDefault()`"]
+    answer: 3
 ---
 
 # Events

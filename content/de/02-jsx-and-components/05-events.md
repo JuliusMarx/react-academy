@@ -3,12 +3,12 @@ title: Events
 minutes: 7
 quiz:
   - question: "Welche Schreibweise ruft `handleClick` erst beim Klick auf?"
-    options: ["`onClick={handleClick()}`", "`onClick={handleClick}`", "`onclick=\"handleClick\"`", "`onClick=\"handleClick()\"`"]
-    answer: 1
+    options: ["`onClick={handleClick()}`","`onclick=\"handleClick\"`","`onClick={handleClick}`","`onClick=\"handleClick()\"`"]
+    answer: 2
     explanation: "Mit Klammern wird die Funktion sofort beim Rendern aufgerufen. Du übergibst die Funktion selbst – oder eine Pfeilfunktion: `onClick={() => remove(id)}`."
   - question: "Wie verhinderst du, dass ein Formular beim Absenden die Seite neu lädt?"
-    options: ["`return false` im Handler", "`e.preventDefault()`", "`e.stopPropagation()`", "Gar nicht"]
-    answer: 1
+    options: ["`return false` im Handler","Gar nicht","`e.stopPropagation()`","`e.preventDefault()`"]
+    answer: 3
 ---
 
 # Events

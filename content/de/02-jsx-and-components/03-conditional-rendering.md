@@ -3,12 +3,12 @@ title: Bedingtes Rendern
 minutes: 6
 quiz:
   - question: "Was zeigt `{count && <p>Neu</p>}`, wenn `count` 0 ist?"
-    options: ["Nichts", "Eine 0", "`false`", "Einen Fehler"]
-    answer: 1
+    options: ["Nichts","`false`","Eine 0","Einen Fehler"]
+    answer: 2
     explanation: "`0 && …` ergibt `0`, und React rendert Zahlen. Schreib besser `count > 0 && …`."
   - question: "Wie sorgt eine Komponente dafür, dass sie gar nichts anzeigt?"
-    options: ["`return undefined`", "`return null`", "`return false` ist verboten", "`hide()` aufrufen"]
-    answer: 1
+    options: ["`return undefined`","`hide()` aufrufen","`return false` ist verboten","`return null`"]
+    answer: 3
 ---
 
 # Bedingtes Rendern

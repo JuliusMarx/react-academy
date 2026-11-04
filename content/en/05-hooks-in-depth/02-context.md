@@ -3,14 +3,14 @@ title: Context
 minutes: 8
 quiz:
   - question: "What problem does Context solve?"
-    options: ["Slow components", "Having to pass props through many levels (prop drilling)", "Missing types", "Loading data from the server"]
-    answer: 1
+    options: ["Having to pass props through many levels (prop drilling)","Slow components","Missing types","Loading data from the server"]
+    answer: 0
   - question: "What value does `useContext(ThemeContext)` return when there is no provider above it?"
     options: ["`undefined`", "The default value from `createContext`", "An error", "The value of the next sibling"]
     answer: 1
   - question: "How do you provide a context value in React 19?"
-    options: ["`<ThemeContext value={theme}>…</ThemeContext>`", "`provide(ThemeContext, theme)`", "`ThemeContext.set(theme)`", "`useContext(ThemeContext, theme)`"]
-    answer: 0
+    options: ["`ThemeContext.set(theme)`","`provide(ThemeContext, theme)`","`<ThemeContext value={theme}>…</ThemeContext>`","`useContext(ThemeContext, theme)`"]
+    answer: 2
     explanation: "Since React 19, the context itself is the provider. The older `<ThemeContext.Provider>` still works."
 exercise:
   example: ex-context

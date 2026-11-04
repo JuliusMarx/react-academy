@@ -3,11 +3,11 @@ title: useEffect
 minutes: 8
 quiz:
   - question: "When does an Effect with the dependency array `[count]` run?"
-    options: ["On every render", "Only on the first render", "After the first render and whenever `count` has changed", "Before the component renders"]
-    answer: 2
+    options: ["On every render","Only on the first render","Before the component renders","After the first render and whenever `count` has changed"]
+    answer: 3
   - question: "What does an empty dependency array `[]` mean?"
-    options: ["The Effect never runs", "The Effect runs only after the first render (mount)", "The Effect runs on every render", "It is an error"]
-    answer: 1
+    options: ["The Effect runs only after the first render (mount)","The Effect never runs","The Effect runs on every render","It is an error"]
+    answer: 0
   - question: "What is `useEffect` for?"
     options: ["Calculating values from props and state", "Synchronizing a component with something outside of React", "Responding to clicks", "Initializing state"]
     answer: 1

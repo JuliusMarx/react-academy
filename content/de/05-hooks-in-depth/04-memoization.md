@@ -3,11 +3,11 @@ title: memo, useMemo und useCallback
 minutes: 9
 quiz:
   - question: "Wann überspringt eine mit `memo` umhüllte Komponente das Rendern?"
-    options: ["Immer", "Wenn alle Props gleich geblieben sind (Vergleich mit `Object.is`)", "Wenn sie keinen State hat", "Nie, `memo` ist nur ein Hinweis für Entwickler"]
-    answer: 1
+    options: ["Immer","Nie, `memo` ist nur ein Hinweis für Entwickler","Wenn sie keinen State hat","Wenn alle Props gleich geblieben sind (Vergleich mit `Object.is`)"]
+    answer: 3
   - question: "Warum hilft `memo` nichts, wenn du `onSelect={() => setSelected(id)}` übergibst?"
-    options: ["Pfeilfunktionen sind verboten", "Bei jedem Rendern entsteht eine neue Funktion – die Prop ist also nie gleich", "Weil `setSelected` asynchron ist", "Es hilft doch"]
-    answer: 1
+    options: ["Bei jedem Rendern entsteht eine neue Funktion – die Prop ist also nie gleich","Pfeilfunktionen sind verboten","Weil `setSelected` asynchron ist","Es hilft doch"]
+    answer: 0
     explanation: "Mit `useCallback` behältst du dieselbe Funktion, solange sich ihre Abhängigkeiten nicht ändern."
   - question: "Was macht der React Compiler?"
     options: ["Er übersetzt JSX in HTML", "Er fügt Memoisierung automatisch ein, sodass du `memo`, `useMemo` und `useCallback` meist nicht von Hand brauchst", "Er ersetzt TypeScript", "Er macht Effekte überflüssig"]

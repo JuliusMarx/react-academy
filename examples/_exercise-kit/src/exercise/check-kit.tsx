@@ -101,6 +101,22 @@ export class TestKit {
     await this.settle();
   }
 
+  /**
+   * Navigates like the browser's back/forward buttons: changes the URL and fires popstate,
+   * which React Router listens to. The state mimics React Router's own history entries.
+   */
+  async navigate(path: string): Promise<void> {
+    const idx = ((history.state as { idx?: number } | null)?.idx ?? 0) + 1;
+    history.pushState({ usr: null, key: `check-${idx}`, idx }, '', path);
+    window.dispatchEvent(new PopStateEvent('popstate', { state: history.state }));
+    await this.settle(50);
+  }
+
+  /** The current path including the query string, e.g. "/products?sort=price". */
+  path(): string {
+    return location.pathname + location.search;
+  }
+
   /** Waits until React has updated the page – fails if the app crashed meanwhile. */
   async settle(ms = 0): Promise<void> {
     await sleep(ms);

@@ -3,11 +3,11 @@ title: Eigene Hooks
 minutes: 8
 quiz:
   - question: "Was macht eine Funktion zu einem eigenen Hook?"
-    options: ["Sie ist mit `@hook` markiert", "Ihr Name beginnt mit `use` und sie ruft andere Hooks auf", "Sie liegt im Ordner `hooks/`", "Sie gibt JSX zurück"]
-    answer: 1
+    options: ["Sie ist mit `@hook` markiert","Sie liegt im Ordner `hooks/`","Ihr Name beginnt mit `use` und sie ruft andere Hooks auf","Sie gibt JSX zurück"]
+    answer: 2
   - question: "Zwei Komponenten rufen `useWindowWidth()` auf. Teilen sie sich denselben State?"
-    options: ["Ja, eigene Hooks sind global", "Nein, jeder Aufruf hat seinen eigenen State – geteilt wird nur die Logik", "Nur wenn sie Geschwister sind", "Nur in StrictMode"]
-    answer: 1
+    options: ["Ja, eigene Hooks sind global","Nur in StrictMode","Nur wenn sie Geschwister sind","Nein, jeder Aufruf hat seinen eigenen State – geteilt wird nur die Logik"]
+    answer: 3
 exercise:
   example: ex-custom-hook
   title: useLocalStorage

@@ -3,11 +3,11 @@ title: Formularfelder
 minutes: 7
 quiz:
   - question: "Was macht ein Eingabefeld „kontrolliert“?"
-    options: ["Ein `name`-Attribut", "`value` kommt aus dem State und `onChange` aktualisiert ihn", "Ein `<form>` darum herum", "Das Attribut `controlled`"]
-    answer: 1
+    options: ["Ein `name`-Attribut","Das Attribut `controlled`","Ein `<form>` darum herum","`value` kommt aus dem State und `onChange` aktualisiert ihn"]
+    answer: 3
   - question: "Welche Eigenschaft liest du bei einer Checkbox im `onChange`?"
-    options: ["`e.target.value`", "`e.target.checked`", "`e.target.selected`", "`e.checked`"]
-    answer: 1
+    options: ["`e.target.checked`","`e.target.value`","`e.target.selected`","`e.checked`"]
+    answer: 0
 exercise:
   example: ex-signup-form
   title: Ein Anmeldeformular

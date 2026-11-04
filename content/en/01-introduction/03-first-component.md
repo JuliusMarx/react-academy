@@ -3,12 +3,12 @@ title: Your First Component
 minutes: 7
 quiz:
   - question: "Why must a component name start with a capital letter?"
-    options: ["It's just a style rule", "Otherwise React treats `<welcome />` as an HTML element", "Because of TypeScript", "So the file can be found"]
-    answer: 1
+    options: ["Otherwise React treats `<welcome />` as an HTML element","It's just a style rule","Because of TypeScript","So the file can be found"]
+    answer: 0
     explanation: "Lowercase tags like `<div>` are HTML elements to React, while capitalized ones like `<Welcome />` are your own components."
   - question: "Where should you define a component?"
-    options: ["At the top level of a file", "Inside another component", "In `index.html`", "Doesn't matter, as long as it's before it's used"]
-    answer: 0
+    options: ["Inside another component","At the top level of a file","In `index.html`","Doesn't matter, as long as it's before it's used"]
+    answer: 1
     explanation: "A component inside another component is recreated on every render. That is slow and causes its state to be lost."
 exercise:
   example: ex-first-component

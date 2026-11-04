@@ -3,11 +3,11 @@ title: Lists and keys
 minutes: 8
 quiz:
   - question: "What is the `key` for in list items?"
-    options: ["It is output as an HTML attribute", "React uses it to tell which element is which when the list changes", "It sorts the list", "It only matters for TypeScript"]
-    answer: 1
+    options: ["React uses it to tell which element is which when the list changes","It is output as an HTML attribute","It sorts the list","It only matters for TypeScript"]
+    answer: 0
   - question: "What makes the best `key`?"
-    options: ["`Math.random()`", "The index from `map`", "A stable, unique ID from the data", "The displayed text"]
-    answer: 2
+    options: ["`Math.random()`","A stable, unique ID from the data","The index from `map`","The displayed text"]
+    answer: 1
     explanation: "Random values change on every render, and the index changes when you sort or delete. An ID stays stable."
 exercise:
   example: ex-lists

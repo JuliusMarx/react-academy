@@ -3,8 +3,8 @@ title: Props
 minutes: 8
 quiz:
   - question: "Darf eine Komponente ihre Props ändern?"
-    options: ["Ja, jederzeit", "Nein, Props sind schreibgeschützt", "Nur Zahlen und Strings", "Nur mit `setProps`"]
-    answer: 1
+    options: ["Nein, Props sind schreibgeschützt","Ja, jederzeit","Nur Zahlen und Strings","Nur mit `setProps`"]
+    answer: 0
     explanation: "Props gehören der Elternkomponente. Was sich ändern soll, ist State – mehr dazu in Kapitel 3."
   - question: "Wie gibst du eine Zahl als Prop weiter?"
     options: ["`price=\"3.5\"`", "`price={3.5}`", "`price=(3.5)`", "`:price=\"3.5\"`"]

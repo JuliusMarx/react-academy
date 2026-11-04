@@ -3,14 +3,14 @@ title: TanStack Query
 minutes: 9
 quiz:
   - question: "Wozu dient der `queryKey`?"
-    options: ["Er ist die URL der Anfrage", "Er identifiziert die Daten im Cache – gleiche Keys teilen sich dieselben Daten", "Er ist ein API-Schlüssel", "Er sortiert die Ergebnisse"]
-    answer: 1
+    options: ["Er ist die URL der Anfrage","Er sortiert die Ergebnisse","Er ist ein API-Schlüssel","Er identifiziert die Daten im Cache – gleiche Keys teilen sich dieselben Daten"]
+    answer: 3
   - question: "Nach dem Speichern eines neuen Eintrags soll die Liste neu geladen werden. Was rufst du auf?"
-    options: ["`window.location.reload()`", "`queryClient.invalidateQueries({ queryKey: ['todos'] })`", "`useQuery` noch einmal", "`setTodos`"]
-    answer: 1
-  - question: "Was brauchst du, damit `useQuery` funktioniert?"
-    options: ["Einen `QueryClientProvider` mit einem `QueryClient` weiter oben im Baum", "Einen eigenen Server", "Redux", "Nichts"]
+    options: ["`queryClient.invalidateQueries({ queryKey: ['todos'] })`","`window.location.reload()`","`useQuery` noch einmal","`setTodos`"]
     answer: 0
+  - question: "Was brauchst du, damit `useQuery` funktioniert?"
+    options: ["Einen eigenen Server","Einen `QueryClientProvider` mit einem `QueryClient` weiter oben im Baum","Redux","Nichts"]
+    answer: 1
 exercise:
   example: ex-query
   title: Notizen mit TanStack Query

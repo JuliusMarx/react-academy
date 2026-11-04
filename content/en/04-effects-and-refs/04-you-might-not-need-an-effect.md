@@ -6,12 +6,12 @@ quiz:
     options: ["With `useState` and a `useEffect` that updates the list", "Calculate it directly during rendering: `const visible = items.filter(…)`", "Store it in a ref", "Save it in `localStorage`"]
     answer: 1
   - question: "How do you reset all of a component's state when `userId` changes?"
-    options: ["With an Effect that resets every piece of state", "With `key={userId}` on the component", "With `window.location.reload()`", "You can't"]
-    answer: 1
+    options: ["With an Effect that resets every piece of state","With `window.location.reload()`","With `key={userId}` on the component","You can't"]
+    answer: 2
     explanation: "A different `key` means a new component to React – the state starts from scratch."
   - question: "After a click on Buy, a notification should appear. Where does the code belong?"
-    options: ["In an Effect that reacts to the cart", "In the button's event handler", "In the component directly during rendering", "In `main.tsx`"]
-    answer: 1
+    options: ["In an Effect that reacts to the cart","In `main.tsx`","In the component directly during rendering","In the button's event handler"]
+    answer: 3
 exercise:
   example: ex-no-effect
   title: Remove the Effect

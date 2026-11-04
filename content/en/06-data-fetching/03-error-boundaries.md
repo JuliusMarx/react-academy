@@ -3,12 +3,12 @@ title: Error Boundaries
 minutes: 7
 quiz:
   - question: "Which errors does an error boundary catch?"
-    options: ["All errors on the page", "Errors while rendering its children (including from `use()`)", "Errors in event handlers", "Errors in `setTimeout`"]
-    answer: 1
+    options: ["All errors on the page","Errors in `setTimeout`","Errors in event handlers","Errors while rendering its children (including from `use()`)"]
+    answer: 3
     explanation: "You catch errors in event handlers and asynchronous code with `try/catch` and display them through state."
   - question: "How do you write an error boundary?"
-    options: ["As a function component with `useError`", "As a class component with `static getDerivedStateFromError`", "With `try/catch` around the JSX", "With `<Suspense>`"]
-    answer: 1
+    options: ["As a class component with `static getDerivedStateFromError`","As a function component with `useError`","With `try/catch` around the JSX","With `<Suspense>`"]
+    answer: 0
 exercise:
   example: ex-error-boundary
   title: Catching a Crash

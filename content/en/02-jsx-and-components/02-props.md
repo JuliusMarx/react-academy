@@ -3,8 +3,8 @@ title: Props
 minutes: 8
 quiz:
   - question: "Can a component change its props?"
-    options: ["Yes, any time", "No, props are read-only", "Only numbers and strings", "Only with `setProps`"]
-    answer: 1
+    options: ["No, props are read-only","Yes, any time","Only numbers and strings","Only with `setProps`"]
+    answer: 0
     explanation: "Props belong to the parent component. Anything that should change is state, which you'll cover in chapter 3."
   - question: "How do you pass a number as a prop?"
     options: ["`price=\"3.5\"`", "`price={3.5}`", "`price=(3.5)`", "`:price=\"3.5\"`"]

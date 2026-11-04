@@ -6,8 +6,8 @@ quiz:
     options: ["In beide Komponenten, synchron gehalten", "In die nächste gemeinsame Elternkomponente", "In eine globale Variable", "In `localStorage`"]
     answer: 1
   - question: "Wie ändert ein Kind State, der seiner Elternkomponente gehört?"
-    options: ["Es ändert die Prop direkt", "Es ruft eine Funktion auf, die es als Prop bekommen hat", "Mit `this.parent.setState`", "Gar nicht"]
-    answer: 1
+    options: ["Es ändert die Prop direkt","Mit `this.parent.setState`","Es ruft eine Funktion auf, die es als Prop bekommen hat","Gar nicht"]
+    answer: 2
 exercise:
   example: ex-temperature
   title: Ein Temperaturumrechner

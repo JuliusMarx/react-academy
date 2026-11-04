@@ -3,15 +3,15 @@ title: useState
 minutes: 8
 quiz:
   - question: "Why doesn't a regular variable `let count = 0` show the new value after `count++`?"
-    options: ["Because `let` is forbidden in React", "Because changing it doesn't trigger a re-render, and on the next render the value is 0 again", "Because numbers aren't displayed", "It does show it"]
-    answer: 1
+    options: ["Because `let` is forbidden in React","Because numbers aren't displayed","Because changing it doesn't trigger a re-render, and on the next render the value is 0 again","It does show it"]
+    answer: 2
   - question: "`count` is 0. What is `count` after a click on a button with `setCount(count + 1); setCount(count + 1);`?"
-    options: ["0", "1", "2", "An error"]
-    answer: 1
+    options: ["0","An error","2","1"]
+    answer: 3
     explanation: "Both calls see `count` from the same render, so it is `0 + 1` twice. With `setCount((c) => c + 1)` it would be 2."
   - question: "Where may you call `useState`?"
-    options: ["Anywhere, including loops and `if`", "Only at the top level of a component or a custom Hook", "Only in event handlers", "Only in `main.tsx`"]
-    answer: 1
+    options: ["Only at the top level of a component or a custom Hook","Anywhere, including loops and `if`","Only in event handlers","Only in `main.tsx`"]
+    answer: 0
 exercise:
   example: ex-counter
   title: A Counter

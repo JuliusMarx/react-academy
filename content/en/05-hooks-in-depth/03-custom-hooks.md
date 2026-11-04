@@ -3,11 +3,11 @@ title: Custom Hooks
 minutes: 8
 quiz:
   - question: "What makes a function a custom hook?"
-    options: ["It is marked with `@hook`", "Its name starts with `use` and it calls other hooks", "It lives in the `hooks/` folder", "It returns JSX"]
-    answer: 1
+    options: ["It is marked with `@hook`","It lives in the `hooks/` folder","Its name starts with `use` and it calls other hooks","It returns JSX"]
+    answer: 2
   - question: "Two components call `useWindowWidth()`. Do they share the same state?"
-    options: ["Yes, custom hooks are global", "No, each call has its own state – only the logic is shared", "Only if they are siblings", "Only in StrictMode"]
-    answer: 1
+    options: ["Yes, custom hooks are global","Only in StrictMode","Only if they are siblings","No, each call has its own state – only the logic is shared"]
+    answer: 3
 exercise:
   example: ex-custom-hook
   title: useLocalStorage

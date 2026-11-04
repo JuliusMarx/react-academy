@@ -6,12 +6,12 @@ quiz:
     options: ["Mit `useState` und einem `useEffect`, der die Liste aktualisiert", "Direkt beim Rendern berechnen: `const visible = items.filter(…)`", "In einem Ref speichern", "In `localStorage` ablegen"]
     answer: 1
   - question: "Wie setzt du den gesamten State einer Komponente zurück, wenn sich `userId` ändert?"
-    options: ["Mit einem Effekt, der jeden State zurücksetzt", "Mit `key={userId}` an der Komponente", "Mit `window.location.reload()`", "Gar nicht"]
-    answer: 1
+    options: ["Mit einem Effekt, der jeden State zurücksetzt","Mit `window.location.reload()`","Mit `key={userId}` an der Komponente","Gar nicht"]
+    answer: 2
     explanation: "Ein anderer `key` bedeutet für React eine neue Komponente – der State beginnt von vorn."
   - question: "Nach einem Klick auf Kaufen soll eine Benachrichtigung erscheinen. Wo gehört der Code hin?"
-    options: ["In einen Effekt, der auf den Warenkorb reagiert", "In den Event-Handler des Buttons", "In die Komponente direkt beim Rendern", "In `main.tsx`"]
-    answer: 1
+    options: ["In einen Effekt, der auf den Warenkorb reagiert","In `main.tsx`","In die Komponente direkt beim Rendern","In den Event-Handler des Buttons"]
+    answer: 3
 exercise:
   example: ex-no-effect
   title: Effekt entfernen

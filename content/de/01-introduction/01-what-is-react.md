@@ -7,8 +7,8 @@ quiz:
     answer: 1
     explanation: "React kümmert sich um die Oberfläche. Routing, Datenladen & Co. kommen aus weiteren Bibliotheken oder einem Framework wie Next.js."
   - question: "Was beschreibst du in React, wenn du eine Komponente schreibst?"
-    options: ["Die einzelnen DOM-Befehle, die bei einem Klick ausgeführt werden", "Wie die Oberfläche für den aktuellen Zustand aussehen soll", "Die CSS-Animationen der Seite", "Die Datenbanktabellen der App"]
-    answer: 1
+    options: ["Die einzelnen DOM-Befehle, die bei einem Klick ausgeführt werden","Die CSS-Animationen der Seite","Wie die Oberfläche für den aktuellen Zustand aussehen soll","Die Datenbanktabellen der App"]
+    answer: 2
     explanation: "React ist deklarativ: Du beschreibst das Ergebnis, React bringt das DOM selbst auf den passenden Stand."
 ---
 

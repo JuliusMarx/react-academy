@@ -3,11 +3,11 @@ title: useRef
 minutes: 8
 quiz:
   - question: "What happens when you change `ref.current`?"
-    options: ["The component re-renders", "Nothing – the value is stored without re-rendering", "React throws an error", "The state is reset"]
-    answer: 1
+    options: ["The component re-renders","The state is reset","React throws an error","Nothing – the value is stored without re-rendering"]
+    answer: 3
   - question: "When is `inputRef.current` populated with the DOM element?"
-    options: ["Already during the first render", "After React has inserted the element into the DOM – e.g. in event handlers and Effects", "Never, you need `document.querySelector`", "Only in class components"]
-    answer: 1
+    options: ["After React has inserted the element into the DOM – e.g. in event handlers and Effects","Already during the first render","Never, you need `document.querySelector`","Only in class components"]
+    answer: 0
   - question: "How do you pass a ref to your own component in React 19?"
     options: ["Only with `forwardRef`", "As a plain `ref` prop", "You can't", "Via context"]
     answer: 1
