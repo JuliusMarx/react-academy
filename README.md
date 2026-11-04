@@ -140,3 +140,14 @@ exercise:
 `npm run content` bricht ab, wenn Prüf-IDs in `checks.tsx` und Frontmatter nicht übereinstimmen.
 
 **Vor dem Commit prüfen:** Der Startcode muss mindestens eine Prüfung verfehlen und die Lösung alle bestehen (`node scripts/verify-exercises.mjs`).
+
+### Test-Beispiele und Test-Übungen
+
+Mit `"kit": "test"` in `meta.json` startet die Vorschau nicht die App, sondern führt alle `*.test.tsx`-Dateien aus und zeigt das Ergebnis (`examples/_test-kit/`). `import { describe, it, expect, vi } from 'vitest'` zeigt per Vite-Plugin (`vite.testing.ts`) auf einen kleinen Vitest-kompatiblen Runner in `src/testing/`. React Testing Library und user-event sind echt – sie laufen im Browser. `expect` kennt die gängigen Matcher inklusive der jest-dom-Matcher (`toBeInTheDocument`, `toHaveTextContent`, `toBeDisabled` …), `vi` bietet `fn` und `spyOn`.
+
+Weil die Vorschau meist keinen Fokus hat (man tippt im Editor), feuern Browser dort keine Focus-Events – user-event braucht sie aber für `user.type`. Der Runner löst sie deshalb in `focus()` selbst aus.
+
+Test-Übungen (`"kit": "test", "exercise": true`, `examples/_test-exercise-kit/`) prüfen die Tests der Lernenden per **Mutationstest**:
+
+- `t.runTests(n)`: mindestens `n` Tests, alle grün gegen den echten Code.
+- `t.expectCaught('Mutant', 'Meldung')`: Gegen den Mutanten aus `src/exercise/mutants.tsx` muss mindestens ein Test fehlschlagen. Ein Vite-Plugin macht dafür den Default-Export jeder Komponente in `src/*.tsx` austauschbar; `mutants` ordnet Komponentennamen ihre kaputte Version zu: `{ NoReset: { Counter: KaputterCounter } }`.

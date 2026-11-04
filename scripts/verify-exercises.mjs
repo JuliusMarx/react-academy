@@ -47,12 +47,17 @@ async function materialize(target, layers, urlPath) {
   for (const file of ['package.json', 'vite.config.ts', 'tsconfig.json']) await rm(join(target, file), { force: true });
 }
 
+let firstTestVariant;
 for (const id of ids) {
   const dir = join(EXAMPLES, id);
   const meta = existsSync(join(dir, 'meta.json')) ? JSON.parse(await readFile(join(dir, 'meta.json'), 'utf8')) : {};
-  const base = [join(EXAMPLES, '_base')];
+  // Test examples ("kit": "test") get the in-browser test runner, test exercises its check kit.
+  const isTest = meta.kit === 'test';
+  if (meta.kit && !isTest) throw new Error(`examples/${id}: unknown kit "${meta.kit}"`);
+  if (isTest) firstTestVariant ??= `${id}/${meta.exercise ? 'starter' : 'example'}`;
+  const base = [join(EXAMPLES, '_base'), ...(isTest ? [join(EXAMPLES, '_test-kit')] : [])];
   if (meta.exercise) {
-    const kit = join(EXAMPLES, '_exercise-kit');
+    const kit = join(EXAMPLES, isTest ? '_test-exercise-kit' : '_exercise-kit');
     await materialize(join(out, id, 'starter'), [...base, dir, kit], `${id}/starter`);
     await materialize(join(out, id, 'solution'), [...base, dir, join(dir, 'solution'), kit], `${id}/solution`);
     variants.push(`${id}/starter`, `${id}/solution`);
@@ -75,18 +80,31 @@ await writeFile(
 // One shared Vite config for all variants. Examples with their own vite.config.ts only add plugins
 // (e.g. Tailwind) or dev-server options, so the plugins of every example are combined here.
 const usesTailwind = '@tailwindcss/vite' in extraDeps;
+// The test-runner plugins work out each variant's own src folder from the importing file.
+if (firstTestVariant) await cp(join(EXAMPLES, '_test-kit/vite.testing.ts'), join(out, 'vite.testing.ts'));
+const imports = [
+  usesTailwind && "import tailwindcss from '@tailwindcss/vite';",
+  firstTestVariant && "import { mutantSwap, vitestShim } from './vite.testing';",
+].filter(Boolean);
+const plugins = [firstTestVariant && 'vitestShim()', firstTestVariant && 'mutantSwap()', 'react()', usesTailwind && 'tailwindcss()'].filter(Boolean);
 await writeFile(
   join(out, 'vite.config.ts'),
   `import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-${usesTailwind ? "import tailwindcss from '@tailwindcss/vite';\n" : ''}
+${imports.join('\n')}
+
 export default defineConfig({
-  plugins: [react()${usesTailwind ? ', tailwindcss()' : ''}],
+  plugins: [${plugins.join(', ')}],
 });
 `,
 );
 const tsconfig = JSON.parse(await readFile(join(EXAMPLES, '_base/tsconfig.json'), 'utf8'));
-await writeFile(join(out, 'tsconfig.json'), JSON.stringify({ ...tsconfig, include: ['*/*/src'] }, null, 2));
+// "vitest" points at one copy of the shim for type checking – all copies are identical.
+const paths = firstTestVariant ? { vitest: [`./${firstTestVariant}/src/testing/vitest.ts`] } : undefined;
+await writeFile(
+  join(out, 'tsconfig.json'),
+  JSON.stringify({ ...tsconfig, compilerOptions: { ...tsconfig.compilerOptions, ...(paths && { paths }) }, include: ['*/*/src'] }, null, 2),
+);
 
 await writeFile(
   join(out, 'index.html'),

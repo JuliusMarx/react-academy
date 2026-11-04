@@ -53,7 +53,7 @@ Eine interaktive Lernplattform für React im Stil von W3Schools: kurze, gut stru
 8. **Formulare & Actions**: `<form action>`, `useActionState`, `useFormStatus`, `useOptimistic` ✅
 9. **Styling**: CSS Modules, Tailwind CSS, Klassen bedingt setzen ✅
 10. **State Management**: Wann globaler State? Context vs. Zustand vs. Redux Toolkit ✅
-11. **Testing**: Vitest + React Testing Library, UI-Tests mit Playwright
+11. **Testing**: Vitest + React Testing Library, UI-Tests mit Playwright ✅
 12. **Fortgeschritten**: React Compiler, Performance, Portale, Server Components & Frameworks (Next.js), TypeScript-Muster
 
 Jede Lektion: ca. 5–10 Minuten Lesezeit, mindestens 1 Live-Beispiel, 2–3 Quizfragen, wo sinnvoll eine Übung.

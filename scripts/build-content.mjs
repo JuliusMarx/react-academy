@@ -148,8 +148,14 @@ function withExerciseKit(files, kitFiles) {
 async function buildExamples() {
   const baseFiles = await readExampleFiles(join(EXAMPLES_DIR, '_base'));
   const kitFiles = await readExampleFiles(join(EXAMPLES_DIR, '_exercise-kit'));
-  // Further kits (e.g. for test examples) can be registered here and chosen via "kit" in meta.json.
-  const kits = {};
+  // Test examples ("kit": "test") run their *.test.tsx files in the preview (examples/_test-kit);
+  // test exercises grade the learner's tests against mutants (examples/_test-exercise-kit).
+  const kits = {
+    test: {
+      files: await readExampleFiles(join(EXAMPLES_DIR, '_test-kit')),
+      exercise: await readExampleFiles(join(EXAMPLES_DIR, '_test-exercise-kit')),
+    },
+  };
   const ids = await sortedDirs(EXAMPLES_DIR);
   /** exercise id → check ids declared in its checks.ts */
   const exercises = new Map();
