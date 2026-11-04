@@ -1,0 +1,78 @@
+---
+title: Events
+minutes: 7
+quiz:
+  - question: "Welche Schreibweise ruft `handleClick` erst beim Klick auf?"
+    options: ["`onClick={handleClick()}`", "`onClick={handleClick}`", "`onclick=\"handleClick\"`", "`onClick=\"handleClick()\"`"]
+    answer: 1
+    explanation: "Mit Klammern wird die Funktion sofort beim Rendern aufgerufen. Du übergibst die Funktion selbst – oder eine Pfeilfunktion: `onClick={() => remove(id)}`."
+  - question: "Wie verhinderst du, dass ein Formular beim Absenden die Seite neu lädt?"
+    options: ["`return false` im Handler", "`e.preventDefault()`", "`e.stopPropagation()`", "Gar nicht"]
+    answer: 1
+---
+
+# Events
+
+Auf Benutzeraktionen reagierst du mit **Event-Handlern**: Funktionen, die du als Prop wie `onClick`, `onChange` oder `onSubmit` übergibst.
+
+## Handler übergeben
+
+```tsx
+function Toolbar() {
+  function handleClick() {
+    alert('Gespeichert!');
+  }
+
+  return (
+    <>
+      <button onClick={handleClick}>Speichern</button>
+      <button onClick={() => alert('Gelöscht!')}>Löschen</button>
+    </>
+  );
+}
+```
+
+> [!WARNING]
+> Übergib die Funktion, rufe sie nicht auf: `onClick={handleClick}` statt `onClick={handleClick()}`. Mit Klammern läuft sie sofort beim Rendern. Brauchst du Argumente, nimm eine Pfeilfunktion: `onClick={() => remove(item.id)}`.
+
+Handler heißen meist `handle` + Ereignis (`handleClick`, `handleSubmit`), die zugehörigen Props `on` + Ereignis.
+
+## Das Event-Objekt
+
+Jeder Handler bekommt ein Event-Objekt. React reicht dabei die gewohnten Eigenschaften und Methoden durch:
+
+```tsx
+import type { FormEvent } from 'react';
+
+function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  e.preventDefault(); // kein Neuladen der Seite
+  const data = new FormData(e.currentTarget);
+  console.log(data.get('city'));
+}
+
+<form onSubmit={handleSubmit}>
+  <input name="city" />
+  <button type="submit">Senden</button>
+</form>
+```
+
+## Bubbling
+
+Events steigen im Baum nach oben: Ein Klick auf einen Button löst auch `onClick` der umgebenden Elemente aus. Mit `e.stopPropagation()` hältst du das an.
+
+## Handler als Props
+
+Eigene Komponenten können Handler weiterreichen. So entscheidet die Elternkomponente, was bei einem Klick passiert:
+
+```tsx
+function Button({ onPress, children }: { onPress: () => void; children: ReactNode }) {
+  return <button onClick={onPress}>{children}</button>;
+}
+
+<Button onPress={() => save()}>Speichern</Button>
+```
+
+::tryit{events}
+
+> [!NOTE]
+> Damit ein Klick etwas *auf der Seite* ändert, braucht die Komponente **State**. Im Beispiel macht das `useState` – darum geht es im nächsten Kapitel.

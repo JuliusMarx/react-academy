@@ -1,0 +1,80 @@
+@if (data.value(); as lesson) {
+  <div class="layout">
+    <div class="main">
+      <article class="prose">
+        <p class="breadcrumb">{{ chapterInfo()?.title }}</p>
+        <p class="meta">
+          @if (position(); as pos) {
+            <span>{{ text().lessonOf(pos.index, pos.total) }}</span>
+            <span aria-hidden="true">·</span>
+          }
+          <span>{{ text().readingTime(lesson.minutes) }}</span>
+        </p>
+
+        @for (segment of lesson.segments; track $index) {
+          @switch (segment.type) {
+            @case ('html') {
+              <div [innerHTML]="segment.html | safeHtml"></div>
+            }
+            @case ('tryit') {
+              <app-try-it [example]="segment.example" [lang]="lang()" />
+            }
+          }
+        }
+
+        @if (lesson.quiz.length) {
+          <app-quiz [questions]="lesson.quiz" [lessonId]="lesson.id" [lang]="lang()" />
+        }
+
+        @if (lesson.exercise; as exercise) {
+          <app-exercise [exercise]="exercise" [lessonId]="lesson.id" [lang]="lang()" />
+        }
+      </article>
+
+      <div class="done-row">
+        <button
+          type="button"
+          class="button"
+          [class.secondary]="done()"
+          [attr.aria-pressed]="done()"
+          (click)="toggleDone()"
+        >
+          @if (done()) {
+            <span aria-hidden="true">✓</span> {{ text().markedDone }}
+          } @else {
+            {{ text().markDone }}
+          }
+        </button>
+      </div>
+
+      <nav class="pager" [attr.aria-label]="text().lessons">
+        @if (neighbours().previous; as prev) {
+          <a class="prev" [routerLink]="['/', lang(), prev.chapter, prev.slug]">
+            <small>← {{ text().previous }}</small>
+            <span>{{ prev.title }}</span>
+          </a>
+        }
+        @if (neighbours().next; as next) {
+          <a class="next" [routerLink]="['/', lang(), next.chapter, next.slug]">
+            <small>{{ text().next }} →</small>
+            <span>{{ next.title }}</span>
+          </a>
+        }
+      </nav>
+    </div>
+
+    @if (lesson.toc.length > 1) {
+      <aside class="toc">
+        <app-toc [entries]="lesson.toc" [lang]="lang()" />
+      </aside>
+    }
+  </div>
+} @else if (data.isLoading()) {
+  <p class="loading" aria-live="polite">…</p>
+} @else {
+  <div class="prose">
+    <h1>{{ text().notFound }}</h1>
+    <p>{{ text().notFoundText }}</p>
+    <a class="button" [routerLink]="['/', lang()]">{{ text().backHome }}</a>
+  </div>
+}

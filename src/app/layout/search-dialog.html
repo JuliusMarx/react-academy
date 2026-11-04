@@ -1,0 +1,60 @@
+<dialog #dialog [attr.aria-label]="text().search" (click)="onDialogClick($event)">
+  <div class="panel">
+    <div class="field-row">
+      <span class="icon" aria-hidden="true">⌕</span>
+      <input
+        #field
+        type="search"
+        role="combobox"
+        aria-autocomplete="list"
+        aria-controls="search-results"
+        [attr.aria-expanded]="hits().length > 0"
+        [attr.aria-activedescendant]="hits().length ? optionId(active()) : null"
+        [attr.aria-label]="text().search"
+        [placeholder]="text().searchPlaceholder"
+        [value]="query()"
+        (input)="onInput(field.value)"
+        (keydown)="onKeydown($event)"
+      />
+      <button type="button" class="close" [attr.aria-label]="text().close" (click)="close()">Esc</button>
+    </div>
+
+    <ul id="search-results" role="listbox" [attr.aria-label]="text().searchResults">
+      @for (hit of hits(); track hit.doc.id; let i = $index) {
+        <li
+          role="option"
+          [id]="optionId(i)"
+          [attr.aria-selected]="i === active()"
+          [class.active]="i === active()"
+          (click)="go(hit)"
+          (mousemove)="active.set(i)"
+        >
+          <span class="title">
+            {{ hit.doc.lessonTitle }}
+            @if (hit.doc.heading) {
+              <span class="sep" aria-hidden="true">›</span>
+              @if (hit.doc.exercise) {
+                {{ text().exercise }}:
+              }
+              {{ hit.doc.heading }}
+            }
+          </span>
+          <span class="chapter">{{ hit.doc.chapter }}</span>
+          <!-- Deliberately on one line: line breaks between the parts would render as extra spaces. -->
+          <span class="snippet">@for (part of hit.snippet; track $index) {@if (part.hit) {<mark>{{ part.text }}</mark>} @else {<ng-container>{{ part.text }}</ng-container>}}</span>
+        </li>
+      }
+    </ul>
+
+    <p class="status" aria-live="polite">
+      @if (searched() && hits().length === 0) {
+        {{ text().searchNoResults(query()) }}
+      } @else if (hits().length) {
+        <span class="visually-hidden">{{ text().searchResultCount(hits().length) }}</span>
+        <span aria-hidden="true">{{ text().searchKeys }}</span>
+      } @else {
+        {{ text().searchHint }}
+      }
+    </p>
+  </div>
+</dialog>

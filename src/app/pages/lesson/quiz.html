@@ -1,0 +1,55 @@
+<section class="quiz" [attr.aria-labelledby]="idPrefix() + '-title'">
+  <h2 [id]="idPrefix() + '-title'">{{ text().quiz }}</h2>
+
+  @for (q of questions(); track $index; let qi = $index) {
+    <fieldset
+      class="question"
+      [class.correct]="submitted() && answers()[qi] === q.answer"
+      [class.wrong]="submitted() && answers()[qi] !== q.answer"
+    >
+      <legend>{{ qi + 1 }}. <span [innerHTML]="q.question | safeHtml"></span></legend>
+      @for (option of q.options; track $index; let oi = $index) {
+        <label
+          class="option"
+          [class.selected]="answers()[qi] === oi"
+          [class.is-answer]="submitted() && oi === q.answer"
+        >
+          <input
+            type="radio"
+            [name]="idPrefix() + '-' + qi"
+            [checked]="answers()[qi] === oi"
+            [disabled]="submitted()"
+            (change)="select(qi, oi)"
+          />
+          <span [innerHTML]="option | safeHtml"></span>
+        </label>
+      }
+      @if (submitted()) {
+        <p class="feedback">
+          <strong>{{ answers()[qi] === q.answer ? text().correct : text().wrong }}.</strong>
+          @if (q.explanation) {
+            <span [innerHTML]="q.explanation | safeHtml"></span>
+          }
+        </p>
+      }
+    </fieldset>
+  }
+
+  <div class="actions" aria-live="polite">
+    @if (!submitted()) {
+      <button type="button" class="button" [disabled]="!complete()" (click)="submit()">
+        {{ text().checkAnswers }}
+      </button>
+    } @else {
+      <p class="result">
+        <strong>{{ text().quizResult(score(), questions().length) }}</strong>
+        @if (perfect()) {
+          – {{ text().quizPerfect }}
+        }
+      </p>
+      @if (!perfect()) {
+        <button type="button" class="button secondary" (click)="retry()">{{ text().retry }}</button>
+      }
+    }
+  </div>
+</section>

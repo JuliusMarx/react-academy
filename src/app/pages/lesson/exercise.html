@@ -1,0 +1,69 @@
+<section class="exercise" [attr.aria-labelledby]="'exercise-title'">
+  <header>
+    <p class="kicker">{{ text().exercise }}</p>
+    <h2 id="exercise-title">{{ exercise().title }}</h2>
+    @if (solved()) {
+      <span class="solved-badge"><span aria-hidden="true">✓</span> {{ text().exerciseSolved }}</span>
+    }
+  </header>
+
+  <div class="task prose" [innerHTML]="exercise().task | safeHtml"></div>
+
+  <app-try-it
+    [example]="exercise().example"
+    [lang]="lang()"
+    [label]="text().startExercise"
+    [hint]="text().exerciseHint"
+  />
+
+  <h3>{{ text().checks }}</h3>
+  <ul class="checks" aria-live="polite">
+    @for (check of exercise().checks; track check.id) {
+      <li [class]="stateOf(check.id)">
+        <span class="icon" aria-hidden="true">
+          @switch (stateOf(check.id)) {
+            @case ('passed') { ✓ }
+            @case ('failed') { ✗ }
+            @default { ○ }
+          }
+        </span>
+        <span>
+          <span [innerHTML]="check.label | safeHtml"></span>
+          <span class="visually-hidden">
+            –
+            @switch (stateOf(check.id)) {
+              @case ('passed') { {{ text().checkPassed }} }
+              @case ('failed') { {{ text().checkFailed }} }
+              @default { {{ text().checkPending }} }
+            }
+          </span>
+          @if (stateOf(check.id) === 'failed' && messageOf(check.id); as message) {
+            <small class="detail">{{ message }}</small>
+          }
+        </span>
+      </li>
+    }
+  </ul>
+
+  <p class="summary" aria-live="polite">
+    @if (allPassed()) {
+      <strong>{{ text().exerciseAllPassed }}</strong>
+    } @else if (hasResults()) {
+      {{ text().checksPassed(passedCount(), exercise().checks.length) }}
+    } @else {
+      {{ text().checksWaiting }}
+    }
+  </p>
+
+  <button type="button" class="button secondary" [attr.aria-expanded]="showSolution()" (click)="toggleSolution()">
+    {{ showSolution() ? text().hideSolution : text().showSolution }}
+  </button>
+  @if (showSolution()) {
+    <div class="solution">
+      @for (file of solution(); track file.path) {
+        <p class="file">{{ file.path }}</p>
+        <div class="code-block" [innerHTML]="file.html | safeHtml"></div>
+      }
+    </div>
+  }
+</section>

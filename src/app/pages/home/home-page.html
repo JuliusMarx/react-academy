@@ -1,0 +1,32 @@
+<section class="hero">
+  <h1>{{ text().appName }}</h1>
+  <p>{{ text().tagline }}</p>
+  @if (startLesson(); as lesson) {
+    <a class="button" [routerLink]="['/', lang(), lesson.chapter, lesson.slug]">
+      {{ hasStarted() ? text().continue : text().start }} →
+    </a>
+  }
+</section>
+
+<h2 class="section-title">{{ text().chapters }}</h2>
+<ol class="chapters">
+  @for (chapter of chapters(); track chapter.slug; let i = $index) {
+    <li class="card">
+      <span class="number" aria-hidden="true">{{ i + 1 }}</span>
+      <div class="body">
+        <h3>
+          @if (chapter.lessons[0]; as first) {
+            <a [routerLink]="['/', lang(), chapter.slug, first.slug]">{{ chapter.title }}</a>
+          } @else {
+            {{ chapter.title }}
+          }
+        </h3>
+        <p>{{ chapter.description }}</p>
+        <p class="meta">{{ chapter.lessons.length }} {{ text().lessons }}</p>
+        <app-progress-bar [value]="chapter.percent" [label]="text().progress + ': ' + chapter.title" />
+      </div>
+    </li>
+  }
+</ol>
+
+<app-progress-manager [lang]="lang()" />

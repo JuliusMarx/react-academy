@@ -1,0 +1,79 @@
+.quiz {
+  margin-top: 3rem;
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--surface);
+
+  h2 {
+    margin-top: 0;
+  }
+}
+
+.question {
+  margin: 0 0 1.25rem;
+  padding: 0;
+  border: 0;
+
+  legend {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.35rem 0;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--surface-hover);
+  }
+
+  &.selected {
+    border-color: var(--accent);
+  }
+
+  input {
+    accent-color: var(--accent);
+  }
+}
+
+.question.wrong .option.selected {
+  border-color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.option.is-answer {
+  border-color: var(--success);
+  background: var(--success-soft);
+}
+
+.feedback {
+  margin: 0.5rem 0 0;
+  font-size: 0.92rem;
+}
+
+.question.correct .feedback strong {
+  color: var(--success);
+}
+
+.question.wrong .feedback strong {
+  color: var(--danger);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.result {
+  margin: 0;
+}

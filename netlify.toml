@@ -1,0 +1,47 @@
+# Netlify configuration – picked up automatically when the repo is connected.
+
+[build]
+  command = "npm run build"
+  publish = "dist/react-academy/browser"
+
+[build.environment]
+  NODE_VERSION = "24"
+
+# Start page: German browsers go to /de, everyone else to /en.
+[[redirects]]
+  from = "/"
+  to = "/de"
+  status = 302
+  conditions = { Language = ["de"] }
+
+[[redirects]]
+  from = "/"
+  to = "/en"
+  status = 302
+
+# Everything that isn't a prerendered page or file is handled by the client-side app
+# (e.g. its not-found page). Existing files always take precedence.
+[[redirects]]
+  from = "/*"
+  to = "/index.csr.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # Cross-origin isolation: the embedded StackBlitz WebContainers need SharedArrayBuffer.
+    Cross-Origin-Opener-Policy = "same-origin"
+    Cross-Origin-Embedder-Policy = "credentialless"
+
+# Build output file names contain a content hash, so they can be cached forever.
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

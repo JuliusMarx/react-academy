@@ -1,0 +1,16 @@
+<!-- Handled in code: with <base href="/">, a plain "#main" link would navigate to the start page. -->
+<a class="skip-link" href="#main" (click)="skipToContent($event)">{{ text().skipToContent }}</a>
+
+<app-header [lang]="lang()" [url]="url()" [(menuOpen)]="menuOpen" (searchRequested)="searchDialog.open()" />
+<app-search-dialog #searchDialog [lang]="lang()" />
+
+<div class="layout">
+  <!-- inert keeps the off-screen mobile menu out of the tab order and away from screen readers. -->
+  <app-sidebar [lang]="lang()" [class.open]="menuOpen()" [inert]="isMobile() && !menuOpen()" id="course-nav" />
+  @if (menuOpen()) {
+    <button type="button" class="backdrop" [attr.aria-label]="text().closeMenu" (click)="closeMenu()"></button>
+  }
+  <main id="main" tabindex="-1">
+    <router-outlet />
+  </main>
+</div>
