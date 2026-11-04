@@ -120,6 +120,8 @@ export const checks: Check[] = [
 
 Die Prüfungen laufen nacheinander auf derselben App. `t.type()` und `t.select()` setzen Werte so, dass React sie auch bei kontrollierten Feldern mitbekommt. Stürzt eine Komponente ab, schlagen die betroffenen Prüfungen mit „The app crashed: …“ fehl.
 
+Wo sich etwas nicht am Verhalten erkennen lässt (z. B. „ohne useEffect“), dürfen Prüfungen den Quelltext lesen: `import source from '../App.tsx?raw'` (Vite liefert die Datei als String). Sparsam einsetzen – Verhalten zu prüfen ist robuster. Zeitabhängige Prüfungen messen die tatsächlich vergangene Zeit, weil Browser Timer in Hintergrund-Tabs verzögern.
+
 In der Lektion verweist das Frontmatter auf die Übung und beschriftet jede Prüfung:
 
 ```yaml

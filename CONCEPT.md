@@ -46,7 +46,7 @@ Eine interaktive Lernplattform für React im Stil von W3Schools: kurze, gut stru
 1. **Einführung**: Was ist React, Projekt mit Vite, erste Komponente ✅
 2. **JSX & Komponenten**: JSX-Regeln, Props, bedingtes Rendern, Listen & `key`, Events ✅
 3. **State**: `useState`, Objekte & Arrays im State, State nach oben verlagern, kontrollierte Formularfelder ✅
-4. **Effekte & Refs**: `useEffect`, Cleanup, `useRef`, „You Might Not Need an Effect“
+4. **Effekte & Refs**: `useEffect`, Cleanup, `useRef`, „You Might Not Need an Effect“ ✅
 5. **Hooks vertieft**: `useReducer`, Context, eigene Hooks, `useMemo`/`useCallback`/`memo`
 6. **Daten laden**: `fetch` im Effekt, `use()` + Suspense, Error Boundaries, TanStack Query
 7. **Routing**: React Router (Routen, Parameter, verschachtelte Layouts, Loader)
