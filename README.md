@@ -19,7 +19,16 @@ npm run build      # Statischer Build mit vorgerenderten Seiten → dist/react-a
 
 ## Deployment
 
-Die Seite läuft auf Netlify. Die Konfiguration steht in [netlify.toml](netlify.toml): Build-Befehl, Ausgabeordner, Node-Version, Weiterleitungen (Startseite je nach Browsersprache auf `/de` oder `/en`) und Header. Jeder Push auf `main` wird automatisch veröffentlicht, Pull Requests bekommen einen Vorschau-Link.
+Die Seite läuft auf Netlify unter <https://react-academy-de.netlify.app> (Projekt `react-academy-de`). Die Konfiguration steht in [netlify.toml](netlify.toml): Ausgabeordner, Weiterleitungen (Startseite je nach Browsersprache auf `/de` oder `/en`) und Header (u. a. COOP/COEP für StackBlitz).
+
+Das Repo ist **nicht** mit Netlify verbunden – Pushes lösen keinen Deploy aus. Veröffentlicht wird manuell mit dem lokal gebauten Stand, das spart Build-Minuten auf Netlify:
+
+```bash
+npm run build
+npx netlify-cli deploy --prod --no-build --dir dist/react-academy/browser --site react-academy-de
+```
+
+Die Netlify-CLI muss dafür einmal mit `npx netlify-cli login` angemeldet sein. Deploy-Previews (`deploy` ohne `--prod`) sind nur mit Netlify-Login sichtbar, die Live-Seite ist öffentlich.
 
 Lokal testen, inklusive der Netlify-Regeln:
 

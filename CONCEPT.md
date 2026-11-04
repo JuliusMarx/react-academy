@@ -14,7 +14,7 @@ Eine interaktive Lernplattform für React im Stil von W3Schools: kurze, gut stru
 | Plattform | Fork der Angular Academy (Angular-App mit Prerendering) – Lernende sehen davon nichts |
 | Fortschritt | Nur im Browser (`localStorage`), kein Backend, kein Login |
 | Sprache | Deutsch und Englisch von Anfang an |
-| Hosting | Statische Seite (z. B. Netlify), noch nicht eingerichtet |
+| Hosting | Netlify (react-academy-de.netlify.app), manuelle Deploys per CLI |
 
 ## 3. Nutzererlebnis
 
@@ -80,7 +80,7 @@ Siehe [README.md](README.md). Kurz:
 
 ### Nächste Schritte
 - Alle Beispiele und Übungen einmal in Chrome/StackBlitz durchklicken (WebContainer-spezifische Probleme ausschließen, z. B. Tailwind und React Router)
-- Hosting einrichten und eigenes GitHub-Repo anlegen
+- ~~Hosting einrichten und eigenes GitHub-Repo anlegen~~ – erledigt: https://react-academy-de.netlify.app, github.com/JuliusMarx/react-academy
 - Optional: Login + Cloud-Sync, Abschlusszertifikat
 
 ## 7. Offene Fragen
