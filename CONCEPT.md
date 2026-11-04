@@ -51,7 +51,7 @@ Eine interaktive Lernplattform für React im Stil von W3Schools: kurze, gut stru
 6. **Daten laden**: `fetch` im Effekt, `use()` + Suspense, Error Boundaries, TanStack Query ✅
 7. **Routing**: React Router 8 (Routen, Parameter, verschachtelte Layouts, Loader) ✅
 8. **Formulare & Actions**: `<form action>`, `useActionState`, `useFormStatus`, `useOptimistic` ✅
-9. **Styling**: CSS Modules, Tailwind CSS, Klassen bedingt setzen
+9. **Styling**: CSS Modules, Tailwind CSS, Klassen bedingt setzen ✅
 10. **State Management**: Wann globaler State? Context vs. Zustand vs. Redux Toolkit
 11. **Testing**: Vitest + React Testing Library, UI-Tests mit Playwright
 12. **Fortgeschritten**: React Compiler, Performance, Portale, Server Components & Frameworks (Next.js), TypeScript-Muster

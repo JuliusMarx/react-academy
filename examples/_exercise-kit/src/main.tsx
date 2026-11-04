@@ -6,6 +6,13 @@ import './index.css';
 import { checks, exercise } from './exercise/checks';
 import { reportCrash, runChecks } from './exercise/check-kit';
 
+// Reload the whole page on every save (instead of hot-replacing modules), so the checks run again
+// from a clean start.
+import.meta.hot?.on('vite:beforeUpdate', () => location.reload());
+
+// The checks always start on "/" – also after a reload on a page the checks navigated to.
+if (location.pathname !== '/') history.replaceState(null, '', '/');
+
 const errors: unknown[] = [];
 
 try {

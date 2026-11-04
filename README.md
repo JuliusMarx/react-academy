@@ -92,7 +92,7 @@ examples/ex-<name>/
   solution/src/…             # Lösung – wird auf der Seite angezeigt, nicht ins Projekt kopiert
 ```
 
-Beim Bauen bekommt jede Übung zusätzlich das Prüf-Kit aus `examples/_exercise-kit/`: Ein eigenes `src/main.tsx` startet die App und führt danach die Prüfungen aus, ein eigenes `vite.config.ts` lädt die Vorschau bei jedem Speichern komplett neu (statt Hot Reload). Das Ergebnis geht per `postMessage` an die Kursseite.
+Beim Bauen bekommt jede Übung zusätzlich das Prüf-Kit aus `examples/_exercise-kit/`: Ein eigenes `src/main.tsx` startet die App, führt danach die Prüfungen aus und lädt die Vorschau bei jedem Speichern komplett neu (statt Hot Reload). Die `vite.config.ts` des Beispiels bleibt unberührt – Übungen können also eigene Vite-Plugins (z. B. Tailwind) haben. Das Ergebnis geht per `postMessage` an die Kursseite.
 
 ```tsx
 // src/exercise/checks.tsx

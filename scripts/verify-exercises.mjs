@@ -72,7 +72,19 @@ await writeFile(
   join(out, 'package.json'),
   JSON.stringify({ ...basePkg, name: 'verify-exercises', dependencies: { ...basePkg.dependencies, ...extraDeps } }, null, 2),
 );
-await cp(join(EXAMPLES, '_base/vite.config.ts'), join(out, 'vite.config.ts'));
+// One shared Vite config for all variants. Examples with their own vite.config.ts only add plugins
+// (e.g. Tailwind) or dev-server options, so the plugins of every example are combined here.
+const usesTailwind = '@tailwindcss/vite' in extraDeps;
+await writeFile(
+  join(out, 'vite.config.ts'),
+  `import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+${usesTailwind ? "import tailwindcss from '@tailwindcss/vite';\n" : ''}
+export default defineConfig({
+  plugins: [react()${usesTailwind ? ', tailwindcss()' : ''}],
+});
+`,
+);
 const tsconfig = JSON.parse(await readFile(join(EXAMPLES, '_base/tsconfig.json'), 'utf8'));
 await writeFile(join(out, 'tsconfig.json'), JSON.stringify({ ...tsconfig, include: ['*/*/src'] }, null, 2));
 

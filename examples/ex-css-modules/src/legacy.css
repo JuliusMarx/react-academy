@@ -1,0 +1,9 @@
+/* Old global styles from another part of the app – you can't change this file. */
+.card {
+  background: rgb(255, 221, 221);
+  border: 3px dashed crimson;
+}
+
+.title {
+  text-transform: uppercase;
+}

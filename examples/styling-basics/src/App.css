@@ -1,0 +1,52 @@
+.page {
+  padding: 1rem;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.page.dark {
+  background: #1b1d24;
+  color: #e8e9ee;
+}
+
+.alert {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  border-left: 4px solid;
+}
+
+.alert-info {
+  background: #e7eefc;
+  border-color: #2459c4;
+  color: #1b1d24;
+}
+
+.alert-success {
+  background: #e3f4ea;
+  border-color: #176a40;
+  color: #1b1d24;
+}
+
+.alert-danger {
+  background: #fbe7e5;
+  border-color: #b3261e;
+  color: #1b1d24;
+}
+
+.track {
+  height: 12px;
+  background: #e1e4ea;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.bar {
+  height: 100%;
+  background: #087ea4;
+  transition: width 0.3s;
+}
+
+.swatch {
+  border-left: 8px solid var(--swatch);
+  padding-left: 0.5rem;
+}

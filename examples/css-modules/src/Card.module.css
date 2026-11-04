@@ -1,0 +1,11 @@
+.card {
+  border: 1px solid #e1e4ea;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 8%);
+}
+
+.title {
+  margin-top: 0;
+  color: #087ea4;
+}
