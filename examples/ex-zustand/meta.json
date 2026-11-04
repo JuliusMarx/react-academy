@@ -1,0 +1,1 @@
+{ "exercise": true, "openFile": "src/store.ts", "dependencies": { "zustand": "^5.0.0" } }
