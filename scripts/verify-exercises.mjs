@@ -57,7 +57,16 @@ for (const id of ids) {
 }
 
 const basePkg = JSON.parse(await readFile(join(EXAMPLES, '_base/package.json'), 'utf8'));
-await writeFile(join(out, 'package.json'), JSON.stringify({ ...basePkg, name: 'verify-exercises' }, null, 2));
+// One shared node_modules: the base packages plus every example's extra "dependencies".
+const extraDeps = {};
+for (const id of ids) {
+  const metaPath = join(EXAMPLES, id, 'meta.json');
+  if (existsSync(metaPath)) Object.assign(extraDeps, JSON.parse(await readFile(metaPath, 'utf8')).dependencies);
+}
+await writeFile(
+  join(out, 'package.json'),
+  JSON.stringify({ ...basePkg, name: 'verify-exercises', dependencies: { ...basePkg.dependencies, ...extraDeps } }, null, 2),
+);
 await cp(join(EXAMPLES, '_base/vite.config.ts'), join(out, 'vite.config.ts'));
 const tsconfig = JSON.parse(await readFile(join(EXAMPLES, '_base/tsconfig.json'), 'utf8'));
 await writeFile(join(out, 'tsconfig.json'), JSON.stringify({ ...tsconfig, include: ['*/*/src'] }, null, 2));

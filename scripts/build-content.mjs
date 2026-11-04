@@ -133,6 +133,13 @@ async function renderSolution(dir) {
   }));
 }
 
+/** Extra npm packages of an example ("dependencies" in meta.json) are added to the base package.json. */
+function withDependencies(packageJson, dependencies) {
+  const pkg = JSON.parse(packageJson);
+  pkg.dependencies = { ...pkg.dependencies, ...dependencies };
+  return JSON.stringify(pkg, null, 2) + '\n';
+}
+
 /** Exercise projects additionally get the check kit (examples/_exercise-kit): it reloads on every save and runs the checks. */
 function withExerciseKit(files, kitFiles) {
   return { ...files, ...kitFiles };
@@ -153,6 +160,7 @@ async function buildExamples() {
     const kit = meta.kit ? kits[meta.kit] : undefined;
     if (meta.kit && !kit) throw new Error(`examples/${id}: unknown kit "${meta.kit}"`);
     const ownFiles = { ...baseFiles, ...kit?.files, ...(await readExampleFiles(dir)) };
+    if (meta.dependencies) ownFiles['package.json'] = withDependencies(ownFiles['package.json'], meta.dependencies);
     if (meta.exercise) {
       const checks = ownFiles['src/exercise/checks.tsx'];
       if (!checks) throw new Error(`examples/${id}: exercises need src/exercise/checks.tsx`);

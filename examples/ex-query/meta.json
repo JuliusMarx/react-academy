@@ -1,0 +1,1 @@
+{ "exercise": true, "openFile": "src/Notes.tsx", "dependencies": { "@tanstack/react-query": "^5.105.0" } }

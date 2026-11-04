@@ -72,6 +72,7 @@ Text mit `Code`, Tabellen und Codeblöcken (```ts, ```html, ```bash …).
 - Ordner- und Dateinamen bestimmen URL und Reihenfolge (`02-templates/01-interpolation.md` → `/de/templates/interpolation`). Sie müssen in allen Sprachen gleich sein.
 - `::tryit{id}` bettet das Beispiel aus `examples/<id>/` als echtes Vite-+-React-Projekt (StackBlitz) ein. Geöffnet wird `src/App.tsx`, außer `meta.json` sagt `"openFile"` etwas anderes.
 - Die Beispiele laufen auf **React 19 + Vite 7** (`examples/_base/package.json`). Vite 8 nutzt rolldown – dieselbe Toolchain, mit der Angular 22 in StackBlitz-WebContainern nicht startete. Vor einem Upgrade in StackBlitz testen.
+- Braucht ein Beispiel weitere npm-Pakete, stehen sie in `meta.json` unter `"dependencies"` (z. B. `{ "dependencies": { "@tanstack/react-query": "^5.105.0" } }`). Sie werden in die `package.json` der Basis übernommen.
 - Codeblöcke in Lektionen: ```tsx, ```ts, ```jsx, ```css, ```bash …
 - Die Einbettung braucht Cross-Origin-Isolation (`Cross-Origin-Opener-Policy: same-origin`, `Cross-Origin-Embedder-Policy: credentialless`), gesetzt in `netlify.toml` und für `npm start` in `angular.json`. Externe Ressourcen auf der Plattform selbst (Bilder, Skripte) werden deshalb ohne Cookies geladen.
 - Jede Lektion muss in allen Sprachen existieren, sonst bricht `npm run content` ab.
@@ -120,7 +121,7 @@ export const checks: Check[] = [
 
 Die Prüfungen laufen nacheinander auf derselben App. `t.type()` und `t.select()` setzen Werte so, dass React sie auch bei kontrollierten Feldern mitbekommt. Stürzt eine Komponente ab, schlagen die betroffenen Prüfungen mit „The app crashed: …“ fehl.
 
-Wo sich etwas nicht am Verhalten erkennen lässt (z. B. „ohne useEffect“), dürfen Prüfungen den Quelltext lesen: `import source from '../App.tsx?raw'` (Vite liefert die Datei als String). Sparsam einsetzen – Verhalten zu prüfen ist robuster. Zeitabhängige Prüfungen messen die tatsächlich vergangene Zeit, weil Browser Timer in Hintergrund-Tabs verzögern.
+Wo sich etwas nicht am Verhalten erkennen lässt (z. B. „ohne useEffect“), dürfen Prüfungen den Quelltext lesen: `import raw from '../App.tsx?raw'` (Vite liefert die Datei als String), dann `const source = code(raw)` aus dem Prüf-Kit – das entfernt Kommentare, damit TODO-Hinweise im Startcode nicht als Lösung zählen. Sparsam einsetzen – Verhalten zu prüfen ist robuster. Zeitabhängige Prüfungen messen die tatsächlich vergangene Zeit, weil Browser Timer in Hintergrund-Tabs verzögern.
 
 In der Lektion verweist das Frontmatter auf die Übung und beschriftet jede Prüfung:
 

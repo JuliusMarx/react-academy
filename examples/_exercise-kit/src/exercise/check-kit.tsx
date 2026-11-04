@@ -18,6 +18,15 @@ export interface CheckResult {
 
 class CheckFailed extends Error {}
 
+/**
+ * Source code without comments – for the rare checks that look at the code itself
+ * (import source from '../App.tsx?raw'), so TODO comments in the starter don't count.
+ */
+export function code(source: string): string {
+  // Block comments (incl. JSX {/* … */}), then line comments – but not the "//" in "https://".
+  return source.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1');
+}
+
 const nextFrame = () => new Promise((r) => requestAnimationFrame(() => r(null)));
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 

@@ -1,5 +1,7 @@
-import type { Check } from './check-kit';
-import source from '../App.tsx?raw';
+import { code, type Check } from './check-kit';
+import raw from '../App.tsx?raw';
+
+const source = code(raw);
 
 export const exercise = 'ex-no-effect';
 
