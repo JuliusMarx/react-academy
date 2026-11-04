@@ -154,6 +154,10 @@ export class TestKit {
 }
 
 export async function runChecks(exercise: string, checks: Check[], errors: unknown[]): Promise<void> {
+  // A <form> without action or preventDefault would reload the page on submit – and the reloaded
+  // page would run the checks again, forever. This listener runs after React's own handling
+  // (window is above the React root), so form actions and onSubmit handlers still work.
+  window.addEventListener('submit', (e) => e.preventDefault());
   const app = document.getElementById('root')!;
   const kit = new TestKit(app, errors);
   const results: CheckResult[] = [];

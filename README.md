@@ -120,7 +120,7 @@ export const checks: Check[] = [
 ];
 ```
 
-Die Prüfungen laufen nacheinander auf derselben App. Für Routing gibt es `t.navigate('/pfad')` (wie Vor/Zurück im Browser) und `t.path()`. `t.type()` und `t.select()` setzen Werte so, dass React sie auch bei kontrollierten Feldern mitbekommt. Stürzt eine Komponente ab, schlagen die betroffenen Prüfungen mit „The app crashed: …“ fehl.
+Die Prüfungen laufen nacheinander auf derselben App. Natives Absenden von Formularen (Seiten-Neuladen) blockiert das Kit, damit ein unfertiger Startcode keine Endlosschleife aus Neuladen und Prüfen auslöst. Für Routing gibt es `t.navigate('/pfad')` (wie Vor/Zurück im Browser) und `t.path()`. `t.type()` und `t.select()` setzen Werte so, dass React sie auch bei kontrollierten Feldern mitbekommt. Stürzt eine Komponente ab, schlagen die betroffenen Prüfungen mit „The app crashed: …“ fehl.
 
 Wo sich etwas nicht am Verhalten erkennen lässt (z. B. „ohne useEffect“), dürfen Prüfungen den Quelltext lesen: `import raw from '../App.tsx?raw'` (Vite liefert die Datei als String), dann `const source = code(raw)` aus dem Prüf-Kit – das entfernt Kommentare, damit TODO-Hinweise im Startcode nicht als Lösung zählen. Sparsam einsetzen – Verhalten zu prüfen ist robuster. Zeitabhängige Prüfungen messen die tatsächlich vergangene Zeit, weil Browser Timer in Hintergrund-Tabs verzögern.
 
