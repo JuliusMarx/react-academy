@@ -54,7 +54,7 @@ Eine interaktive Lernplattform für React im Stil von W3Schools: kurze, gut stru
 9. **Styling**: CSS Modules, Tailwind CSS, Klassen bedingt setzen ✅
 10. **State Management**: Wann globaler State? Context vs. Zustand vs. Redux Toolkit ✅
 11. **Testing**: Vitest + React Testing Library, UI-Tests mit Playwright ✅
-12. **Fortgeschritten**: React Compiler, Performance, Portale, Server Components & Frameworks (Next.js), TypeScript-Muster
+12. **Fortgeschritten**: React Compiler, Performance, Portale, Server Components & Frameworks (Next.js), TypeScript-Muster ✅
 
 Jede Lektion: ca. 5–10 Minuten Lesezeit, mindestens 1 Live-Beispiel, 2–3 Quizfragen, wo sinnvoll eine Übung.
 
@@ -68,16 +68,20 @@ Siehe [README.md](README.md). Kurz:
 
 ## 6. Roadmap
 
-### Phase 1 – MVP (dieser Stand)
+### Phase 1 – MVP ✅
 - Plattform aus der Angular Academy übernommen, Branding, Beispiel-Basis und Prüf-Kit auf React umgestellt
-- **Kapitel 1–3** auf DE und EN, mit Live-Beispielen, Quizzen und Übungen
+- Kapitel 1–3 auf DE und EN
 
-### Phase 2
-- Kapitel 4–8 ✅
-- Hosting einrichten (Netlify-Credits sparsam einsetzen)
+### Phase 2 – Ausbau ✅
+- Kapitel 4–8
 
-### Phase 3
-- Kapitel 9–12, inklusive Test-Kit (Vitest + Testing Library in der Vorschau)
+### Phase 3 – Vertiefung ✅
+- Kapitel 9–12, inklusive Test-Kit (Vitest-kompatibler Runner mit React Testing Library in der Vorschau, Test-Übungen per Mutationstest)
+
+### Nächste Schritte
+- Alle Beispiele und Übungen einmal in Chrome/StackBlitz durchklicken (WebContainer-spezifische Probleme ausschließen, z. B. Tailwind und React Router)
+- Hosting einrichten und eigenes GitHub-Repo anlegen
+- Optional: Login + Cloud-Sync, Abschlusszertifikat
 
 ## 7. Offene Fragen
 - Hosting und Domain

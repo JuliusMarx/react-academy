@@ -1,0 +1,59 @@
+---
+title: Der React Compiler
+minutes: 6
+quiz:
+  - question: "Was macht der React Compiler?"
+    options: ["Er übersetzt React in eine andere Sprache", "Er fügt beim Build automatisch Memoisierung ein – ähnlich wie `memo`, `useMemo` und `useCallback`", "Er ersetzt Vite", "Er prüft TypeScript-Typen"]
+    answer: 1
+  - question: "Welcher Code profitiert vom React Compiler?"
+    options: ["Jeder Code, auch solcher, der State verändert","Nur Klassenkomponenten","Code, der die Regeln von React einhält: reine Komponenten, kein Verändern von Props und State, Hooks auf oberster Ebene","Nur Code ohne Hooks"]
+    answer: 2
+---
+
+# Der React Compiler
+
+In Kapitel 5 hast du gesehen, wie `memo`, `useMemo` und `useCallback` unnötiges Rendern verhindern – und wie leicht man sie vergisst oder falsch einsetzt. Der **React Compiler** nimmt dir das ab: Er analysiert deine Komponenten beim Build und fügt die Memoisierung automatisch ein.
+
+## Einrichten mit Vite
+
+```bash
+npm install -D babel-plugin-react-compiler
+```
+
+```ts
+// vite.config.ts
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [
+    react({
+      babel: { plugins: ['babel-plugin-react-compiler'] },
+    }),
+  ],
+});
+```
+
+Das ist alles. Dein Code bleibt unverändert – kein `memo`, kein `useMemo`, kein `useCallback`.
+
+## Was er tut
+
+Der Compiler erkennt, welche Werte von welchen Props und welchem State abhängen. Ändert sich nichts davon, verwendet er das vorherige Ergebnis: JSX, berechnete Werte, Funktionen. Im Beispiel unten rendert `ProductList` deshalb nicht neu, wenn du eine Notiz tippst – obwohl `onPick` eine Pfeilfunktion im JSX ist.
+
+## Voraussetzung: die Regeln von React
+
+Der Compiler darf nur so optimieren, weil er sich auf die Regeln von React verlässt:
+
+- Komponenten und Hooks sind **rein** – gleiche Eingaben, gleiches Ergebnis.
+- Props und State werden **nie verändert**, sondern ersetzt.
+- Hooks stehen **auf oberster Ebene**, nicht in Bedingungen.
+
+Hält sich eine Komponente nicht daran, überspringt der Compiler sie einfach. Die ESLint-Regeln aus `eslint-plugin-react-hooks` zeigen solche Stellen an.
+
+## Brauche ich memo noch?
+
+Mit Compiler kaum noch. `memo`, `useMemo` und `useCallback` bleiben trotzdem wichtig: Sie stehen in sehr viel bestehendem Code, und manchmal brauchst du genaue Kontrolle, etwa wenn ein Wert als Abhängigkeit eines Effekts stabil bleiben muss.
+
+> [!TIP]
+> Die React DevTools markieren Komponenten, die der Compiler optimiert hat, mit einem kleinen **Memo ✨**-Abzeichen.
+
+::tryit{react-compiler}
