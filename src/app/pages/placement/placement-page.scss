@@ -1,0 +1,124 @@
+:host {
+  display: block;
+}
+
+.placement {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.intro {
+  color: var(--text-muted);
+}
+
+h1,
+h2 {
+  scroll-margin-top: calc(var(--header-height) + 1rem);
+}
+
+.question {
+  margin: 0 0 1.5rem;
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--surface);
+
+  legend {
+    float: left;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    padding: 0;
+    font-weight: 600;
+  }
+}
+
+.chapter-title {
+  display: block;
+  margin-bottom: 0.2rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.35rem 0;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--surface-hover);
+  }
+
+  &.selected {
+    border-color: var(--accent);
+  }
+
+  &:focus-within {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+
+  input {
+    accent-color: var(--accent);
+  }
+}
+
+.dont-know {
+  border-style: dashed;
+  color: var(--text-muted);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 1.5rem 0;
+
+  p {
+    margin: 0;
+  }
+}
+
+.applied {
+  font-weight: 600;
+  color: var(--success);
+}
+
+.results {
+  margin: 1.5rem 0 2rem;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: grid;
+    grid-template-columns: 1.1rem 1fr;
+    gap: 0.4rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .mark {
+    color: var(--text-muted);
+  }
+
+  .known .mark {
+    color: var(--success);
+  }
+
+  .state {
+    margin-left: 0.3rem;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+}
+
+.hint {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}

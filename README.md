@@ -41,7 +41,7 @@ npx netlify-cli dev --offline --dir dist/react-academy/browser
 
 ```
 content/<sprache>/<NN-kapitel>/
-  _chapter.md              # Kapitel-Titel und -Beschreibung (Frontmatter)
+  _chapter.md              # Kapitel-Titel, -Beschreibung und Frage für den Einstufungstest (Frontmatter)
   <NN-lektion>.md          # Lektion: Markdown + Frontmatter (title, minutes, summary, quiz)
 examples/
   _base/                   # Gemeinsames Vite-+-React-Projekt für alle Live-Beispiele
@@ -87,6 +87,7 @@ Text mit `Code`, Tabellen und Codeblöcken (```ts, ```html, ```bash …).
 - Codeblöcke in Lektionen: ```tsx, ```ts, ```jsx, ```css, ```bash …
 - Die Einbettung braucht Cross-Origin-Isolation (`Cross-Origin-Opener-Policy: same-origin`, `Cross-Origin-Embedder-Policy: credentialless`), gesetzt in `netlify.toml` und für `npm start` in `angular.json`. Externe Ressourcen auf der Plattform selbst (Bilder, Skripte) werden deshalb ohne Cookies geladen.
 - Jede Lektion muss in allen Sprachen existieren, sonst bricht `npm run content` ab.
+- Der Einstufungstest (`/de/placement`) stellt pro Kapitel eine Quizfrage, ausgewählt in `_chapter.md` mit `placement: { lesson: <lektion>, question: <index> }`. Wer sie richtig beantwortet, kann das ganze Kapitel als erledigt markieren. Die Frage sollte also den Kern des Kapitels abfragen. Die Antworten werden im Test rotiert, damit die richtige nicht immer an derselben Stelle steht.
 - Die richtige Quiz-Antwort soll nicht immer an derselben Stelle stehen. `node scripts/shuffle-quiz-answers.cjs content` verteilt sie gleichmäßig – in allen Sprachen gleich. Am besten nach dem Schreiben der deutschen Lektion und vor der Übersetzung ausführen.
 - Tabellen brauchen in jeder Kopfzelle Text (leere Kopfzellen sind ein axe-Fehler). Quiztexte können nur Inline-Code, kein Fett. `npm run content` bricht in beiden Fällen ab.
 - Frontmatter-Werte mit ` #`, `: `, `{`, `[` oder Backticks am Anfang in Anführungszeichen setzen, sonst liest YAML sie falsch (` #` startet z. B. einen Kommentar).

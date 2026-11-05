@@ -24,6 +24,12 @@
     <p class="hint">{{ text().courseModeHint }}</p>
   </fieldset>
 
+  <p class="placement">
+    {{ text().placementTeaser }}
+    <a [routerLink]="['/', lang(), 'placement']">{{ text().placementLink }}</a>
+    – {{ text().placementLinkText(chapters().length) }}
+  </p>
+
   @if (startLesson(); as lesson) {
     <a class="button" [routerLink]="['/', lang(), lesson.chapter, lesson.slug]">
       {{ hasStarted() ? text().continue : text().start }} →

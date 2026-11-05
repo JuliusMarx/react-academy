@@ -9,6 +9,11 @@ export const serverRoutes: ServerRoute[] = [
     getPrerenderParams: async () => LANGS.map((lang) => ({ lang })),
   },
   {
+    path: ':lang/placement',
+    renderMode: RenderMode.Prerender,
+    getPrerenderParams: async () => LANGS.map((lang) => ({ lang })),
+  },
+  {
     path: ':lang/:chapter/:lesson',
     renderMode: RenderMode.Prerender,
     getPrerenderParams: async () =>

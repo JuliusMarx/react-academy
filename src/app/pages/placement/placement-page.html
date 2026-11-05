@@ -1,0 +1,79 @@
+<div class="placement">
+  @if (!finished()) {
+    <h1 #heading tabindex="-1">{{ text().placement }}</h1>
+    <p class="intro">{{ text().placementIntro }}</p>
+
+    @for (chapter of chapters(); track chapter.slug; let i = $index) {
+      <fieldset class="question">
+        <legend>
+          <span class="chapter-title">{{ text().chapter }} {{ i + 1 }}: {{ chapter.title }}</span>
+          <span [innerHTML]="chapter.question.question | safeHtml"></span>
+        </legend>
+        @for (option of chapter.question.options; track $index; let oi = $index) {
+          <label class="option" [class.selected]="answers()[chapter.slug] === oi">
+            <input
+              type="radio"
+              [name]="'placement-' + chapter.slug"
+              [checked]="answers()[chapter.slug] === oi"
+              (change)="select(chapter.slug, oi)"
+            />
+            <span [innerHTML]="option | safeHtml"></span>
+          </label>
+        }
+        <label class="option dont-know" [class.selected]="answers()[chapter.slug] === dontKnow">
+          <input
+            type="radio"
+            [name]="'placement-' + chapter.slug"
+            [checked]="answers()[chapter.slug] === dontKnow"
+            (change)="select(chapter.slug, dontKnow)"
+          />
+          <span>{{ text().dontKnow }}</span>
+        </label>
+      </fieldset>
+    }
+
+    @if (chapters().length) {
+      <div class="actions">
+        <button type="button" class="button" (click)="finish()">{{ text().evaluate }}</button>
+        <p class="hint">{{ text().placementUnanswered }}</p>
+      </div>
+    }
+  } @else {
+    <h1>{{ text().placement }}</h1>
+    <h2 #heading tabindex="-1">{{ text().placementResult(knownChapters().length, chapters().length) }}</h2>
+
+    <div class="actions" aria-live="polite">
+      @if (applied(); as count) {
+        <p class="applied">✓ {{ text().placementApplied(count) }}</p>
+      } @else if (knownLessons().length) {
+        <button type="button" class="button" (click)="apply()">{{ text().applyPlacement(knownLessons().length) }}</button>
+      }
+      @if (firstToLearn(); as lesson) {
+        <a
+          class="button"
+          [class.secondary]="applied() === null && knownLessons().length > 0"
+          [routerLink]="['/', lang(), lesson.chapter, lesson.slug]"
+        >
+          {{ text().startWith }}: {{ lesson.title }} →
+        </a>
+      } @else {
+        <p>{{ text().placementAllKnown }}</p>
+      }
+      <button type="button" class="button secondary" (click)="restart()">{{ text().restartPlacement }}</button>
+    </div>
+
+    <ol class="results">
+      @for (chapter of results(); track chapter.slug) {
+        <li [class.known]="chapter.known">
+          <span class="mark" aria-hidden="true">{{ chapter.known ? '✓' : '○' }}</span>
+          <span>
+            @if (chapter.lessons[0]; as first) {
+              <a [routerLink]="['/', lang(), chapter.slug, first.slug]">{{ chapter.title }}</a>
+            }
+            <span class="state">– {{ chapter.known ? text().known : text().toLearn }}</span>
+          </span>
+        </li>
+      }
+    </ol>
+  }
+</div>

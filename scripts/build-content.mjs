@@ -194,6 +194,7 @@ async function buildLessons(exampleIds, exercises) {
   const curriculum = {};
   const loaders = [];
   const searchDocs = Object.fromEntries(LANGS.map((l) => [l, []]));
+  const placement = Object.fromEntries(LANGS.map((l) => [l, []]));
   for (const lang of LANGS) {
     curriculum[lang] = [];
     const langDir = join(CONTENT_DIR, lang);
@@ -202,6 +203,7 @@ async function buildLessons(exampleIds, exercises) {
       const chapterMeta = matter(await readFile(join(langDir, chapterDir, '_chapter.md'), 'utf8')).data;
       const chapter = { slug: chapterSlug, title: chapterMeta.title, description: chapterMeta.description ?? '', lessons: [] };
       const files = (await readdir(join(langDir, chapterDir))).filter((f) => f.endsWith('.md') && !f.startsWith('_')).sort();
+      const quizzes = new Map();
       for (const file of files) {
         const path = join(langDir, chapterDir, file);
         const raw = await readFile(path, 'utf8');
@@ -233,7 +235,9 @@ async function buildLessons(exampleIds, exercises) {
         await writeTs(out, `export default ${JSON.stringify(lesson, null, 2)} satisfies Lesson;`, "import type { Lesson } from '../../../../content.model';");
         loaders.push(`  '${lang}/${id}': () => import('./lessons/${lang}/${id}').then((m) => m.default),`);
         searchDocs[lang].push(...searchDocsFor(lesson, chapter));
+        quizzes.set(lessonSlug, lesson.quiz);
       }
+      placement[lang].push(placementQuestion(chapterMeta.placement, chapter.slug, quizzes, join(lang, chapterDir, '_chapter.md')));
       curriculum[lang].push(chapter);
     }
   }
@@ -252,6 +256,21 @@ async function buildLessons(exampleIds, exercises) {
       LANGS.map((l) => `  ${l}: () => import('./search/${l}').then((m) => m.default),`).join('\n') +
       '\n};',
     "import type { Lang, SearchDoc } from '../content.model';",
+  );
+  await mkdir(join(OUT_DIR, 'placement'), { recursive: true });
+  for (const lang of LANGS) {
+    await writeTs(
+      join(OUT_DIR, 'placement', `${lang}.ts`),
+      `export default ${JSON.stringify(placement[lang], null, 2)} satisfies PlacementQuestion[];`,
+      "import type { PlacementQuestion } from '../../content.model';",
+    );
+  }
+  await writeTs(
+    join(OUT_DIR, 'placement.ts'),
+    `export const placementLoaders: Record<Lang, () => Promise<PlacementQuestion[]>> = {\n` +
+      LANGS.map((l) => `  ${l}: () => import('./placement/${l}').then((m) => m.default),`).join('\n') +
+      '\n};',
+    "import type { Lang, PlacementQuestion } from '../content.model';",
   );
   await writeTs(
     join(OUT_DIR, 'curriculum.ts'),
@@ -328,6 +347,24 @@ function searchDocsFor(lesson, chapter) {
  * "summary:" frontmatter – the short version of a lesson for the quick course: a few key points
  * and the most important code. Required, so the quick course never has gaps.
  */
+/** The placement test asks one quiz question per chapter, picked in _chapter.md. */
+function placementQuestion(def, chapter, quizzes, file) {
+  const question = def && quizzes.get(def.lesson)?.[def.question];
+  if (!question) {
+    throw new Error(
+      `${file}: every chapter needs "placement: { lesson: <lesson slug>, question: <index> }" pointing to an existing quiz question.`,
+    );
+  }
+  // All questions are on one page, so spread the correct answers over the positions:
+  // rotate the options (keeping their order) so the answer lands at a position derived from the chapter slug –
+  // fixed across builds and languages, but without a visible pattern.
+  const n = question.options.length;
+  const target = [...chapter].reduce((hash, c) => (hash * 31 + c.charCodeAt(0)) % 1000003, 7) % n;
+  const shift = (question.answer - target + n) % n;
+  const options = [...question.options.slice(shift), ...question.options.slice(0, shift)];
+  return { chapter, lesson: `${chapter}/${def.lesson}`, question: { ...question, options, answer: target } };
+}
+
 function buildSummary(summary, file, lang) {
   if (typeof summary !== 'string' || !summary.trim()) {
     throw new Error(`${file}: every lesson needs a "summary: |-" block for the quick course.`);

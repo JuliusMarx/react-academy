@@ -9,6 +9,7 @@ export const routes: Routes = [
     loadComponent: () => import('./layout/shell'),
     children: [
       { path: '', loadComponent: () => import('./pages/home/home-page') },
+      { path: 'placement', loadComponent: () => import('./pages/placement/placement-page') },
       { path: ':chapter/:lesson', loadComponent: () => import('./pages/lesson/lesson-page') },
       { path: '**', loadComponent: () => import('./pages/not-found/not-found-page') },
     ],
