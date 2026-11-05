@@ -197,6 +197,8 @@ async function buildLessons(exampleIds, exercises) {
   const placement = Object.fromEntries(LANGS.map((l) => [l, []]));
   /** All quiz questions per lesson id, for the review page. */
   const allQuizzes = Object.fromEntries(LANGS.map((l) => [l, {}]));
+  /** All summaries per lesson id, for the cheat sheet. */
+  const allSummaries = Object.fromEntries(LANGS.map((l) => [l, {}]));
   for (const lang of LANGS) {
     curriculum[lang] = [];
     const langDir = join(CONTENT_DIR, lang);
@@ -239,6 +241,7 @@ async function buildLessons(exampleIds, exercises) {
         searchDocs[lang].push(...searchDocsFor(lesson, chapter));
         quizzes.set(lessonSlug, lesson.quiz);
         allQuizzes[lang][id] = lesson.quiz;
+        allSummaries[lang][id] = lesson.summary;
       }
       placement[lang].push(placementQuestion(chapterMeta.placement, chapter.slug, quizzes, join(lang, chapterDir, '_chapter.md')));
       curriculum[lang].push(chapter);
@@ -274,6 +277,17 @@ async function buildLessons(exampleIds, exercises) {
       LANGS.map((l) => `  ${l}: () => import('./placement/${l}').then((m) => m.default),`).join('\n') +
       '\n};',
     "import type { Lang, PlacementQuestion } from '../content.model';",
+  );
+  await mkdir(join(OUT_DIR, 'summaries'), { recursive: true });
+  for (const lang of LANGS) {
+    await writeTs(join(OUT_DIR, 'summaries', `${lang}.ts`), `export default ${JSON.stringify(allSummaries[lang])} satisfies Record<string, string>;`, '');
+  }
+  await writeTs(
+    join(OUT_DIR, 'summaries.ts'),
+    `export const summaryLoaders: Record<Lang, () => Promise<Record<string, string>>> = {\n` +
+      LANGS.map((l) => `  ${l}: () => import('./summaries/${l}').then((m) => m.default),`).join('\n') +
+      '\n};',
+    "import type { Lang } from '../content.model';",
   );
   await mkdir(join(OUT_DIR, 'quizzes'), { recursive: true });
   for (const lang of LANGS) {

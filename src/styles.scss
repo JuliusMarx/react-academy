@@ -1,9 +1,6 @@
-:root {
+/* Light colors – also used for printing, whatever the theme. */
+@mixin light-theme {
   color-scheme: light;
-  --header-height: 3.75rem;
-  --sidebar-width: 18rem;
-  --content-width: 46rem;
-
   --bg: #f7f7fa;
   --surface: #ffffff;
   --surface-hover: #eef0f4;
@@ -25,6 +22,14 @@
   --warning-soft: #fdf1d8;
   --code-bg: #ffffff; /* github-light syntax colors only reach 4.5:1 on white */
   --shadow-lg: 0 10px 30px rgb(15 20 40 / 18%);
+}
+
+:root {
+  --header-height: 3.75rem;
+  --sidebar-width: 18rem;
+  --content-width: 46rem;
+
+  @include light-theme;
 }
 
 [data-theme='dark'] {
@@ -276,4 +281,44 @@ pre {
 :root:not([data-reading='short']) .short-only,
 :root[data-reading='short'] .full-only {
   display: none !important;
+}
+
+.print-only {
+  display: none;
+}
+
+@media print {
+  [data-theme='dark'] {
+    @include light-theme;
+  }
+
+  [data-theme='dark'] .shiki span {
+    color: var(--shiki-light);
+  }
+
+  body {
+    background: #fff;
+  }
+
+  app-header,
+  app-sidebar,
+  .skip-link,
+  .backdrop,
+  .no-print,
+  .copy-button {
+    display: none !important;
+  }
+
+  .print-only {
+    display: initial;
+  }
+
+  /* The shell's grid and padding are component styles, hence !important. */
+  .layout {
+    display: block !important;
+  }
+
+  main {
+    padding: 0 !important;
+  }
 }

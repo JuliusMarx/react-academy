@@ -1,0 +1,31 @@
+<div class="cheatsheet">
+  <h1>{{ text().cheatsheet }} <span class="print-only">– {{ text().appName }}</span></h1>
+  <p class="intro">{{ text().cheatsheetIntro }}</p>
+  <button type="button" class="button no-print" (click)="print()">{{ text().print }}</button>
+
+  <nav class="toc no-print" [attr.aria-label]="text().chapters">
+    <ol>
+      @for (chapter of chapters(); track chapter.slug) {
+        <li>
+          <a [routerLink]="['/', lang(), 'cheatsheet']" [fragment]="'chapter-' + chapter.slug">{{ chapter.title }}</a>
+        </li>
+      }
+    </ol>
+  </nav>
+
+  @if (summaries.value(); as summaries) {
+    @for (chapter of chapters(); track chapter.slug; let i = $index) {
+      <section class="chapter" [attr.aria-labelledby]="'chapter-' + chapter.slug">
+        <h2 [id]="'chapter-' + chapter.slug">{{ i + 1 }}. {{ chapter.title }}</h2>
+        @for (lesson of chapter.lessons; track lesson.id) {
+          <article class="lesson">
+            <h3>
+              <a [routerLink]="['/', lang(), chapter.slug, lesson.slug]">{{ lesson.title }}</a>
+            </h3>
+            <div class="prose" [innerHTML]="summaries[lesson.id] | safeHtml"></div>
+          </article>
+        }
+      </section>
+    }
+  }
+</div>

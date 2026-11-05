@@ -69,4 +69,16 @@
   }
 </ol>
 
+<h2 class="section-title">{{ text().moreTools }}</h2>
+<ul class="tools">
+  @for (tool of tools(); track tool.path) {
+    <li class="card">
+      <div class="body">
+        <h3><a [routerLink]="['/', lang(), tool.path]">{{ tool.title }}</a></h3>
+        <p>{{ tool.description }}</p>
+      </div>
+    </li>
+  }
+</ul>
+
 <app-progress-manager [lang]="lang()" />

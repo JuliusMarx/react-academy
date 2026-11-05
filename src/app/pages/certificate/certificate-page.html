@@ -1,0 +1,54 @@
+<div class="certificate-page">
+  <h1 class="no-print">{{ text().certificate }}</h1>
+
+  @if (progress.loaded()) {
+    @if (!complete()) {
+      <p>{{ text().certificateLocked(doneCount(), lessons().length) }}</p>
+      <app-progress-bar [value]="percent()" [label]="text().progress" />
+      <div class="actions">
+        @if (nextLesson(); as lesson) {
+          <a class="button" [routerLink]="['/', lang(), lesson.chapter, lesson.slug]">{{ text().startWith }}: {{ lesson.title }} →</a>
+        }
+        <a class="button secondary" [routerLink]="['/', lang(), 'placement']">{{ text().placement }}</a>
+      </div>
+      <p class="hint">{{ text().certificatePlacementHint }}</p>
+    } @else {
+      @if (editing()) {
+        <form class="name-form no-print" (submit)="save($event, nameInput.value)">
+          <label for="certificate-name">{{ text().certificateName }}</label>
+          <div class="field">
+            <input
+              #nameInput
+              id="certificate-name"
+              type="text"
+              autocomplete="name"
+              maxlength="80"
+              required
+              [value]="certificate()?.name ?? ''"
+            />
+            <button type="submit" class="button">{{ certificate() ? text().save : text().createCertificate }}</button>
+          </div>
+        </form>
+      }
+
+      @if (certificate(); as cert) {
+        <section class="certificate" [attr.aria-label]="text().certificate">
+          <p class="brand">{{ text().appName }}</p>
+          <h2>{{ text().certificate }}</h2>
+          <p>{{ text().certificateConfirms }}</p>
+          <p class="name">{{ cert.name }}</p>
+          <p>{{ text().certificateCompleted(chapterCount(), lessons().length) }}</p>
+          <p class="date">{{ date() }}</p>
+        </section>
+
+        <div class="actions no-print">
+          <button type="button" class="button" (click)="print()">{{ text().print }}</button>
+          @if (!editing()) {
+            <button type="button" class="button secondary" (click)="editing.set(true)">{{ text().changeName }}</button>
+          }
+        </div>
+        <p class="hint no-print">{{ text().certificateNote }}</p>
+      }
+    }
+  }
+</div>

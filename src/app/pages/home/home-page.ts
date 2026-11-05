@@ -51,6 +51,15 @@ export default class HomePage {
       option('full', text.courseFull, text.courseFullText, sum(lessons.map((l) => l.minutes))),
     ];
   });
+  protected readonly tools = computed(() => {
+    const text = this.text();
+    return [
+      { path: 'placement', title: text.placement, description: text.toolPlacementText },
+      { path: 'review', title: text.review, description: text.toolReviewText },
+      { path: 'cheatsheet', title: text.cheatsheet, description: text.toolCheatsheetText },
+      { path: 'certificate', title: text.certificate, description: text.toolCertificateText },
+    ];
+  });
   protected readonly lessonCount = computed(() => this.content.allLessons(this.lang()).length);
   protected readonly hasStarted = computed(() => !!this.progress.progress().lastLesson);
   /** Due review questions; 0 until the stored progress is loaded (the prerendered page knows none). */

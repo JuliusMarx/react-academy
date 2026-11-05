@@ -1,0 +1,74 @@
+:host {
+  display: block;
+}
+
+.cheatsheet {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  line-height: 1.2;
+}
+
+.intro {
+  color: var(--text-muted);
+}
+
+.toc {
+  margin: 1.5rem 0 2rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--surface);
+
+  ol {
+    columns: 2 14rem;
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  li {
+    margin: 0.15rem 0;
+  }
+}
+
+.chapter h2 {
+  margin: 2.5rem 0 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 2px solid var(--accent);
+  font-size: 1.4rem;
+  break-after: avoid;
+}
+
+.lesson {
+  margin: 0 0 1.5rem;
+  padding: 0.25rem 1.25rem 0.5rem;
+  border-left: 4px solid var(--accent);
+  border-radius: 0 0.6rem 0.6rem 0;
+  background: var(--accent-soft);
+
+  h3 {
+    margin: 0.75rem 0 0.25rem;
+    font-size: 1.1rem;
+  }
+}
+
+@media print {
+  .cheatsheet {
+    max-width: none;
+  }
+
+  .lesson {
+    break-inside: avoid;
+    border-left-width: 3px;
+    background: none;
+  }
+
+  .lesson h3 a {
+    color: inherit;
+    text-decoration: none;
+  }
+}

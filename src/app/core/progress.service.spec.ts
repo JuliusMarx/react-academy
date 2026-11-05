@@ -51,6 +51,12 @@ describe('ProgressService', () => {
     expect(service.importJson('{"version":2}')).toBe(false);
   });
 
+  it('keeps the certificate date when the name changes', () => {
+    service.setCertificateName('Erika', Date.UTC(2026, 10, 5));
+    service.setCertificateName('Erika Mustermann', Date.UTC(2026, 11, 24));
+    expect(service.progress().certificate).toEqual({ name: 'Erika Mustermann', date: '2026-11-05T00:00:00.000Z' });
+  });
+
   describe('review queue', () => {
     const day = 24 * 60 * 60 * 1000;
     const now = new Date(2026, 10, 5, 18, 0).getTime();

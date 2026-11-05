@@ -11,6 +11,8 @@ export const routes: Routes = [
       { path: '', loadComponent: () => import('./pages/home/home-page') },
       { path: 'placement', loadComponent: () => import('./pages/placement/placement-page') },
       { path: 'review', loadComponent: () => import('./pages/review/review-page') },
+      { path: 'cheatsheet', loadComponent: () => import('./pages/cheatsheet/cheatsheet-page') },
+      { path: 'certificate', loadComponent: () => import('./pages/certificate/certificate-page') },
       { path: ':chapter/:lesson', loadComponent: () => import('./pages/lesson/lesson-page') },
       { path: '**', loadComponent: () => import('./pages/not-found/not-found-page') },
     ],

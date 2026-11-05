@@ -31,6 +31,8 @@ export interface Progress {
   solvedExercises: string[];
   /** Quiz questions to review, by reviewKey(). Added later – older exports don't have it. */
   review: Record<string, ReviewItem>;
+  /** Name and date on the certificate of completion, once it was created. */
+  certificate?: { name: string; date: string };
   lastLesson?: string;
 }
 
@@ -118,6 +120,11 @@ export class ProgressService {
       .filter(([, item]) => Date.parse(item.due) <= now)
       .sort(([, a], [, b]) => a.due.localeCompare(b.due))
       .map(([key]) => key);
+  }
+
+  /** Creates the certificate, or changes its name (the date stays the day it was first created). */
+  setCertificateName(name: string, now = Date.now()): void {
+    this.update((p) => ({ ...p, certificate: { name, date: p.certificate?.date ?? new Date(now).toISOString() } }));
   }
 
   visit(lessonId: string): void {
