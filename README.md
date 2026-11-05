@@ -13,6 +13,7 @@ npm install
 npm start          # Dev-Server auf http://localhost:4200
 npm test           # Unit-Tests (Vitest)
 npm run build      # Statischer Build mit vorgerenderten Seiten → dist/react-academy/browser
+npm run e2e        # Plattform-Tests (Playwright) gegen den Build, vorher npm run build
 ```
 
 `npm start`, `npm test` und `npm run build` erzeugen vorher automatisch die Inhalte (`npm run content`). Während der Dev-Server läuft, nach Änderungen an `content/` oder `examples/` einfach `npm run content` erneut ausführen.
