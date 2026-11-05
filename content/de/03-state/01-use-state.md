@@ -106,6 +106,6 @@ setCount((c) => c + 1); // jetzt wirklich +3
 
 ## Regeln für Hooks
 
-Alles, was mit `use` beginnt, ist ein **Hook**. Hooks rufst du nur auf **oberster Ebene** einer Komponente auf – nicht in Bedingungen, Schleifen oder verschachtelten Funktionen. React ordnet den State über die Reihenfolge der Aufrufe zu.
+Alles, was mit `use` beginnt, ist ein **Hook**. Hooks rufst du nur auf **oberster Ebene** einer Komponente auf – nicht in Bedingungen, Schleifen oder verschachtelten Funktionen. React ordnet den State über die Reihenfolge der Aufrufe zu. (Einzige Ausnahme ist `use`, das du in Kapitel 6 kennenlernst.)
 
 ::tryit{use-state}

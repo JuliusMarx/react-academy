@@ -4,6 +4,8 @@ const products = Array.from({ length: 50 }, (_, i) => ({ id: i, name: `Product $
 
 // No memo, no useMemo, no useCallback – the compiler adds the equivalent automatically.
 function ProductList({ maxPrice, onPick }: { maxPrice: number; onPick: (id: number) => void }) {
+  // Demo only: writing a ref during render breaks the Rules of React (the compiler skips this
+  // component). It just makes renders visible – the memoization happens in App.
   const renders = useRef(0);
   renders.current++;
   const visible = products.filter((p) => p.price <= maxPrice);

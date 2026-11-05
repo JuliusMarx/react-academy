@@ -3,7 +3,7 @@ title: useReducer
 minutes: 8
 summary: |-
   - `useReducer` sammelt alle State-Änderungen in einer **Reducer-Funktion** statt in vielen Event-Handlern.
-  - Handler melden nur, *was passiert ist*: `dispatch({ type: 'added', title })`.
+  - Handler melden nur, *was passiert ist*: `dispatch({ type: 'added', id: nextId++, title })`.
   - Der Reducer bekommt den aktuellen State und eine Action und gibt den nächsten State zurück.
   - Ein TypeScript-Union-Typ für die Actions sorgt dafür, dass jede Action die richtigen Felder hat und jeder Fall behandelt wird.
   - Reducer sind rein: nichts verändern, sondern neue Objekte und Arrays zurückgeben; keine Nebenwirkungen wie `fetch` oder Timer. Dafür lassen sie sich ohne React testen.
@@ -13,7 +13,7 @@ summary: |-
   function todosReducer(todos: Todo[], action: Action): Todo[] {
     switch (action.type) {
       case 'added':
-        return [...todos, { id: nextId++, title: action.title, done: false }];
+        return [...todos, { id: action.id, title: action.title, done: false }];
       case 'toggled':
         return todos.map((t) => (t.id === action.id ? { ...t, done: !t.done } : t));
       case 'deleted':
@@ -65,7 +65,7 @@ Statt in jedem Handler zu beschreiben, *wie* sich der State ändert, meldest du 
 setTodos([...todos, { id: nextId++, title, done: false }]);
 
 // mit useReducer
-dispatch({ type: 'added', title });
+dispatch({ type: 'added', id: nextId++, title });
 ```
 
 ## Der Reducer
@@ -74,14 +74,14 @@ Ein Reducer bekommt den aktuellen State und eine Action und gibt den **nächsten
 
 ```ts
 type Action =
-  | { type: 'added'; title: string }
+  | { type: 'added'; id: number; title: string }
   | { type: 'toggled'; id: number }
   | { type: 'deleted'; id: number };
 
 function todosReducer(todos: Todo[], action: Action): Todo[] {
   switch (action.type) {
     case 'added':
-      return [...todos, { id: nextId++, title: action.title, done: false }];
+      return [...todos, { id: action.id, title: action.title, done: false }];
     case 'toggled':
       return todos.map((t) => (t.id === action.id ? { ...t, done: !t.done } : t));
     case 'deleted':
@@ -121,6 +121,8 @@ Ein Reducer läuft während des Renderns (in StrictMode sogar doppelt). Deshalb 
 
 - **Nichts verändern** – immer neue Objekte und Arrays zurückgeben.
 - **Keine Nebenwirkungen** – kein `fetch`, kein `localStorage`, keine Timer.
+
+Deshalb erzeugt im Beispiel der Event-Handler die neue ID (`nextId++`) und schickt sie in der Action mit – der Reducer selbst verändert nichts außerhalb.
 
 Dafür lässt er sich wunderbar testen: Er ist eine ganz normale Funktion ohne React.
 

@@ -31,7 +31,7 @@ quiz:
     answer: 3
     explanation: "Expressions that produce a value are allowed. For conditions, use the ternary operator or `&&`."
   - question: "How do you return two sibling elements without an extra `<div>`?"
-    options: ["With a Fragment `<>…</>`", "With an array without keys", "With two `return` statements", "You can't"]
+    options: ["With a Fragment `<>…</>`", "Just return two tags one after the other", "With two `return` statements", "You can't"]
     answer: 0
 ---
 

@@ -97,7 +97,7 @@ function Messages() {
 Der optimistische Wert gilt nur, **solange die Action läuft**. Ist sie fertig, zeigt `useOptimistic` wieder den echten State:
 
 - **Erfolg**: Du hast den echten State inzwischen aktualisiert – der Eintrag bleibt, nun ohne „wird gesendet“.
-- **Fehler**: Der echte State hat sich nicht geändert – der optimistische Eintrag verschwindet von selbst. Zeige dazu eine Fehlermeldung an.
+- **Fehler**: Der echte State hat sich nicht geändert – der optimistische Eintrag verschwindet von selbst. Fang den Fehler in der Action mit `try`/`catch` ab und zeige eine Meldung an – sonst landet er bei der nächsten Error Boundary.
 
 Ein Aufräumen im Fehlerfall ist nicht nötig.
 

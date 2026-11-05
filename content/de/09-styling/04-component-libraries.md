@@ -5,7 +5,7 @@ summary: |-
   - Dialoge, Dropdowns oder Datumsauswahlen, die mit Tastatur und Screenreader funktionieren, sind viel Arbeit – dafür gibt es Bibliotheken.
   - **Komplett gestylt** (MUI, Mantine, Chakra UI): fertige Komponenten mit eigenem Design, anpassbar über Themes.
   - **Headless** (Radix UI, React Aria, Headless UI, Base UI): Verhalten, Fokus, Tastatursteuerung und ARIA – das Aussehen machst du selbst, z. B. mit Tailwind.
-  - **shadcn/ui** kopiert die Komponenten als Quellcode in dein Projekt (`npx shadcn add dialog`). Du kannst alles ändern, sie aktualisieren sich aber nicht von selbst.
+  - **shadcn/ui** kopiert die Komponenten als Quellcode in dein Projekt (`npx shadcn@latest add dialog`). Du kannst alles ändern, sie aktualisieren sich aber nicht von selbst.
   - Faustregel: schnelle interne App → gestylte Bibliothek; eigenes Design → Headless oder shadcn/ui; ein paar einfache Elemente → selbst bauen.
 
   ```tsx
@@ -17,13 +17,14 @@ summary: |-
       <Dialog.Overlay className="fixed inset-0 bg-black/40" />
       <Dialog.Content className="rounded-xl bg-white p-6">
         <Dialog.Title>Einstellungen</Dialog.Title>
+        <Dialog.Description>Passe die App an.</Dialog.Description>
         <Dialog.Close>Schließen</Dialog.Close>
       </Dialog.Content>
     </Dialog.Portal>
   </Dialog.Root>
   ```
 
-  > [!TIP] Für viele einfache Fälle reicht das HTML-Element `<dialog>` – es bringt Fokusverwaltung und Escape schon mit.
+  > [!TIP] Für viele einfache Fälle reicht das HTML-Element `<dialog>` – mit `showModal()` geöffnet, bringt es Fokusverwaltung und Escape schon mit.
 quiz:
   - question: "Was ist eine Headless-Bibliothek wie Radix UI oder React Aria?"
     options: ["Fertiges Verhalten und Barrierefreiheit ohne vorgegebenes Aussehen – das Styling machst du selbst","Eine Bibliothek ohne JavaScript","Eine Bibliothek nur für Server","Ein CSS-Framework"]
@@ -58,6 +59,7 @@ import * as Dialog from '@radix-ui/react-dialog';
     <Dialog.Overlay className="fixed inset-0 bg-black/40" />
     <Dialog.Content className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl bg-white p-6">
       <Dialog.Title>Einstellungen</Dialog.Title>
+      <Dialog.Description>Passe die App an.</Dialog.Description>
       <Dialog.Close>Schließen</Dialog.Close>
     </Dialog.Content>
   </Dialog.Portal>
@@ -66,7 +68,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 
 ## shadcn/ui
 
-**shadcn/ui** ist keine klassische Bibliothek: Ein Befehl wie `npx shadcn add dialog` kopiert die Komponente als Quellcode in dein Projekt. Du besitzt den Code und kannst alles ändern – im Gegenzug aktualisiert er sich nicht von selbst.
+**shadcn/ui** ist keine klassische Bibliothek: Ein Befehl wie `npx shadcn@latest add dialog` kopiert die Komponente als Quellcode in dein Projekt. Du besitzt den Code und kannst alles ändern – im Gegenzug aktualisiert er sich nicht von selbst.
 
 ## Was passt?
 
@@ -75,4 +77,4 @@ import * as Dialog from '@radix-ui/react-dialog';
 - **Ein paar einfache Elemente**: selbst bauen – mit echten `<button>`- und `<label>`-Elementen.
 
 > [!TIP]
-> Bevor du einen Dialog selbst baust: Das HTML-Element `<dialog>` bringt Fokusverwaltung und Escape bereits mit. Für viele einfache Fälle reicht es.
+> Bevor du einen Dialog selbst baust: Das HTML-Element `<dialog>` bringt, mit `showModal()` geöffnet, Fokusverwaltung und Escape bereits mit. Für viele einfache Fälle reicht es.

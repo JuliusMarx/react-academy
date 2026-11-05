@@ -4,7 +4,7 @@ minutes: 9
 summary: |-
   - Every component describes its props with `type` or `interface`: optional ones with `?`, arbitrary content as `ReactNode`, callbacks e.g. as `() => void`.
   - `ComponentProps<'button'>` adopts all props of a native element. With `...rest` you pass them on – including `ref`, which is a normal prop since React 19.
-  - Type event handlers with `MouseEvent<HTMLButtonElement>`, `ChangeEvent<HTMLInputElement>` or `FormEvent<HTMLFormElement>`. If the handler is written inline in JSX, TypeScript infers the type itself.
+  - Type event handlers with `MouseEvent<HTMLButtonElement>`, `ChangeEvent<HTMLInputElement>` or `SubmitEvent<HTMLFormElement>`. If the handler is written inline in JSX, TypeScript infers the type itself.
   - Discriminated unions describe mutually exclusive props: after `props.status === 'error'`, TypeScript knows that `message` exists.
   - Generic components like `List<T>` work with any data type and still stay type-safe.
 
@@ -88,7 +88,7 @@ With `...rest` you pass on everything you don't need yourself – including `ref
 |---|---|
 | `onClick` | `(e: MouseEvent<HTMLButtonElement>) => void` |
 | `onChange` (input) | `(e: ChangeEvent<HTMLInputElement>) => void` |
-| `onSubmit` | `(e: FormEvent<HTMLFormElement>) => void` |
+| `onSubmit` | `(e: SubmitEvent<HTMLFormElement>) => void` |
 | `onKeyDown` | `(e: KeyboardEvent<HTMLElement>) => void` |
 
 If you write the handler directly in the JSX (`onChange={(e) => …}`), TypeScript infers the type itself.

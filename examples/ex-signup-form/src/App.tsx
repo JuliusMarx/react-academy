@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useState, type SubmitEvent } from 'react';
 
 export default function App() {
   const [thanks, setThanks] = useState('');
@@ -9,7 +9,7 @@ export default function App() {
   //         and the email contains an "@"
   // TODO 4: after submitting, #thanks shows "Thanks, <name>!" and both inputs are empty again
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     setThanks('');
   }

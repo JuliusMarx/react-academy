@@ -6,7 +6,7 @@ summary: |-
   - `set` updates the state: you pass only the changed fields and Zustand merges them with the rest. As with `useState`: new objects instead of mutation.
   - In TypeScript you write `create<BearState>()(…)` – the double parentheses are needed for type inference.
   - Components pick what they need with a selector and only re-render when exactly that value changes.
-  - Outside React, `useBearStore.getState()` reads and changes the store, and `subscribe()` reports changes.
+  - Outside React, `useBearStore.getState()` reads the store and calls actions (`getState().addBear()`), and `subscribe()` reports changes.
   - Middleware like `persist` (saves to `localStorage`) or `devtools` extends the store.
 
   ```ts

@@ -86,7 +86,7 @@ If components really should use the *same* state, lift it up or use Context.
 
 ## Rules
 
-- The name starts with `use` followed by an uppercase letter: `useOnlineStatus`, `useLocalStorage`. This is how React and the linter know the rules of hooks apply.
+- The name starts with `use` followed by an uppercase letter: `useOnlineStatus`, `useLocalStorage`. This is how the linter and the React Compiler know the rules of hooks apply.
 - The same rules apply as for built-in hooks: call them only at the top level, not inside conditions or loops.
 - A function that doesn't call any hooks doesn't need `use` – then it's just an ordinary helper function.
 

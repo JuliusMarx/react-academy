@@ -23,8 +23,9 @@ quiz:
     answer: 2
     explanation: "`0 && …` evaluates to `0`, and React renders numbers. Better to write `count > 0 && …`."
   - question: "How does a component make sure it displays nothing at all?"
-    options: ["`return undefined`","Call `hide()`","`return false` is forbidden","`return null`"]
+    options: ["`return 0`","Call `hide()`","Set `this.visible = false`","`return null`"]
     answer: 3
+    explanation: "`null` renders nothing (so do `false` and `undefined`). A `0`, on the other hand, would be shown as a number."
 ---
 
 # Conditional rendering

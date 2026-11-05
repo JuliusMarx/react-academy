@@ -3,7 +3,7 @@ title: useReducer
 minutes: 8
 summary: |-
   - `useReducer` collects all state changes in one **reducer function** instead of many event handlers.
-  - Handlers only report *what happened*: `dispatch({ type: 'added', title })`.
+  - Handlers only report *what happened*: `dispatch({ type: 'added', id: nextId++, title })`.
   - The reducer receives the current state and an action and returns the next state.
   - A TypeScript union type for the actions ensures every action has the right fields and every case is handled.
   - Reducers are pure: don't mutate, return new objects and arrays; no side effects like `fetch` or timers. In return, they can be tested without React.
@@ -13,7 +13,7 @@ summary: |-
   function todosReducer(todos: Todo[], action: Action): Todo[] {
     switch (action.type) {
       case 'added':
-        return [...todos, { id: nextId++, title: action.title, done: false }];
+        return [...todos, { id: action.id, title: action.title, done: false }];
       case 'toggled':
         return todos.map((t) => (t.id === action.id ? { ...t, done: !t.done } : t));
       case 'deleted':
@@ -65,7 +65,7 @@ Instead of describing *how* the state changes in every handler, you only report 
 setTodos([...todos, { id: nextId++, title, done: false }]);
 
 // with useReducer
-dispatch({ type: 'added', title });
+dispatch({ type: 'added', id: nextId++, title });
 ```
 
 ## The reducer
@@ -74,14 +74,14 @@ A reducer takes the current state and an action and returns the **next state**:
 
 ```ts
 type Action =
-  | { type: 'added'; title: string }
+  | { type: 'added'; id: number; title: string }
   | { type: 'toggled'; id: number }
   | { type: 'deleted'; id: number };
 
 function todosReducer(todos: Todo[], action: Action): Todo[] {
   switch (action.type) {
     case 'added':
-      return [...todos, { id: nextId++, title: action.title, done: false }];
+      return [...todos, { id: action.id, title: action.title, done: false }];
     case 'toggled':
       return todos.map((t) => (t.id === action.id ? { ...t, done: !t.done } : t));
     case 'deleted':
@@ -121,6 +121,8 @@ A reducer runs during rendering (twice in StrictMode). That's why:
 
 - **Don't mutate anything** – always return new objects and arrays.
 - **No side effects** – no `fetch`, no `localStorage`, no timers.
+
+That's why, in the example, the event handler creates the new ID (`nextId++`) and sends it along in the action – the reducer itself changes nothing outside.
 
 In return, it's easy to test: it's a perfectly ordinary function that needs no React.
 

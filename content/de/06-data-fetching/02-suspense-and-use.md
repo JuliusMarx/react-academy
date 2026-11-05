@@ -5,7 +5,7 @@ summary: |-
   - `<Suspense fallback={…}>` zeigt einen Platzhalter, solange eine Komponente darin noch wartet. Grenzen lassen sich verschachteln.
   - `use(promise)` liest den Wert eines Promise; ist es noch offen, **suspendiert** die Komponente.
   - Die Komponente beschreibt nur den fertigen Zustand – kein Ladezustand, kein Effekt, kein State. Ein abgelehntes Promise landet bei der nächsten Error Boundary.
-  - Anders als andere Hooks darf `use` in `if` und Schleifen stehen und liest auch Context.
+  - Anders als Hooks darf `use` in `if` und Schleifen stehen und liest auch Context.
   - Mit `useTransition` bleibt beim Wechsel der alte Inhalt sichtbar, bis der neue fertig ist; `isPending` zeigt, dass geladen wird.
 
   ```tsx
@@ -79,7 +79,7 @@ Kein Ladezustand, kein Effekt, kein State: Die Komponente beschreibt nur den fer
 > [!WARNING]
 > Erzeuge das Promise nicht direkt in derselben Komponente (`use(fetch(…))`). Bei jedem Rendern entstünde ein neues Promise, und die Komponente würde endlos suspendieren. Das Promise muss **gecacht** sein: in einem Modul-Cache wie im Beispiel, in einer Bibliothek oder als Prop aus einer Server Component.
 
-`use` ist besonders: Anders als andere Hooks darf es auch in `if`-Blöcken und Schleifen stehen. Es liest übrigens auch Context: `use(ThemeContext)`.
+`use` ist besonders: Anders als Hooks darf es auch in `if`-Blöcken und Schleifen stehen. Es liest übrigens auch Context: `use(ThemeContext)`.
 
 ## Transitions: Alten Inhalt behalten
 

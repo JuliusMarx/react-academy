@@ -6,7 +6,7 @@ summary: |-
   - Server Components laufen nur auf dem Server – ihr Code kommt nie im Browser an. Sie dürfen `async` sein und Daten direkt laden.
   - Sie haben keinen State und keine Event-Handler. Interaktives steckt in Client Components, markiert mit `'use client'` am Dateianfang; sie bekommen serialisierbare Props.
   - `'use server'` markiert Server Functions, die der Client aufrufen kann, etwa als Form Action.
-  - Server Components brauchen ein Framework wie Next.js oder React Router (Framework Mode). Eine reine Vite-App bleibt gut für Apps hinter einem Login, Werkzeuge und Dashboards.
+  - Server Components brauchen ein Framework wie Next.js. Eine reine Vite-App bleibt gut für Apps hinter einem Login, Werkzeuge und Dashboards.
 
   ```tsx
   export default async function ProductsPage() {
@@ -32,7 +32,7 @@ quiz:
     options: ["Die Datei läuft nur auf dem Server","Die Datei wird nicht gebaut","Ab hier beginnen Client-Komponenten, die im Browser interaktiv sind – mit State, Effekten und Event-Handlern","Die Komponente lädt Daten"]
     answer: 2
   - question: "Was empfiehlt das React-Team für neue Apps mit mehreren Seiten?"
-    options: ["Immer ohne Framework","jQuery","Nur Klassenkomponenten","Ein Framework wie Next.js oder React Router (Framework Mode)"]
+    options: ["Immer ohne Framework","jQuery","Nur Klassenkomponenten","Ein Framework wie Next.js"]
     answer: 3
 ---
 

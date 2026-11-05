@@ -4,7 +4,7 @@ minutes: 7
 summary: |-
   - With Vite you import CSS files directly into a component: `import './App.css'`. They apply to the whole page.
   - `className` takes a string; separate multiple classes with spaces. Build conditional classes with template strings, a ternary or the `clsx` package.
-  - `style` takes an **object** with camelCase properties. Numbers become pixels.
+  - `style` takes an **object** with camelCase properties. Numbers become pixels (except for unitless properties like `opacity` or `zIndex`).
   - Inline styles suit values that arise at runtime. `:hover`, `:focus` and media queries don't work with them.
   - Middle ground: the styling lives in CSS, only the value comes from React as a CSS variable.
 
@@ -79,7 +79,7 @@ import clsx from 'clsx';
 
 ## Inline Styles
 
-The `style` attribute takes an **object**. You write properties in camelCase, and numbers become pixels:
+The `style` attribute takes an **object**. You write properties in camelCase, and numbers become pixels (except for unitless properties like `opacity`, `zIndex` or `lineHeight`):
 
 ```tsx
 <div style={{ width: `${progress}%`, marginTop: 8, backgroundColor: color }} />

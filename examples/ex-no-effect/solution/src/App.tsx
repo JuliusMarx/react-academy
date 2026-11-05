@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useState, type SubmitEvent } from 'react';
 
 let nextId = 5;
 
@@ -15,7 +15,7 @@ export default function App() {
   const visible = items.filter((i) => i.name.toLowerCase().includes(query.toLowerCase()));
   const summary = `${visible.length} of ${items.length} shown`;
 
-  function add(e: FormEvent<HTMLFormElement>) {
+  function add(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     const name = String(new FormData(e.currentTarget).get('name')).trim();
     if (name) setItems([...items, { id: nextId++, name }]);

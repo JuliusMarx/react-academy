@@ -50,8 +50,8 @@ Listen erzeugst du in React mit der Array-Methode **`map`**: Aus jedem Datenelem
 
 ```tsx
 const fruits = [
-  { id: 1, name: 'Apfel' },
-  { id: 2, name: 'Banane' },
+  { id: 1, name: 'Apfel', inStock: true },
+  { id: 2, name: 'Banane', inStock: false },
 ];
 
 function FruitList() {

@@ -1,18 +1,16 @@
 export type Todo = { id: number; title: string; done: boolean };
 
 export type TodoAction =
-  | { type: 'added'; title: string }
+  | { type: 'added'; id: number; title: string }
   | { type: 'toggled'; id: number }
   | { type: 'deleted'; id: number }
   | { type: 'cleared-done' };
-
-let nextId = 3;
 
 // A reducer is a pure function: (current state, action) => next state.
 export function todosReducer(todos: Todo[], action: TodoAction): Todo[] {
   switch (action.type) {
     case 'added':
-      return [...todos, { id: nextId++, title: action.title, done: false }];
+      return [...todos, { id: action.id, title: action.title, done: false }];
     case 'toggled':
       return todos.map((t) => (t.id === action.id ? { ...t, done: !t.done } : t));
     case 'deleted':

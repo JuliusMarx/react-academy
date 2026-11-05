@@ -106,6 +106,6 @@ setCount((c) => c + 1); // now it really is +3
 
 ## Rules of Hooks
 
-Everything that starts with `use` is a **Hook**. You only call Hooks at the **top level** of a component – not inside conditions, loops, or nested functions. React associates state with each Hook by the order of the calls.
+Everything that starts with `use` is a **Hook**. You only call Hooks at the **top level** of a component – not inside conditions, loops, or nested functions. React associates state with each Hook by the order of the calls. (The only exception is `use`, which you'll meet in chapter 6.)
 
 ::tryit{use-state}

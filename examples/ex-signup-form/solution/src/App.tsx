@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useState, type SubmitEvent } from 'react';
 
 export default function App() {
   const [name, setName] = useState('');
@@ -8,7 +8,7 @@ export default function App() {
   // Derived during rendering – no extra state needed.
   const isValid = name.trim().length >= 2 && email.includes('@');
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     setThanks(`Thanks, ${name}!`);
     setName('');

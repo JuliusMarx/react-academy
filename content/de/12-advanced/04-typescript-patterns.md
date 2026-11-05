@@ -4,7 +4,7 @@ minutes: 9
 summary: |-
   - Jede Komponente beschreibt ihre Props mit `type` oder `interface`: optionale mit `?`, beliebigen Inhalt als `ReactNode`, Callbacks etwa als `() => void`.
   - `ComponentProps<'button'>` übernimmt alle Props eines nativen Elements. Mit `...rest` reichst du sie weiter – auch `ref`, das seit React 19 eine normale Prop ist.
-  - Event-Handler typisierst du mit `MouseEvent<HTMLButtonElement>`, `ChangeEvent<HTMLInputElement>` oder `FormEvent<HTMLFormElement>`. Steht der Handler direkt im JSX, leitet TypeScript den Typ selbst ab.
+  - Event-Handler typisierst du mit `MouseEvent<HTMLButtonElement>`, `ChangeEvent<HTMLInputElement>` oder `SubmitEvent<HTMLFormElement>`. Steht der Handler direkt im JSX, leitet TypeScript den Typ selbst ab.
   - Discriminated Unions beschreiben Props, die sich ausschließen: Nach `props.status === 'error'` weiß TypeScript, dass es `message` gibt.
   - Generische Komponenten wie `List<T>` arbeiten mit beliebigen Datentypen und bleiben trotzdem typsicher.
 
@@ -88,7 +88,7 @@ Mit `...rest` reichst du alles weiter, was du nicht selbst brauchst – auch `re
 |---|---|
 | `onClick` | `(e: MouseEvent<HTMLButtonElement>) => void` |
 | `onChange` (Input) | `(e: ChangeEvent<HTMLInputElement>) => void` |
-| `onSubmit` | `(e: FormEvent<HTMLFormElement>) => void` |
+| `onSubmit` | `(e: SubmitEvent<HTMLFormElement>) => void` |
 | `onKeyDown` | `(e: KeyboardEvent<HTMLElement>) => void` |
 
 Schreibst du den Handler direkt ins JSX (`onChange={(e) => …}`), leitet TypeScript den Typ selbst ab.

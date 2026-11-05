@@ -3,7 +3,7 @@ title: UI Tests with Playwright
 minutes: 7
 summary: |-
   - End-to-end tests run the real app in a real browser and click through it like a user – routing, data and forms all together.
-  - `npm init playwright@latest` creates `playwright.config.ts`, an `e2e/` folder and sample tests, and installs the browsers. With `webServer`, Playwright starts the dev server itself.
+  - `npm init playwright@latest` asks for the test folder (here `e2e/`), creates `playwright.config.ts` and sample tests, and installs the browsers. With `webServer`, Playwright starts the dev server itself.
   - The locators `getByRole`, `getByLabel` and `getByText` work like in Testing Library.
   - Actions and `expect` checks like `toBeVisible()` wait automatically (up to 5 seconds by default) – you almost never need your own `waitForTimeout` pauses.
   - `npx playwright test` runs in Chromium, Firefox and WebKit; `--ui`, `codegen` and `show-report` help you write and review tests.
@@ -38,7 +38,7 @@ Component tests check building blocks individually. **End-to-end tests** check t
 npm init playwright@latest
 ```
 
-The wizard creates a `playwright.config.ts`, an `e2e/` folder and example tests, and installs the browsers. To have Playwright start the app itself, you register the dev server:
+The wizard asks for a folder for your tests (default: `tests/`, here we use `e2e/`), creates a `playwright.config.ts` and example tests, and installs the browsers. To have Playwright start the app itself, you register the dev server:
 
 ```ts
 // playwright.config.ts
@@ -48,6 +48,7 @@ export default defineConfig({
   testDir: './e2e',
   use: { baseURL: 'http://localhost:5173' },
   webServer: { command: 'npm run dev', url: 'http://localhost:5173', reuseExistingServer: true },
+  // projects: Chromium, Firefox and WebKit – already set up by the wizard
 });
 ```
 

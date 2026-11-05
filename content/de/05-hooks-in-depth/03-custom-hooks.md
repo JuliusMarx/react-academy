@@ -86,7 +86,7 @@ Sollen Komponenten wirklich *denselben* State nutzen, verlagerst du ihn nach obe
 
 ## Regeln
 
-- Der Name beginnt mit `use` gefolgt von einem Großbuchstaben: `useOnlineStatus`, `useLocalStorage`. Daran erkennen React und der Linter, dass die Hook-Regeln gelten.
+- Der Name beginnt mit `use` gefolgt von einem Großbuchstaben: `useOnlineStatus`, `useLocalStorage`. Daran erkennen der Linter und der React Compiler, dass die Hook-Regeln gelten.
 - Für Hooks gelten dieselben Regeln wie für eingebaute: nur auf oberster Ebene aufrufen, nicht in Bedingungen oder Schleifen.
 - Eine Funktion, die keine Hooks aufruft, braucht kein `use` – dann ist sie eine ganz normale Hilfsfunktion.
 

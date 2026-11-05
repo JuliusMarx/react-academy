@@ -1,10 +1,10 @@
-import { useState, type FormEvent } from 'react';
+import { useState, type SubmitEvent } from 'react';
 
 export default function App() {
   const [log, setLog] = useState<string[]>([]);
   const add = (entry: string) => setLog((l) => [entry, ...l].slice(0, 5));
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault(); // otherwise the browser reloads the page
     const data = new FormData(e.currentTarget);
     add(`Form submitted: ${data.get('city')}`);

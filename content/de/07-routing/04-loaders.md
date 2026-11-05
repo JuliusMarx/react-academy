@@ -45,7 +45,7 @@ exercise:
     loads-recipe: Ein Klick auf **Risotto** zeigt Titel und Zeit
     direct-url: "`/recipes/1` direkt aufgerufen zeigt Pancakes"
     not-found: Ein unbekanntes Rezept zeigt **Recipe not found**
-    uses-loader: "Geladen wird im Loader mit `useLoaderData()`, ohne `useEffect`"
+    uses-loader: "Geladen wird im Loader, gelesen mit `useLoaderData()`, ohne `useEffect`"
 ---
 
 # Daten mit Loadern

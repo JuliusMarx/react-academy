@@ -102,7 +102,7 @@ const isValid = name.trim().length >= 2 && email.includes('@');
 If you only need the value on submit, an uncontrolled field with `defaultValue` and `FormData` is often enough:
 
 ```tsx
-function handleSubmit(e: FormEvent<HTMLFormElement>) {
+function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
   e.preventDefault();
   const email = new FormData(e.currentTarget).get('email');
 }

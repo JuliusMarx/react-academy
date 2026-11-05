@@ -50,8 +50,8 @@ In React, you create lists with the array method **`map`**: each data item becom
 
 ```tsx
 const fruits = [
-  { id: 1, name: 'Apple' },
-  { id: 2, name: 'Banana' },
+  { id: 1, name: 'Apple', inStock: true },
+  { id: 2, name: 'Banana', inStock: false },
 ];
 
 function FruitList() {

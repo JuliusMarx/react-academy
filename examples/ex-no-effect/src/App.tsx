@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useState, type SubmitEvent } from 'react';
 
 let nextId = 5;
 
@@ -23,7 +23,7 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
-  function add(e: FormEvent<HTMLFormElement>) {
+  function add(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     const name = String(new FormData(e.currentTarget).get('name')).trim();
     if (name) setItems([...items, { id: nextId++, name }]);

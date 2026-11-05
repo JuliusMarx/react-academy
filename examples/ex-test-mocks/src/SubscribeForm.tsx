@@ -1,10 +1,10 @@
-import { useState, type FormEvent } from 'react';
+import { useState, type SubmitEvent } from 'react';
 
 // The component under test – you don't need to change it.
 export default function SubscribeForm({ onSubscribe }: { onSubscribe: (email: string) => void }) {
   const [error, setError] = useState('');
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     const email = String(new FormData(e.currentTarget).get('email')).trim();
     if (!email.includes('@')) {

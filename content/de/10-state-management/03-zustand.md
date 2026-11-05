@@ -6,7 +6,7 @@ summary: |-
   - `set` ändert den State: Du gibst nur die geänderten Felder an, Zustand fügt sie mit dem Rest zusammen. Wie bei `useState` gilt: neue Objekte statt Veränderung.
   - Mit TypeScript schreibst du `create<BearState>()(…)` – die doppelten Klammern braucht die Typableitung.
   - Komponenten wählen mit einem Selektor aus, was sie brauchen, und rendern nur neu, wenn sich genau dieser Wert ändert.
-  - Außerhalb von React liest und ändert `useBearStore.getState()` den Store, `subscribe()` meldet Änderungen.
+  - Außerhalb von React liest `useBearStore.getState()` den Store und ruft Aktionen auf (`getState().addBear()`), `subscribe()` meldet Änderungen.
   - Middleware wie `persist` (speichert in `localStorage`) oder `devtools` erweitert den Store.
 
   ```ts

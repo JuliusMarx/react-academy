@@ -5,7 +5,7 @@ summary: |-
   - `<Suspense fallback={…}>` shows a placeholder as long as any component inside is still waiting. Boundaries can be nested.
   - `use(promise)` reads the value of a promise; if it isn't settled yet, the component **suspends**.
   - The component only describes the finished state – no loading state, no Effect, no state. A rejected promise goes to the nearest Error Boundary.
-  - Unlike other hooks, `use` may be called in `if` blocks and loops, and it reads Context too.
+  - Unlike hooks, `use` may be called in `if` blocks and loops, and it reads Context too.
   - With `useTransition`, the old content stays visible while the new one loads; `isPending` tells you loading is in progress.
 
   ```tsx
@@ -79,7 +79,7 @@ No loading state, no effect, no state: the component only describes the finished
 > [!WARNING]
 > Don't create the promise in the same component (`use(fetch(…))`). Every render would create a new promise, and the component would suspend endlessly. The promise must be **cached**: in a module cache as in the example, in a library, or as a prop from a Server Component.
 
-`use` is special: unlike other Hooks, it can also be called inside `if` blocks and loops. It can also read context: `use(ThemeContext)`.
+`use` is special: unlike Hooks, it can also be called inside `if` blocks and loops. It can also read context: `use(ThemeContext)`.
 
 ## Transitions: Keeping the Old Content
 

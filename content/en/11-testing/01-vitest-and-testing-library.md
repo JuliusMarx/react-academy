@@ -71,8 +71,14 @@ export default defineConfig({
 ```
 
 ```ts
-// src/setupTests.ts – matchers like toBeInTheDocument()
-import '@testing-library/jest-dom/vitest';
+// src/setupTests.ts
+import '@testing-library/jest-dom/vitest'; // matchers like toBeInTheDocument()
+import { cleanup } from '@testing-library/react';
+import { afterEach } from 'vitest';
+
+// Without `globals: true`, Testing Library doesn't clean up automatically:
+// unmount rendered components after each test yourself
+afterEach(() => cleanup());
 ```
 
 `npx vitest` runs all files ending in `.test.tsx` – in watch mode, it reruns them on every change.

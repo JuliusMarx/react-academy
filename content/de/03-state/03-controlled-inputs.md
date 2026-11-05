@@ -102,7 +102,7 @@ const isValid = name.trim().length >= 2 && email.includes('@');
 Brauchst du den Wert erst beim Absenden, reicht oft ein unkontrolliertes Feld mit `defaultValue` und `FormData`:
 
 ```tsx
-function handleSubmit(e: FormEvent<HTMLFormElement>) {
+function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
   e.preventDefault();
   const email = new FormData(e.currentTarget).get('email');
 }

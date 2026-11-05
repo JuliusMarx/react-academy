@@ -31,7 +31,7 @@ quiz:
     answer: 3
     explanation: "Erlaubt sind Ausdrücke, die einen Wert ergeben. Für Bedingungen nimmst du den ternären Operator oder `&&`."
   - question: "Wie gibst du zwei Elemente nebeneinander zurück, ohne ein zusätzliches `<div>`?"
-    options: ["Mit einem Fragment `<>…</>`", "Mit einem Array ohne Keys", "Mit zwei `return`-Anweisungen", "Gar nicht"]
+    options: ["Mit einem Fragment `<>…</>`", "Einfach zwei Tags direkt hintereinander zurückgeben", "Mit zwei `return`-Anweisungen", "Gar nicht"]
     answer: 0
 ---
 

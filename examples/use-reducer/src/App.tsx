@@ -1,6 +1,8 @@
 import { useReducer, useState } from 'react';
 import { todosReducer } from './todosReducer';
 
+let nextId = 3;
+
 export default function App() {
   const [todos, dispatch] = useReducer(todosReducer, [
     { id: 1, title: 'Learn useState', done: true },
@@ -15,7 +17,7 @@ export default function App() {
         onSubmit={(e) => {
           e.preventDefault();
           if (!title.trim()) return;
-          dispatch({ type: 'added', title });
+          dispatch({ type: 'added', id: nextId++, title }); // the ID is created here, not in the pure reducer
           setTitle('');
         }}
       >

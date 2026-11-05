@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useState, type SubmitEvent } from 'react';
 import { subscribe } from './api';
 
 export default function App() {
@@ -10,7 +10,7 @@ export default function App() {
   //   Read the email with formData.get('email') (the input needs name="email"),
   //   await subscribe(email) and then show "Subscribed: <email>" in #message.
   //   React clears the uncontrolled input by itself after the action.
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     await subscribe(email);
     setMessage(`Subscribed: ${email}`);

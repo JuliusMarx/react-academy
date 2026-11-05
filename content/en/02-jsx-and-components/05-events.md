@@ -10,7 +10,7 @@ summary: |-
   - Your own components can accept handlers as props – that way the parent decides what happens.
 
   ```tsx
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     console.log(data.get('city'));
@@ -64,9 +64,9 @@ Handlers are usually named `handle` + event (`handleClick`, `handleSubmit`), and
 Every handler receives an event object. React passes through the familiar properties and methods:
 
 ```tsx
-import type { FormEvent } from 'react';
+import type { SubmitEvent } from 'react';
 
-function handleSubmit(e: FormEvent<HTMLFormElement>) {
+function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
   e.preventDefault(); // no page reload
   const data = new FormData(e.currentTarget);
   console.log(data.get('city'));
