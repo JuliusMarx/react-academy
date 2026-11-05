@@ -1,0 +1,108 @@
+:host {
+  display: block;
+}
+
+.review {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.intro,
+.step {
+  color: var(--text-muted);
+}
+
+.step {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.status {
+  margin: 1.5rem 0 1rem;
+  font-weight: 600;
+}
+
+h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.15rem;
+  scroll-margin-top: calc(var(--header-height) + 1rem);
+}
+
+.question {
+  margin: 0;
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--surface);
+}
+
+.from {
+  margin: 0 0 0.3rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.35rem 0;
+  padding: 0.55rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--surface-hover);
+  }
+
+  &.selected {
+    border-color: var(--accent);
+  }
+
+  &:focus-within {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+
+  input {
+    accent-color: var(--accent);
+  }
+}
+
+.question.wrong .option.selected {
+  border-color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.option.is-answer {
+  border-color: var(--success);
+  background: var(--success-soft);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 1.25rem 0;
+}
+
+.feedback {
+  flex-basis: 100%;
+  margin: 0;
+}
+
+.question.correct ~ .actions .feedback strong {
+  color: var(--success);
+}
+
+.question.wrong ~ .actions .feedback strong {
+  color: var(--danger);
+}
+
+/* Template whitespace between the verdict and the explanation is stripped. */
+.feedback strong {
+  margin-right: 0.3rem;
+}

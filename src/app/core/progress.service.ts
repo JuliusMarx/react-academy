@@ -7,17 +7,35 @@ export interface QuizResult {
   date: string;
 }
 
+/** A quiz question in the review queue (Leitner system). */
+export interface ReviewItem {
+  /** 0 after a wrong answer; each correct review moves it up one box. */
+  box: number;
+  /** ISO date from which the question is due again. */
+  due: string;
+}
+
+/** Days until the next review per box. Answering correctly in the last box removes the question. */
+export const REVIEW_INTERVALS = [1, 3, 7];
+
+const DAY = 24 * 60 * 60 * 1000;
+
+/** Key of a quiz question in the review queue: "<lesson id>#<question index>", the same in every language. */
+export const reviewKey = (lessonId: string, question: number) => `${lessonId}#${question}`;
+
 export interface Progress {
   version: 1;
   completedLessons: string[];
   quizResults: Record<string, QuizResult>;
   /** Lesson ids whose exercise passed all checks. Added later – older exports don't have it. */
   solvedExercises: string[];
+  /** Quiz questions to review, by reviewKey(). Added later – older exports don't have it. */
+  review: Record<string, ReviewItem>;
   lastLesson?: string;
 }
 
 const STORAGE_KEY = 'react-academy.progress';
-const emptyProgress = (): Progress => ({ version: 1, completedLessons: [], quizResults: {}, solvedExercises: [] });
+const emptyProgress = (): Progress => ({ version: 1, completedLessons: [], quizResults: {}, solvedExercises: [], review: {} });
 
 @Service()
 export class ProgressService {
@@ -31,10 +49,13 @@ export class ProgressService {
     afterNextRender(() => {
       if (this.pending) this.state.set(this.pending);
       this.pending = undefined;
+      this.loaded.set(true);
     });
   }
 
   readonly progress = this.state.asReadonly();
+  /** False during prerendering and hydration, while the stored progress isn't published yet. */
+  readonly loaded = signal(false);
   readonly completed = computed(() => new Set(this.state().completedLessons));
   readonly solvedExercises = computed(() => new Set(this.state().solvedExercises));
 
@@ -66,6 +87,37 @@ export class ProgressService {
   markExerciseSolved(lessonId: string): void {
     if (this.solvedExercises().has(lessonId)) return;
     this.update((p) => ({ ...p, solvedExercises: [...p.solvedExercises, lessonId] }));
+  }
+
+  /** Adds questions answered wrongly to the review queue, due tomorrow. */
+  addToReview(keys: string[], now = Date.now()): void {
+    if (keys.length === 0) return;
+    const item = { box: 0, due: dueDate(0, now) };
+    this.update((p) => ({ ...p, review: { ...p.review, ...Object.fromEntries(keys.map((key) => [key, item])) } }));
+  }
+
+  /** Records a review answer: correct moves the question up a box (or out of the queue), wrong starts it over. */
+  recordReview(key: string, correct: boolean, now = Date.now()): void {
+    this.update((p) => {
+      const review = { ...p.review };
+      const box = correct ? (review[key]?.box ?? 0) + 1 : 0;
+      if (box >= REVIEW_INTERVALS.length) delete review[key];
+      else review[key] = { box, due: dueDate(box, now) };
+      return { ...p, review };
+    });
+  }
+
+  /** Removes questions from the queue, e.g. ones that no longer exist in the content. */
+  removeFromReview(keys: string[]): void {
+    this.update((p) => ({ ...p, review: Object.fromEntries(Object.entries(p.review).filter(([key]) => !keys.includes(key))) }));
+  }
+
+  /** Review keys that are due at `now`, the longest overdue first. */
+  dueReviews(now = Date.now()): string[] {
+    return Object.entries(this.state().review)
+      .filter(([, item]) => Date.parse(item.due) <= now)
+      .sort(([, a], [, b]) => a.due.localeCompare(b.due))
+      .map(([key]) => key);
   }
 
   visit(lessonId: string): void {
@@ -107,4 +159,11 @@ export class ProgressService {
     const stored = this.storage.read<Progress>(STORAGE_KEY);
     return stored?.version === 1 ? { ...emptyProgress(), ...stored } : undefined;
   }
+}
+
+/** Start of the local day `REVIEW_INTERVALS[box]` days after `now`, so "tomorrow" means from midnight. */
+function dueDate(box: number, now: number): string {
+  const day = new Date(now + REVIEW_INTERVALS[box] * DAY);
+  day.setHours(0, 0, 0, 0);
+  return day.toISOString();
 }

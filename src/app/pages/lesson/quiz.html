@@ -49,6 +49,10 @@
       </p>
       @if (!perfect()) {
         <button type="button" class="button secondary" (click)="retry()">{{ text().retry }}</button>
+        <p class="review-hint">
+          {{ text().reviewAdded }}
+          <a [routerLink]="['/', lang(), 'review']">{{ text().review }}</a>
+        </p>
       }
     }
   </div>

@@ -1,3 +1,10 @@
+@if (reviewDue(); as count) {
+  <p class="review-banner">
+    <span>{{ text().reviewHome(count) }}</span>
+    <a class="button" [routerLink]="['/', lang(), 'review']">{{ text().reviewHomeLink }} →</a>
+  </p>
+}
+
 <section class="hero">
   <h1>{{ text().appName }}</h1>
   <p>{{ text().tagline }}</p>

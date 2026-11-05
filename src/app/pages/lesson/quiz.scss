@@ -77,3 +77,15 @@
 .result {
   margin: 0;
 }
+
+.review-hint {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* Template whitespace between the verdict and the explanation is stripped. */
+.feedback strong {
+  margin-right: 0.3rem;
+}

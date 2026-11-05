@@ -1,12 +1,13 @@
 import { Component, computed, inject, input, linkedSignal } from '@angular/core';
 import { Lang, QuizQuestion } from '../../content/content.model';
-import { ProgressService } from '../../core/progress.service';
+import { RouterLink } from '@angular/router';
+import { ProgressService, reviewKey } from '../../core/progress.service';
 import { UI_TEXT } from '../../core/ui-text';
 import { SafeHtmlPipe } from '../../shared/safe-html.pipe';
 
 @Component({
   selector: 'app-quiz',
-  imports: [SafeHtmlPipe],
+  imports: [RouterLink, SafeHtmlPipe],
   templateUrl: './quiz.html',
   styleUrl: './quiz.scss',
 })
@@ -41,6 +42,8 @@ export class Quiz {
     this.submitted.set(true);
     this.progress.saveQuizResult(this.lessonId(), this.score(), this.questions().length);
     if (this.perfect()) this.progress.markCompleted(this.lessonId());
+    const wrong = this.questions().flatMap((q, i) => (this.answers()[i] === q.answer ? [] : [reviewKey(this.lessonId(), i)]));
+    this.progress.addToReview(wrong);
   }
 
   protected retry(): void {

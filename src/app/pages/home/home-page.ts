@@ -53,6 +53,8 @@ export default class HomePage {
   });
   protected readonly lessonCount = computed(() => this.content.allLessons(this.lang()).length);
   protected readonly hasStarted = computed(() => !!this.progress.progress().lastLesson);
+  /** Due review questions; 0 until the stored progress is loaded (the prerendered page knows none). */
+  protected readonly reviewDue = computed(() => (this.progress.loaded() ? this.progress.dueReviews().length : 0));
 
   constructor() {
     effect(() => this.title.setTitle(this.text().appName));

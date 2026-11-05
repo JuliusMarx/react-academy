@@ -1,0 +1,66 @@
+<div class="review">
+  @if (cards() === null) {
+    <h1>{{ text().review }}</h1>
+    <p class="intro">{{ text().reviewIntro }}</p>
+
+    @if (ready()) {
+      @if (due().length) {
+        <p class="status">{{ text().reviewDue(due().length) }}</p>
+        <button type="button" class="button" (click)="start(due())">{{ text().reviewStart }} →</button>
+      } @else if (allKeys().length) {
+        <p class="status">{{ text().reviewNothingDue }} {{ text().reviewUpcoming(allKeys().length, nextInDays()) }}</p>
+        <button type="button" class="button secondary" (click)="start(allKeys())">{{ text().reviewPracticeNow }}</button>
+      } @else {
+        <p class="status">{{ text().reviewEmpty }}</p>
+        <a class="button secondary" [routerLink]="['/', lang()]">{{ text().backHome }}</a>
+      }
+    }
+  } @else if (current(); as card) {
+    <h1>{{ text().review }}</h1>
+    <p class="step">{{ text().reviewProgress(index() + 1, cards()!.length) }}</p>
+
+    <fieldset
+      class="question"
+      aria-labelledby="review-question"
+      [class.correct]="checked() && isCorrect()"
+      [class.wrong]="checked() && !isCorrect()"
+    >
+      <p class="from">
+        {{ text().reviewFrom }}
+        <a [routerLink]="['/', lang(), card.lesson.chapter, card.lesson.slug]">{{ card.lesson.title }}</a>
+      </p>
+      <h2 id="review-question" #heading tabindex="-1" [innerHTML]="card.question.question | safeHtml"></h2>
+      @for (option of card.question.options; track $index; let oi = $index) {
+        <label class="option" [class.selected]="selected() === oi" [class.is-answer]="checked() && oi === card.question.answer">
+          <input
+            type="radio"
+            name="review-option"
+            [checked]="selected() === oi"
+            [disabled]="checked()"
+            (change)="selected.set(oi)"
+          />
+          <span [innerHTML]="option | safeHtml"></span>
+        </label>
+      }
+    </fieldset>
+
+    <div class="actions" aria-live="polite">
+      @if (!checked()) {
+        <button type="button" class="button" [disabled]="selected() === null" (click)="check()">{{ text().check }}</button>
+      } @else {
+        <p class="feedback">
+          <strong>{{ isCorrect() ? text().correct : text().wrong }}.</strong>
+          @if (card.question.explanation) {
+            <span [innerHTML]="card.question.explanation | safeHtml"></span>
+          }
+        </p>
+        <button type="button" class="button" (click)="next()">{{ isLast() ? text().evaluate : text().next + ' →' }}</button>
+      }
+    </div>
+  } @else {
+    <h1>{{ text().review }}</h1>
+    <h2 #heading tabindex="-1">{{ text().reviewDone(correctCount(), cards()!.length) }}</h2>
+    <p class="intro">{{ text().reviewDoneHint }}</p>
+    <a class="button" [routerLink]="['/', lang()]">{{ text().backHome }}</a>
+  }
+</div>

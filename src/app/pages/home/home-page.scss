@@ -199,3 +199,17 @@
     font-weight: 600;
   }
 }
+
+.review-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  margin: 0 0 1.5rem;
+  padding: 0.9rem 1.25rem;
+  border: 1px solid var(--accent);
+  border-radius: 0.75rem;
+  background: var(--surface);
+  font-weight: 600;
+}

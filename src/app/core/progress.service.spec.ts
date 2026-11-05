@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { ProgressService } from './progress.service';
+import { ProgressService, reviewKey } from './progress.service';
 
 describe('ProgressService', () => {
   let service: ProgressService;
@@ -49,5 +49,40 @@ describe('ProgressService', () => {
   it('rejects invalid imports', () => {
     expect(service.importJson('not json')).toBe(false);
     expect(service.importJson('{"version":2}')).toBe(false);
+  });
+
+  describe('review queue', () => {
+    const day = 24 * 60 * 60 * 1000;
+    const now = new Date(2026, 10, 5, 18, 0).getTime();
+    const key = reviewKey('a/one', 1);
+
+    it('adds wrong answers for tomorrow and moves them up a box per correct review', () => {
+      service.addToReview([key], now);
+      expect(service.dueReviews(now)).toEqual([]);
+      // Due from midnight on, not only 24 hours later.
+      expect(service.dueReviews(new Date(2026, 10, 6, 0, 1).getTime())).toEqual([key]);
+
+      service.recordReview(key, true, now + day);
+      expect(service.progress().review[key].box).toBe(1);
+      expect(service.dueReviews(now + 3 * day)).toEqual([]);
+      expect(service.dueReviews(now + 4 * day)).toEqual([key]);
+    });
+
+    it('starts a question over after a wrong review and drops it after the last box', () => {
+      service.addToReview([key], now);
+      service.recordReview(key, true, now);
+      service.recordReview(key, false, now);
+      expect(service.progress().review[key].box).toBe(0);
+
+      service.recordReview(key, true, now);
+      service.recordReview(key, true, now);
+      service.recordReview(key, true, now);
+      expect(service.progress().review[key]).toBeUndefined();
+    });
+
+    it('accepts older exports without a review queue', () => {
+      expect(service.importJson('{"version":1,"completedLessons":[],"quizResults":{}}')).toBe(true);
+      expect(service.dueReviews()).toEqual([]);
+    });
   });
 });
