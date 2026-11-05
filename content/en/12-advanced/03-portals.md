@@ -1,6 +1,28 @@
 ---
 title: Portals
 minutes: 6
+summary: |-
+  - `createPortal(jsx, element)` from `react-dom` renders into a different place in the DOM, usually `document.body` – so an `overflow: hidden` or a `z-index` higher up can't clip your dialog.
+  - Only the DOM tree changes: for React, the portal stays a normal child and receives props and context like any other.
+  - Events bubble up the React tree: a click inside the dialog also triggers the parent component's `onClick`.
+  - An accessible dialog needs `role="dialog"`, `aria-modal="true"` and a title via `aria-labelledby`.
+  - Also: move focus into the dialog on open and back on close, **Escape** closes it, and Tab can't leave it (focus trap).
+
+  ```tsx
+  function Modal({ children, onClose }: ModalProps) {
+    return createPortal(
+      <div className="backdrop">
+        <div role="dialog" aria-modal="true">
+          {children}
+          <button onClick={onClose}>Close</button>
+        </div>
+      </div>,
+      document.body,
+    );
+  }
+  ```
+
+  > [!TIP] The HTML `<dialog>` element with `showModal()` already handles focus, Escape and the top layer by itself – no portal needed.
 quiz:
   - question: "Where does `createPortal(<Dialog />, document.body)` render the dialog?"
     options: ["Into the parent component", "Directly into `document.body` – outside the parent component's DOM tree", "Into a new window", "Nowhere, you still need `render()`"]

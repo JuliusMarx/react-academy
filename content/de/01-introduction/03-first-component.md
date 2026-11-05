@@ -1,6 +1,30 @@
 ---
 title: Die erste Komponente
 minutes: 7
+summary: |-
+  - Eine Komponente ist eine JavaScript-Funktion, die JSX zurückgibt – oder `null`, wenn nichts angezeigt werden soll.
+  - Der Name beginnt mit einem Großbuchstaben: `<Welcome />` ist eine Komponente, `<welcome />` hält React für ein HTML-Element.
+  - Du verwendest eine Komponente wie ein HTML-Tag, so oft du willst.
+  - Mehrzeiliges JSX setzt du nach `return` in runde Klammern.
+  - Größere Komponenten bekommen eine eigene Datei. `export default` erlaubt eine Hauptkomponente pro Datei, benannte Exporte (`export function Avatar`) beliebig viele. Bleib im Projekt einheitlich.
+
+  ```tsx
+  function Welcome() {
+    return <p>Willkommen in der React Academy!</p>;
+  }
+
+  export default function App() {
+    return (
+      <main>
+        <h1>Komponenten</h1>
+        <Welcome />
+        <Welcome />
+      </main>
+    );
+  }
+  ```
+
+  > [!WARNING] Definiere Komponenten nie innerhalb anderer Komponenten – sie werden bei jedem Rendern neu erzeugt und verlieren ihren State.
 quiz:
   - question: "Warum muss ein Komponentenname mit einem Großbuchstaben beginnen?"
     options: ["Sonst hält React `<welcome />` für ein HTML-Element","Das ist nur eine Stilregel","Wegen TypeScript","Damit die Datei gefunden wird"]

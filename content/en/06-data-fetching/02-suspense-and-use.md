@@ -1,6 +1,25 @@
 ---
 title: use() and Suspense
 minutes: 8
+summary: |-
+  - `<Suspense fallback={…}>` shows a placeholder as long as any component inside is still waiting. Boundaries can be nested.
+  - `use(promise)` reads the value of a promise; if it isn't settled yet, the component **suspends**.
+  - The component only describes the finished state – no loading state, no Effect, no state. A rejected promise goes to the nearest Error Boundary.
+  - Unlike other hooks, `use` may be called in `if` blocks and loops, and it reads Context too.
+  - With `useTransition`, the old content stays visible while the new one loads; `isPending` tells you loading is in progress.
+
+  ```tsx
+  function Profile({ userPromise }: { userPromise: Promise<User> }) {
+    const user = use(userPromise);
+    return <h2>{user.name}</h2>;
+  }
+
+  <Suspense fallback={<p>Loading …</p>}>
+    <Profile userPromise={userPromise} />
+  </Suspense>
+  ```
+
+  > [!WARNING] No `use(fetch(…))` in the same component – the promise must be cached, or it suspends forever.
 quiz:
   - question: "What happens when a component calls `use(promise)` and the promise hasn't resolved yet?"
     options: ["It returns `undefined`", "It 'suspends' – the nearest `<Suspense>` boundary shows its fallback", "It throws an error that crashes the app", "It blocks and waits"]

@@ -1,6 +1,29 @@
 ---
 title: Component Libraries
 minutes: 6
+summary: |-
+  - Dialogs, dropdowns or date pickers that work with keyboard and screen reader are a lot of work – that's what libraries are for.
+  - **Fully styled** (MUI, Mantine, Chakra UI): ready-made components with their own design, customizable via themes.
+  - **Headless** (Radix UI, React Aria, Headless UI, Base UI): behavior, focus, keyboard control and ARIA – you do the look, e.g. with Tailwind.
+  - **shadcn/ui** copies the components into your project as source code (`npx shadcn add dialog`). You can change everything, but it doesn't update itself.
+  - Rule of thumb: quick internal app → styled library; your own design → headless or shadcn/ui; a few simple elements → build them yourself.
+
+  ```tsx
+  import * as Dialog from '@radix-ui/react-dialog';
+
+  <Dialog.Root>
+    <Dialog.Trigger>Open</Dialog.Trigger>
+    <Dialog.Portal>
+      <Dialog.Overlay className="fixed inset-0 bg-black/40" />
+      <Dialog.Content className="rounded-xl bg-white p-6">
+        <Dialog.Title>Settings</Dialog.Title>
+        <Dialog.Close>Close</Dialog.Close>
+      </Dialog.Content>
+    </Dialog.Portal>
+  </Dialog.Root>
+  ```
+
+  > [!TIP] For many simple cases the HTML `<dialog>` element is enough – it already brings focus management and Escape handling.
 quiz:
   - question: "What is a headless library like Radix UI or React Aria?"
     options: ["Ready-made behavior and accessibility without a predefined look – you do the styling yourself", "A library without JavaScript", "A library for servers only", "A CSS framework"]

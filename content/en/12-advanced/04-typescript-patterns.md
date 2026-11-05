@@ -1,6 +1,24 @@
 ---
 title: TypeScript Patterns
 minutes: 9
+summary: |-
+  - Every component describes its props with `type` or `interface`: optional ones with `?`, arbitrary content as `ReactNode`, callbacks e.g. as `() => void`.
+  - `ComponentProps<'button'>` adopts all props of a native element. With `...rest` you pass them on – including `ref`, which is a normal prop since React 19.
+  - Type event handlers with `MouseEvent<HTMLButtonElement>`, `ChangeEvent<HTMLInputElement>` or `FormEvent<HTMLFormElement>`. If the handler is written inline in JSX, TypeScript infers the type itself.
+  - Discriminated unions describe mutually exclusive props: after `props.status === 'error'`, TypeScript knows that `message` exists.
+  - Generic components like `List<T>` work with any data type and still stay type-safe.
+
+  ```tsx
+  import type { ComponentProps } from 'react';
+
+  type ButtonProps = ComponentProps<'button'> & { variant?: 'primary' | 'danger' };
+
+  function Button({ variant = 'primary', className, ...rest }: ButtonProps) {
+    return <button {...rest} className={`btn btn-${variant} ${className ?? ''}`} />;
+  }
+
+  <Button type="submit" disabled={saving} aria-label="Save" />;
+  ```
 quiz:
   - question: "How do you give your own button component all the props of a regular `<button>`?"
     options: ["With `ComponentProps<'button'>`","With `any`","By writing out every prop individually","You can't"]

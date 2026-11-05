@@ -1,6 +1,31 @@
 ---
 title: useActionState
 minutes: 9
+summary: |-
+  - `useActionState(action, initialState)` returns `[state, formAction, isPending]`.
+  - The action receives the **previous state** and the `FormData`. Whatever it returns becomes the new state.
+  - Pass the returned `formAction` to the form, not your own function. `isPending` is `true` while it runs.
+  - Return expected errors (invalid input) as state. Thrown errors go to the nearest Error Boundary.
+  - React resets the form after **every** action. Return the inputs in the state and set them as `defaultValue` – but not passwords.
+
+  ```tsx
+  async function subscribe(prev: State, formData: FormData): Promise<State> {
+    const email = String(formData.get('email'));
+    if (!email.includes('@')) return { error: 'Please enter a valid email.' };
+    await api.subscribe(email);
+    return { error: null };
+  }
+
+  const [state, formAction, isPending] = useActionState(subscribe, { error: null });
+
+  <form action={formAction}>
+    <input name="email" aria-label="Email" />
+    {state.error && <p role="alert">{state.error}</p>}
+    <button disabled={isPending}>Subscribe</button>
+  </form>
+  ```
+
+  > [!TIP] Also validate in the browser with `required`, `minLength` or `type="email"` – but that never replaces the check in the action.
 quiz:
   - question: "What does `useActionState(action, initialState)` return?"
     options: ["Only the state","`[formData, setFormData]`","A promise","`[state, formAction, isPending]`"]

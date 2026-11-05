@@ -271,3 +271,9 @@ pre {
     transition: none !important;
   }
 }
+
+/* Reading mode (ReadingModeService): lessons render the summary and the full text, CSS shows one. */
+:root:not([data-reading='short']) .short-only,
+:root[data-reading='short'] .full-only {
+  display: none !important;
+}

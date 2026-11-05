@@ -1,6 +1,28 @@
 ---
 title: Portale
 minutes: 6
+summary: |-
+  - `createPortal(jsx, element)` aus `react-dom` rendert an eine andere Stelle im DOM, meist `document.body` – so schneiden `overflow: hidden` oder ein `z-index` weiter oben Dialoge nicht ab.
+  - Nur der DOM-Baum ändert sich: Für React bleibt das Portal ein normales Kind und bekommt Props und Context wie jedes andere.
+  - Events steigen im React-Baum auf: Ein Klick im Dialog löst auch `onClick` der Elternkomponente aus.
+  - Ein barrierefreier Dialog braucht `role="dialog"`, `aria-modal="true"` und einen Titel über `aria-labelledby`.
+  - Außerdem: Fokus beim Öffnen hinein- und beim Schließen zurücksetzen, **Escape** schließt, und Tab verlässt den Dialog nicht (Focus Trap).
+
+  ```tsx
+  function Modal({ children, onClose }: ModalProps) {
+    return createPortal(
+      <div className="backdrop">
+        <div role="dialog" aria-modal="true">
+          {children}
+          <button onClick={onClose}>Schließen</button>
+        </div>
+      </div>,
+      document.body,
+    );
+  }
+  ```
+
+  > [!TIP] Das HTML-Element `<dialog>` mit `showModal()` erledigt Fokus, Escape und die oberste Ebene schon selbst – ganz ohne Portal.
 quiz:
   - question: "Wohin rendert `createPortal(<Dialog />, document.body)` den Dialog?"
     options: ["In die Elternkomponente", "Direkt in `document.body` – außerhalb des DOM-Baums der Elternkomponente", "In ein neues Fenster", "Nirgends, man braucht noch `render()`"]

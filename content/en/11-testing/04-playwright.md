@@ -1,6 +1,24 @@
 ---
 title: UI Tests with Playwright
 minutes: 7
+summary: |-
+  - End-to-end tests run the real app in a real browser and click through it like a user – routing, data and forms all together.
+  - `npm init playwright@latest` creates `playwright.config.ts`, an `e2e/` folder and sample tests, and installs the browsers. With `webServer`, Playwright starts the dev server itself.
+  - The locators `getByRole`, `getByLabel` and `getByText` work like in Testing Library.
+  - Actions and `expect` checks like `toBeVisible()` wait automatically (up to 5 seconds by default) – you almost never need your own `waitForTimeout` pauses.
+  - `npx playwright test` runs in Chromium, Firefox and WebKit; `--ui`, `codegen` and `show-report` help you write and review tests.
+  - Write many component tests and a few end-to-end tests for the most important flows.
+
+  ```ts
+  test('adds a new todo', async ({ page }) => {
+    await page.goto('/');
+    await page.getByLabel('New todo').fill('Learn Playwright');
+    await page.getByRole('button', { name: 'Add' }).click();
+    await expect(page.getByRole('listitem').filter({ hasText: 'Learn Playwright' })).toBeVisible();
+  });
+  ```
+
+  > [!NOTE] Playwright needs real browsers, so it doesn't run in this course's browser editor – try it in a local project.
 quiz:
   - question: "What sets a Playwright test apart from a component test?"
     options: ["Nothing", "It starts the whole app in a real browser and clicks through it like a user", "It runs without a browser", "It only tests CSS"]

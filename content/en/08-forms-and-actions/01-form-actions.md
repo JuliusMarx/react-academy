@@ -1,6 +1,28 @@
 ---
 title: Form Actions
 minutes: 7
+summary: |-
+  - Since React 19 you pass a function to `<form action={fn}>`. It is called on submit with a `FormData` object.
+  - Every field with a `name` is in it: `formData.get('title')`. No `preventDefault` needed.
+  - The action may be async. React runs it as a transition, so the page stays responsive.
+  - When the action finishes, React resets the form: uncontrolled fields are empty again or back to their `defaultValue`.
+  - You only need state per field if you want to react while typing (live preview, character counter).
+  - A button can have its own action with `formAction={fn}`, e.g. for "Delete".
+
+  ```tsx
+  function NewTodo() {
+    async function addTodo(formData: FormData) {
+      await saveTodo(String(formData.get('title')));
+    }
+
+    return (
+      <form action={addTodo}>
+        <input name="title" aria-label="Title" />
+        <button type="submit">Add</button>
+      </form>
+    );
+  }
+  ```
 quiz:
   - question: "What does a function you pass to `<form action={…}>` receive?"
     options: ["The submit event","The component's state","A `FormData` object with the form's fields","Nothing"]

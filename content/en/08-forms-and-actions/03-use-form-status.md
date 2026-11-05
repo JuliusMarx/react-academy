@@ -1,6 +1,27 @@
 ---
 title: useFormStatus
 minutes: 6
+summary: |-
+  - `useFormStatus` comes from `react-dom` and returns the status of the form the component sits in – no props needed.
+  - `pending` is `true` while the action runs. There's also `data` (the submitted `FormData` or `null`), `method` and `action`.
+  - With `data` you can show *what* is being saved: `data.get('title')`.
+  - Ideal for reusable pieces inside the form: submit buttons, loading indicators, fields that lock while sending.
+  - In the component that owns the form, use `isPending` from `useActionState` instead.
+
+  ```tsx
+  import { useFormStatus } from 'react-dom';
+
+  function SubmitButton({ children }: { children: string }) {
+    const { pending } = useFormStatus();
+    return (
+      <button type="submit" disabled={pending}>
+        {pending ? 'Saving …' : children}
+      </button>
+    );
+  }
+  ```
+
+  > [!WARNING] If you call `useFormStatus` in the component that renders the `<form>` itself, `pending` is always `false`.
 quiz:
   - question: "Where do you import `useFormStatus` from?"
     options: ["`react`","`react-hook-form`","`react-router`","`react-dom`"]

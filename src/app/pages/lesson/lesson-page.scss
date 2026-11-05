@@ -102,3 +102,52 @@
     }
   }
 }
+
+.reading-mode {
+  display: inline-flex;
+  margin: 0 0 1.25rem;
+  padding: 0.2rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+
+  button {
+    padding: 0.3rem 0.9rem;
+    border: 0;
+    border-radius: 999px;
+    background: none;
+    color: var(--text-muted);
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--text);
+    }
+
+    &[aria-pressed='true'] {
+      background: var(--accent);
+      color: var(--on-accent, #fff);
+    }
+  }
+}
+
+.summary {
+  padding: 0.25rem 1.25rem;
+  border-left: 4px solid var(--accent);
+  border-radius: 0 0.6rem 0.6rem 0;
+  background: var(--accent-soft);
+}
+
+.summary-hint {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+@media (min-width: 1280px) {
+  // The summary has no table of contents, so the layout keeps one centred column.
+  :host-context([data-reading='short']) .layout {
+    grid-template-columns: minmax(0, var(--content-width));
+  }
+}

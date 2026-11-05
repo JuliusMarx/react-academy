@@ -1,6 +1,31 @@
 ---
 title: useActionState
 minutes: 9
+summary: |-
+  - `useActionState(action, initialState)` liefert `[state, formAction, isPending]`.
+  - Die Action bekommt den **vorherigen State** und die `FormData`. Was sie zurückgibt, wird der neue State.
+  - Dem Formular übergibst du die zurückgegebene `formAction`, nicht deine eigene Funktion. `isPending` ist `true`, solange sie läuft.
+  - Erwartbare Fehler (ungültige Eingaben) gibst du als State zurück. Geworfene Fehler landen bei der nächsten Error Boundary.
+  - React setzt das Formular nach **jeder** Action zurück. Gib die Eingaben im State mit zurück und setze sie als `defaultValue` – Passwörter nicht.
+
+  ```tsx
+  async function subscribe(prev: State, formData: FormData): Promise<State> {
+    const email = String(formData.get('email'));
+    if (!email.includes('@')) return { error: 'Bitte eine gültige E-Mail eingeben.' };
+    await api.subscribe(email);
+    return { error: null };
+  }
+
+  const [state, formAction, isPending] = useActionState(subscribe, { error: null });
+
+  <form action={formAction}>
+    <input name="email" aria-label="E-Mail" />
+    {state.error && <p role="alert">{state.error}</p>}
+    <button disabled={isPending}>Abonnieren</button>
+  </form>
+  ```
+
+  > [!TIP] Prüfe zusätzlich mit `required`, `minLength` oder `type="email"` im Browser – das ersetzt aber nie die Prüfung in der Action.
 quiz:
   - question: "Was gibt `useActionState(action, initialState)` zurück?"
     options: ["Nur den State","`[formData, setFormData]`","Ein Promise","`[state, formAction, isPending]`"]

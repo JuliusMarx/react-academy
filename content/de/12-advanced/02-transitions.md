@@ -1,6 +1,25 @@
 ---
 title: Transitions und verzögerte Werte
 minutes: 8
+summary: |-
+  - Transitions markieren Updates als nicht dringend: React erledigt zuerst das Dringende, etwa das Eingabefeld, und rendert den Rest unterbrechbar im Hintergrund.
+  - `useDeferredValue(query)` liefert eine Version, die hinterherhinken darf. React rendert zuerst mit dem alten Wert, danach im Hintergrund mit dem neuen – tippt man weiter, bricht es ab und beginnt neu.
+  - Ist `query !== deferredQuery`, zeigt die Liste noch alte Ergebnisse – ein guter Moment, sie auszugrauen.
+  - Rufst du den Setter selbst auf, nimm `useTransition`: `startTransition(() => setTab('reports'))`. Die alte Ansicht bleibt bedienbar, `isPending` zeigt, dass etwas passiert.
+  - Faustregel: eigener Setter → `useTransition`; Wert von außen (Prop, Eingabe) → `useDeferredValue`.
+
+  ```tsx
+  const [query, setQuery] = useState('');
+  const deferredQuery = useDeferredValue(query);
+  const isStale = query !== deferredQuery;
+
+  <input value={query} onChange={(e) => setQuery(e.target.value)} />
+  <div style={{ opacity: isStale ? 0.5 : 1 }}>
+    <SlowList query={deferredQuery} />
+  </div>
+  ```
+
+  > [!WARNING] Die langsame Komponente muss mit `memo` umhüllt sein (oder der React Compiler aktiv) – sonst rendert sie beim dringenden Rendern trotzdem mit.
 quiz:
   - question: "Was macht `useDeferredValue(query)`?"
     options: ["Es verzögert jede Eingabe um eine Sekunde","Es macht die Komponente asynchron","Es speichert `query` in `localStorage`","Es liefert eine Version von `query`, die bei teuren Updates hinterherhinken darf – die Eingabe selbst bleibt flüssig"]

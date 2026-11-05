@@ -1,6 +1,32 @@
 ---
 title: Redux Toolkit
 minutes: 9
+summary: |-
+  - Redux Toolkit (RTK) is the official, modern way to write Redux: one central store, changes only through actions and reducers.
+  - `createSlice` bundles an area's state with its reducers and generates an action creator for each reducer: `amountAdded(10)` yields `{ type: 'counter/amountAdded', payload: 10 }`.
+  - Thanks to Immer you may seemingly mutate `state` inside a reducer. Alternatively, return a new state.
+  - `configureStore` builds the store. You get typed hooks with `useSelector.withTypes<RootState>()` and `useDispatch.withTypes<AppDispatch>()`.
+  - `<Provider store={store}>` wraps the app. Components only re-render when the selected value changes.
+  - RTK pays off mainly in large apps with many developers; for server data it ships RTK Query.
+
+  ```ts
+  export const counterSlice = createSlice({
+    name: 'counter',
+    initialState: { value: 0 },
+    reducers: {
+      incremented: (state) => {
+        state.value += 1;
+      },
+    },
+  });
+  export const { incremented } = counterSlice.actions;
+
+  // in a component
+  const value = useAppSelector((state) => state.counter.value);
+  const dispatch = useAppDispatch(); // dispatch(incremented())
+  ```
+
+  > [!TIP] `connect`, `mapStateToProps` and action types like `'INCREMENT'` are classic Redux – for new code, use RTK and the hooks.
 quiz:
   - question: "Why can you seemingly mutate the state (`state.value += 1`) in a `createSlice` reducer?"
     options: ["Because Redux doesn't need immutability", "Because Redux Toolkit uses Immer internally and turns it into an immutable update", "You can't", "Because the state is a copy that gets discarded"]

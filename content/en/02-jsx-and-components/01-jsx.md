@@ -1,6 +1,26 @@
 ---
 title: JSX
 minutes: 7
+summary: |-
+  - JSX is a syntax extension for writing markup in JavaScript code. Vite translates it into plain function calls.
+  - A component returns exactly one root element. Wrap several elements in a fragment `<>…</>`, which doesn't end up in the DOM.
+  - Every tag must be closed: `<img />`, `<br />`, `<input />`.
+  - Attributes use camelCase, and some have different names: `className`, `htmlFor`, `onClick`, `tabIndex`. `aria-*` and `data-*` stay as in HTML.
+  - Inside `{ }` you can put any JavaScript expression – as text or as an attribute value. In `style={{ color: 'red' }}` the inner pair is an object.
+  - Values in `{ }` are escaped automatically, which protects against XSS. Write comments as `{/* … */}`.
+
+  ```tsx
+  function Card() {
+    return (
+      <div className="card">
+        <h1>{user.firstName} {user.lastName}</h1>
+        <img src={`/avatars/${user.lastName}.png`} alt={user.firstName} />
+      </div>
+    );
+  }
+  ```
+
+  > [!NOTE] Statements like `if` or `for` aren't allowed inside `{ }` – only expressions that produce a value.
 quiz:
   - question: "How do you set a CSS class in JSX?"
     options: ["`class=\"card\"`","`cssClass=\"card\"`","`className=\"card\"`","`style=\"card\"`"]

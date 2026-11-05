@@ -1,6 +1,26 @@
 ---
 title: useRef
 minutes: 8
+summary: |-
+  - `useRef` gibt ein Objekt `{ current: … }` zurück, das bei jedem Rendern dasselbe bleibt.
+  - `ref.current` zu ändern löst **kein** neues Rendern aus – gut für Timer-IDs oder Instanzen externer Bibliotheken, nicht für Werte im JSX.
+  - Lies und schreibe `ref.current` nicht während des Renderns (außer zum einmaligen Initialisieren), sondern in Event-Handlern und Effekten.
+  - Mit `ref={inputRef}` setzt React `current` auf das DOM-Element. Beim ersten Rendern ist es noch `null`.
+  - Typisch: fokussieren, scrollen, Größe messen, Medien abspielen, Karten oder Charts einbinden.
+  - Seit React 19 ist `ref` bei Funktionskomponenten eine normale Prop – `forwardRef` ist nicht mehr nötig.
+
+  ```tsx
+  function Search() {
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    return (
+      <>
+        <input ref={inputRef} />
+        <button onClick={() => inputRef.current?.focus()}>Suchen</button>
+      </>
+    );
+  }
+  ```
 quiz:
   - question: "Was passiert, wenn du `ref.current` änderst?"
     options: ["Die Komponente rendert neu","Der State wird zurückgesetzt","React wirft einen Fehler","Nichts – der Wert wird gespeichert, ohne neu zu rendern"]

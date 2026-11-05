@@ -1,6 +1,30 @@
 ---
 title: Props
 minutes: 8
+summary: |-
+  - With props, a parent component passes data to its children, much like attributes in HTML.
+  - Strings go in quotes, everything else in `{ }`: `price={3.5}`. An attribute without a value (`onSale`) is `true`.
+  - The component receives all props as one object, usually destructured right in the parameter list. With TypeScript you describe them as a type; optional props get `?` and a default value.
+  - Props are read-only: same props, same result. Anything that should change is state.
+  - The content between the opening and closing tag arrives as `children` (type `ReactNode`) – ideal for wrapper components.
+  - `<Avatar {...props} />` passes all props along. Use it sparingly; explicit props are easier to read.
+
+  ```tsx
+  type ProductCardProps = {
+    name: string;
+    price: number;
+    onSale?: boolean;
+  };
+
+  function ProductCard({ name, price, onSale = false }: ProductCardProps) {
+    return (
+      <article>
+        <h2>{name}</h2>
+        <p>{price.toFixed(2)} € {onSale && <strong>On sale!</strong>}</p>
+      </article>
+    );
+  }
+  ```
 quiz:
   - question: "Can a component change its props?"
     options: ["No, props are read-only","Yes, any time","Only numbers and strings","Only with `setProps`"]

@@ -1,6 +1,22 @@
 ---
 title: Objects and Arrays in State
 minutes: 8
+summary: |-
+  - Never change state, replace it: React detects changes by reference. An object you mutated directly is the same object to React – no re-render.
+  - Copy objects with the spread operator: `setUser({ ...user, city: 'Paris' })`. With nested objects, copy every level that changes.
+  - Arrays: add with `[...items, newItem]`, remove with `filter`, change with `map`, sort with `toSorted` or `[...items].sort(…)`.
+  - `toSorted`, `toReversed`, and `with` never change the original – ideal for state.
+  - Don't store derived values in state; compute them on every render. That way they can never go stale.
+
+  ```tsx
+  function toggle(id: number) {
+    setTodos(todos.map((t) => (t.id === id ? { ...t, done: !t.done } : t)));
+  }
+
+  const openCount = todos.filter((t) => !t.done).length;
+  ```
+
+  > [!WARNING] `items.push(x); setItems(items);` passes the same reference – React doesn't re-render.
 quiz:
   - question: "Why doesn't `items.push(x); setItems(items);` update the display?"
     options: ["`push` is forbidden in React","It works","Because `setItems` is asynchronous","It's the same array – React sees no change and doesn't re-render"]

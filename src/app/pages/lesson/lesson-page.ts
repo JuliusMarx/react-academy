@@ -6,6 +6,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Lang } from '../../content/content.model';
 import { ContentService } from '../../content/content.service';
 import { ProgressService } from '../../core/progress.service';
+import { ReadingModeService } from '../../core/reading-mode.service';
 import { UI_TEXT } from '../../core/ui-text';
 import { SafeHtmlPipe } from '../../shared/safe-html.pipe';
 import { Exercise } from './exercise';
@@ -25,6 +26,7 @@ export default class LessonPage {
   private readonly title = inject(Title);
   private readonly document = inject(DOCUMENT);
   protected readonly progress = inject(ProgressService);
+  protected readonly readingMode = inject(ReadingModeService);
 
   readonly lang = input.required<Lang>();
   readonly chapter = input.required<string>();
@@ -69,6 +71,8 @@ export default class LessonPage {
         () => {
           const heading = this.document.getElementById(id);
           if (!heading) return;
+          // Search hits point into the full text – show it if the summary is active.
+          if (heading.closest('.full-only')) this.readingMode.set('full');
           scroller.scrollToAnchor(id);
           if (!heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
           heading.focus({ preventScroll: true });

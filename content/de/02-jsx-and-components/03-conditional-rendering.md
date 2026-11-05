@@ -1,6 +1,22 @@
 ---
 title: Bedingtes Rendern
 minutes: 6
+summary: |-
+  - In JSX gibt es kein `if` – du nutzt normales JavaScript.
+  - Außerhalb des JSX funktioniert `if` mit frühem `return`. Soll eine Komponente nichts anzeigen, gibt sie `null` zurück.
+  - Entweder – oder: der ternäre Operator `{loggedIn ? <LogoutButton /> : <LoginForm />}`.
+  - Nur wenn: `{bedingung && <p>…</p>}`. Ist die linke Seite falsy, zeigt React nichts an.
+  - Bei vielen Fällen berechnest du den Inhalt vorher in einer Variable und setzt sie dann ins JSX ein.
+
+  ```tsx
+  function StatusMessage({ status }: { status: 'loading' | 'error' | 'done' }) {
+    if (status === 'loading') return <p>Lädt …</p>;
+    if (status === 'error') return <p>Fehler!</p>;
+    return <p>Fertig.</p>;
+  }
+  ```
+
+  > [!WARNING] `{messages.length && <p>…</p>}` zeigt bei leerer Liste eine **0** an – vergleiche ausdrücklich: `messages.length > 0 &&`.
 quiz:
   - question: "Was zeigt `{count && <p>Neu</p>}`, wenn `count` 0 ist?"
     options: ["Nichts","`false`","Eine 0","Einen Fehler"]

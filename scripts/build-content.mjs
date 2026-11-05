@@ -209,7 +209,6 @@ async function buildLessons(exampleIds, exercises) {
         assertNoYamlComments(raw, data, relative(ROOT, path));
         const lessonSlug = slugOf(file);
         const id = `${chapterSlug}/${lessonSlug}`;
-        chapter.lessons.push({ id, slug: lessonSlug, title: data.title, minutes: data.minutes ?? 5 });
         headings = [];
         const segments = renderSegments(content, exampleIds, relative(ROOT, path), lang);
         assertRenderable(segments, data, relative(ROOT, path));
@@ -219,6 +218,7 @@ async function buildLessons(exampleIds, exercises) {
           minutes: data.minutes ?? 5,
           toc: headings.filter((h) => h.depth === 2).map(({ id, text }) => ({ id, text })),
           segments,
+          ...buildSummary(data.summary, relative(ROOT, path), lang),
           quiz: (data.quiz ?? []).map((q) => ({
             ...q,
             question: inlineCode(String(q.question)),
@@ -227,6 +227,7 @@ async function buildLessons(exampleIds, exercises) {
           })),
           ...(data.exercise ? { exercise: buildExercise(data.exercise, exercises, relative(ROOT, path), lang) } : {}),
         };
+        chapter.lessons.push({ id, slug: lessonSlug, title: data.title, minutes: lesson.minutes, summaryMinutes: lesson.summaryMinutes });
         const out = join(OUT_DIR, 'lessons', lang, chapterSlug, `${lessonSlug}.ts`);
         await mkdir(join(out, '..'), { recursive: true });
         await writeTs(out, `export default ${JSON.stringify(lesson, null, 2)} satisfies Lesson;`, "import type { Lesson } from '../../../../content.model';");
@@ -321,6 +322,19 @@ function searchDocsFor(lesson, chapter) {
     });
   }
   return docs;
+}
+
+/**
+ * "summary:" frontmatter – the short version of a lesson for the quick course: a few key points
+ * and the most important code. Required, so the quick course never has gaps.
+ */
+function buildSummary(summary, file, lang) {
+  if (typeof summary !== 'string' || !summary.trim()) {
+    throw new Error(`${file}: every lesson needs a "summary: |-" block for the quick course.`);
+  }
+  const html = localize(renderCallouts(marked.parse(summary)), lang);
+  const words = toPlainText(html).split(' ').length;
+  return { summary: html, summaryMinutes: Math.max(1, Math.round(words / 150)) };
 }
 
 /** Validates the "exercise:" frontmatter against the exercise project and renders its texts. */

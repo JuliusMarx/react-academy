@@ -1,6 +1,21 @@
 ---
 title: useEffect
 minutes: 8
+summary: |-
+  - Effects synchronize a component with something outside React: the page title, timers, browser APIs, connections.
+  - React runs the Effect **after rendering**, once the DOM has been updated.
+  - Without an array it runs after every render, with `[]` only after the first, with `[a, b]` also whenever `a` or `b` changes (compared with `Object.is`).
+  - The array must contain every value from the component that the Effect reads – otherwise it works with stale values. The ESLint rule `react-hooks/exhaustive-deps` helps.
+  - To make an Effect run less often, change its code rather than the array, e.g. with `setCount((c) => c + 1)`.
+  - Responses to actions like clicks belong in event handlers, not in Effects.
+
+  ```tsx
+  useEffect(() => {
+    document.title = `${count} clicks`;
+  }, [count]); // typing in another field doesn't trigger the Effect
+  ```
+
+  > [!TIP] Don't turn off `exhaustive-deps` – follow its hints instead.
 quiz:
   - question: "When does an Effect with the dependency array `[count]` run?"
     options: ["On every render","Only on the first render","Before the component renders","After the first render and whenever `count` has changed"]

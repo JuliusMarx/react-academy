@@ -1,6 +1,28 @@
 ---
 title: Events
 minutes: 7
+summary: |-
+  - You respond to user actions with event handlers, passed as props like `onClick`, `onChange`, or `onSubmit`.
+  - Pass the function itself: `onClick={handleClick}`. For arguments, use an arrow function: `onClick={() => remove(item.id)}`.
+  - Naming convention: handlers are called `handle` + event, the props `on` + event.
+  - Every handler receives an event object. `e.preventDefault()`, for example, stops a form from reloading the page.
+  - Events bubble up the tree. `e.stopPropagation()` stops that.
+  - Your own components can accept handlers as props – that way the parent decides what happens.
+
+  ```tsx
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    console.log(data.get('city'));
+  }
+
+  <form onSubmit={handleSubmit}>
+    <input name="city" />
+    <button type="submit">Send</button>
+  </form>
+  ```
+
+  > [!WARNING] `onClick={handleClick()}` calls the function immediately during rendering, not on click.
 quiz:
   - question: "Which notation calls `handleClick` only when the click happens?"
     options: ["`onClick={handleClick()}`","`onclick=\"handleClick\"`","`onClick={handleClick}`","`onClick=\"handleClick()\"`"]

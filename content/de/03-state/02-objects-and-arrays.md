@@ -1,6 +1,22 @@
 ---
 title: Objekte und Arrays im State
 minutes: 8
+summary: |-
+  - State nie verändern, sondern ersetzen: React erkennt Änderungen an der Referenz. Ein direkt verändertes Objekt ist für React dasselbe – es wird nicht neu gerendert.
+  - Objekte kopierst du mit dem Spread-Operator: `setUser({ ...user, city: 'Paris' })`. Bei verschachtelten Objekten kopierst du jede Ebene, die sich ändert.
+  - Arrays: Hinzufügen mit `[...items, neu]`, Entfernen mit `filter`, Ändern mit `map`, Sortieren mit `toSorted` oder `[...items].sort(…)`.
+  - `toSorted`, `toReversed` und `with` verändern nie das Original – ideal für State.
+  - Abgeleitete Werte speicherst du nicht im State, sondern berechnest sie bei jedem Rendern. So veralten sie nie.
+
+  ```tsx
+  function toggle(id: number) {
+    setTodos(todos.map((t) => (t.id === id ? { ...t, done: !t.done } : t)));
+  }
+
+  const openCount = todos.filter((t) => !t.done).length;
+  ```
+
+  > [!WARNING] `items.push(x); setItems(items);` übergibt dieselbe Referenz – React rendert nicht neu.
 quiz:
   - question: "Warum aktualisiert `items.push(x); setItems(items);` die Anzeige nicht?"
     options: ["`push` ist in React verboten","Es funktioniert","Weil `setItems` asynchron ist","Es ist dasselbe Array – React sieht keine Änderung und rendert nicht neu"]

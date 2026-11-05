@@ -1,6 +1,28 @@
 ---
 title: useOptimistic
 minutes: 8
+summary: |-
+  - Optimistisches UI zeigt das Ergebnis sofort an, statt auf den Server zu warten.
+  - `useOptimistic(state, updateFn)` liefert eine optimistische Kopie von `state` und eine Funktion, um sie zu ändern. `updateFn` wendet den optimistischen Wert auf den aktuellen State an.
+  - Du renderst die **optimistische** Liste, nicht die echte.
+  - Der optimistische Wert gilt nur, solange die Action läuft. Bei Erfolg hast du den echten State aktualisiert, bei einem Fehler verschwindet der Eintrag von selbst – Aufräumen ist nicht nötig.
+  - Passt zu Aktionen, die fast immer klappen (Likes, Nachrichten, Häkchen) – nicht zu Zahlungen oder Bestellungen.
+
+  ```tsx
+  const [optimisticMessages, addOptimistic] = useOptimistic(
+    messages,
+    (current, text: string) => [...current, { id: -1, text, sending: true }],
+  );
+
+  async function sendAction(formData: FormData) {
+    const text = String(formData.get('text'));
+    addOptimistic(text);
+    const saved = await deliver(text);
+    startTransition(() => setMessages((m) => [...m, saved]));
+  }
+  ```
+
+  > [!NOTE] State-Änderungen nach einem `await` gehören nicht automatisch zur Transition – umhülle sie mit `startTransition`.
 quiz:
   - question: "Was zeigt `useOptimistic`, während eine Action läuft?"
     options: ["Den alten State","Einen Ladeindikator","Den optimistischen Wert – so, als wäre die Action schon erfolgreich","Nichts"]

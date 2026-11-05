@@ -1,6 +1,27 @@
 ---
 title: CSS Modules
 minutes: 6
+summary: |-
+  - CSS Modules prevent naming conflicts: each class only applies to the file that imports it.
+  - Vite treats every file ending in `.module.css` as a CSS Module.
+  - The import gives you an object with the class names: `className={styles.card}`. Vite turns them into unique names like `_card_1a2b3_1`.
+  - Pick a variant based on a prop with `styles[variant]`. For many conditions, `clsx` helps.
+  - Mark a global selector inside a module with `:global(.class)`.
+
+  ```tsx
+  import styles from './Card.module.css';
+
+  export default function Card({ title, children }: CardProps) {
+    return (
+      <section className={styles.card}>
+        <h2 className={styles.title}>{title}</h2>
+        {children}
+      </section>
+    );
+  }
+  ```
+
+  > [!TIP] TypeScript only knows the classes as `string` – typos like `styles.crad` only show up in the browser.
 quiz:
   - question: "How does Vite recognize a CSS Module file?"
     options: ["By the `modules/` folder","By a comment at the top of the file","By the `.module.css` extension","By `@module` in the file"]

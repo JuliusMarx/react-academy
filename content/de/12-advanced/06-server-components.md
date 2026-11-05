@@ -1,6 +1,29 @@
 ---
 title: Server Components und Frameworks
 minutes: 8
+summary: |-
+  - Beim Server-Side Rendering (SSR) erzeugt der Server pro Anfrage fertiges HTML, danach macht React es im Browser interaktiv (Hydration). Entsteht das HTML beim Build, heißt das Static Site Generation (SSG).
+  - Server Components laufen nur auf dem Server – ihr Code kommt nie im Browser an. Sie dürfen `async` sein und Daten direkt laden.
+  - Sie haben keinen State und keine Event-Handler. Interaktives steckt in Client Components, markiert mit `'use client'` am Dateianfang; sie bekommen serialisierbare Props.
+  - `'use server'` markiert Server Functions, die der Client aufrufen kann, etwa als Form Action.
+  - Server Components brauchen ein Framework wie Next.js oder React Router (Framework Mode). Eine reine Vite-App bleibt gut für Apps hinter einem Login, Werkzeuge und Dashboards.
+
+  ```tsx
+  export default async function ProductsPage() {
+    const products = await db.product.findMany();
+    return (
+      <ul>
+        {products.map((p) => (
+          <li key={p.id}>
+            {p.name} <AddToCartButton id={p.id} />
+          </li>
+        ))}
+      </ul>
+    );
+  }
+  ```
+
+  > [!WARNING] Jede Server Function ist ein öffentlicher Endpunkt – prüfe darin immer, ob der Nutzer angemeldet ist und die Aktion ausführen darf.
 quiz:
   - question: "Wo laufen React Server Components?"
     options: ["Nur im Browser", "Auf dem Server (oder beim Build) – ihr Code kommt gar nicht im Browser an", "In einem Web Worker", "In der Datenbank"]

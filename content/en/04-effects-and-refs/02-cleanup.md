@@ -1,6 +1,22 @@
 ---
 title: Cleanup
 minutes: 8
+summary: |-
+  - If an Effect starts something that keeps running, it returns a **cleanup function** that stops it again.
+  - React calls it before the Effect runs again and when the component is removed (unmount).
+  - Typical pairs: `setInterval`/`clearInterval`, `addEventListener`/`removeEventListener`, connect/disconnect, subscribe/unsubscribe.
+  - When a dependency changes, React first cleans up with the old values, then starts again with the new ones.
+  - In development, `StrictMode` runs Effect → cleanup → Effect so missing cleanup shows up right away. In the production build the Effect runs once.
+
+  ```tsx
+  useEffect(() => {
+    const connection = createConnection(roomId);
+    connection.connect();
+    return () => connection.disconnect(); // disconnects the old room
+  }, [roomId]);
+  ```
+
+  > [!NOTE] Don't work around the double start with an "already started" flag – clean up properly instead.
 quiz:
   - question: "When does React call an Effect's cleanup function?"
     options: ["Only when the page is reloaded", "Before the Effect runs again and when the component is removed", "After every click", "Never automatically"]

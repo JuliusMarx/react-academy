@@ -1,6 +1,28 @@
 ---
 title: Form Actions
 minutes: 7
+summary: |-
+  - Seit React 19 übergibst du `<form action={fn}>` eine Funktion. Sie wird beim Absenden mit einem `FormData`-Objekt aufgerufen.
+  - Jedes Feld mit `name` steckt darin: `formData.get('title')`. Ein `preventDefault` brauchst du nicht.
+  - Die Action darf asynchron sein. React führt sie als Transition aus, die Seite bleibt bedienbar.
+  - Ist die Action fertig, setzt React das Formular zurück: Unkontrollierte Felder sind wieder leer bzw. auf ihrem `defaultValue`.
+  - State pro Feld brauchst du nur noch, wenn du während der Eingabe reagieren willst (Live-Vorschau, Zeichenzähler).
+  - Ein Button kann mit `formAction={fn}` eine eigene Action haben, z. B. für „Löschen“.
+
+  ```tsx
+  function NewTodo() {
+    async function addTodo(formData: FormData) {
+      await saveTodo(String(formData.get('title')));
+    }
+
+    return (
+      <form action={addTodo}>
+        <input name="title" aria-label="Titel" />
+        <button type="submit">Hinzufügen</button>
+      </form>
+    );
+  }
+  ```
 quiz:
   - question: "Was bekommt eine Funktion, die du an `<form action={…}>` übergibst?"
     options: ["Das Submit-Event","Den State der Komponente","Ein `FormData`-Objekt mit den Feldern des Formulars","Nichts"]

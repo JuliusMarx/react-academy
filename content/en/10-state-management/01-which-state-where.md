@@ -1,6 +1,15 @@
 ---
 title: Which State Goes Where?
 minutes: 6
+summary: |-
+  - First ask what kind of state it is. Most "global state" problems disappear once every piece of state lives in the right place.
+  - As local as possible: `useState` or `useReducer` in the deepest component that needs it. If two siblings share it, it moves up to their closest common parent.
+  - Server data is not client state: TanStack Query, router loaders or Server Components handle caching and refreshing.
+  - Filters, sorting or the current page belong in the URL (`useSearchParams`) – then reloading, sharing and the back button work.
+  - Don't store derived values like totals or filtered lists; calculate them during rendering.
+  - For app-wide client state, Context is enough when values change rarely – but it re-renders every reader. Zustand and Redux Toolkit let components subscribe to just the part they need via selectors.
+
+  > [!TIP] You only need real state management for app-wide client state like a cart or color scheme – and that is often smaller than you think.
 quiz:
   - question: "Where does data from the server belong, e.g. a product list?"
     options: ["In a global store like Redux","In `localStorage`","In a server-data library like TanStack Query or in the router's loaders","In a global variable"]

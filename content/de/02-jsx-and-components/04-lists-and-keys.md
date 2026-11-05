@@ -1,6 +1,26 @@
 ---
 title: Listen und key
 minutes: 8
+summary: |-
+  - Listen erzeugst du mit `map`: Aus jedem Datenelement wird ein JSX-Element. Zum Filtern nimmst du vorher `filter`.
+  - Jedes Listenelement braucht einen `key`. Daran erkennt React beim Hinzufügen, Löschen oder Umsortieren, welches Element welches ist und wohin State gehört.
+  - Der `key` muss unter Geschwistern eindeutig und bei jedem Rendern stabil sein – am besten eine ID aus den Daten.
+  - Der Index als `key` taugt nur für Listen, die sich nie ändern. `Math.random()` ist noch schlimmer: React baut dann alle Elemente bei jedem Rendern neu auf.
+  - Leere Listen fängst du mit bedingtem Rendern ab.
+
+  ```tsx
+  function FruitList() {
+    return (
+      <ul>
+        {fruits.map((fruit) => (
+          <li key={fruit.id}>{fruit.name}</li>
+        ))}
+      </ul>
+    );
+  }
+  ```
+
+  > [!WARNING] Mit `key={index}` „wandert“ State beim Umsortieren oder Löschen zum falschen Element.
 quiz:
   - question: "Wozu dient der `key` bei Listenelementen?"
     options: ["React erkennt daran, welches Element welches ist, wenn sich die Liste ändert","Er wird als HTML-Attribut ausgegeben","Er sortiert die Liste","Er ist nur für TypeScript wichtig"]

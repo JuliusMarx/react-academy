@@ -1,6 +1,22 @@
 ---
 title: What is React?
 minutes: 6
+summary: |-
+  - React is a JavaScript library for building user interfaces, developed at Meta and open source.
+  - A React app is made of **components**: functions that describe what appears on screen. Components nest like HTML tags.
+  - The HTML-like `<h1>` inside JavaScript is called **JSX**.
+  - React is declarative: you describe *what* to show for the current state. When the state changes, React calls the function again and updates only the parts of the DOM that changed.
+  - React only handles the UI. Routing and data loading come from other libraries (React Router, TanStack Query) or a framework like Next.js.
+  - This course uses React 19, TypeScript, and Vite.
+
+  ```tsx
+  function Counter() {
+    const [count, setCount] = useState(0);
+    return <button onClick={() => setCount(count + 1)}>{count} clicks</button>;
+  }
+  ```
+
+  > [!TIP] Thanks to *Fast Refresh*, you see changes as soon as you save – and the state is kept.
 quiz:
   - question: "What is React?"
     options: ["A complete framework with a router, HTTP client, and forms", "A JavaScript library for building user interfaces", "A programming language that compiles to JavaScript", "A CSS framework"]

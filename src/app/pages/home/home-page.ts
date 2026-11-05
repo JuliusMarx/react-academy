@@ -4,9 +4,12 @@ import { RouterLink } from '@angular/router';
 import { Lang } from '../../content/content.model';
 import { ContentService } from '../../content/content.service';
 import { ProgressService } from '../../core/progress.service';
+import { ReadingMode, ReadingModeService } from '../../core/reading-mode.service';
 import { UI_TEXT } from '../../core/ui-text';
 import { ProgressBar } from '../../shared/progress-bar';
 import { ProgressManager } from './progress-manager';
+
+const sum = (values: number[]) => values.reduce((a, b) => a + b, 0);
 
 @Component({
   selector: 'app-home-page',
@@ -18,6 +21,7 @@ export default class HomePage {
   private readonly content = inject(ContentService);
   private readonly progress = inject(ProgressService);
   private readonly title = inject(Title);
+  protected readonly readingMode = inject(ReadingModeService);
 
   readonly lang = input.required<Lang>();
 
@@ -26,6 +30,8 @@ export default class HomePage {
     this.content.chapters(this.lang()).map((chapter) => ({
       ...chapter,
       percent: this.progress.percent(chapter.lessons.map((l) => l.id)),
+      minutes: sum(chapter.lessons.map((l) => l.minutes)),
+      summaryMinutes: sum(chapter.lessons.map((l) => l.summaryMinutes)),
     })),
   );
 
@@ -35,6 +41,17 @@ export default class HomePage {
     const last = this.progress.progress().lastLesson;
     return lessons.find((l) => l.id === last) ?? lessons[0];
   });
+  /** The two ways through the course; the choice is the reading mode of every lesson. */
+  protected readonly modes = computed(() => {
+    const lessons = this.content.allLessons(this.lang());
+    const text = this.text();
+    const option = (mode: ReadingMode, title: string, description: string, minutes: number) => ({ mode, title, description, minutes });
+    return [
+      option('short', text.courseShort, text.courseShortText, sum(lessons.map((l) => l.summaryMinutes))),
+      option('full', text.courseFull, text.courseFullText, sum(lessons.map((l) => l.minutes))),
+    ];
+  });
+  protected readonly lessonCount = computed(() => this.content.allLessons(this.lang()).length);
   protected readonly hasStarted = computed(() => !!this.progress.progress().lastLesson);
 
   constructor() {

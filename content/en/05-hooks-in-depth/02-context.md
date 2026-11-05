@@ -1,6 +1,28 @@
 ---
 title: Context
 minutes: 8
+summary: |-
+  - Context makes a value available to an entire subtree without passing it through every level (*prop drilling*).
+  - Three steps: `createContext(defaultValue)`, provide the value with `<ThemeContext value={…}>`, read it with `useContext(ThemeContext)`.
+  - When the value changes, every component that reads it re-renders.
+  - Without a provider, the default value applies; with several, the nearest one above wins.
+  - Since React 19, `<ThemeContext>` itself is the provider (`.Provider` still works). `use(ThemeContext)` may even be called inside `if`.
+  - A proven pattern: your own provider component plus a small hook like `useTasks()`.
+
+  ```tsx
+  export const ThemeContext = createContext<Theme>('light');
+
+  <ThemeContext value={theme}>
+    <Layout />
+  </ThemeContext>
+
+  function ThemedButton() {
+    const theme = useContext(ThemeContext);
+    return <button className={theme}>Save</button>;
+  }
+  ```
+
+  > [!WARNING] Context doesn't replace every prop – pass data normally first or use `children`.
 quiz:
   - question: "What problem does Context solve?"
     options: ["Having to pass props through many levels (prop drilling)","Slow components","Missing types","Loading data from the server"]

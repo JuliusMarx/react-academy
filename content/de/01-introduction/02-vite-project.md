@@ -1,6 +1,20 @@
 ---
 title: Ein Projekt mit Vite
 minutes: 6
+summary: |-
+  - **Vite** ist ein schnelles Build-Tool mit Dev-Server und der übliche Weg, ein React-Projekt ohne Framework zu starten. *Create React App* wird nicht mehr weiterentwickelt.
+  - Der Dev-Server läuft auf `http://localhost:5173`, `npm run build` erzeugt die optimierte Version in `dist/`.
+  - `index.html` ist die einzige HTML-Seite und enthält `<div id="root">`. `src/main.tsx` ist der Einstiegspunkt.
+  - `createRoot` verbindet React mit dem DOM-Element, `render` zeigt darin `<App />` an.
+  - `StrictMode` hilft beim Finden von Fehlern und ruft Komponenten beim Entwickeln testweise doppelt auf – im fertigen Build nicht.
+  - Dateien mit JSX enden auf `.tsx`, reine TypeScript-Dateien auf `.ts`. Komponenten und ihre Dateien schreibst du in PascalCase: `ProductCard.tsx`.
+
+  ```bash
+  npm create vite@latest my-app -- --template react-ts
+  cd my-app
+  npm install
+  npm run dev
+  ```
 quiz:
   - question: "Mit welchem Befehl legst du ein neues React-Projekt mit Vite an?"
     options: ["`npx create-react-app my-app`","`ng new my-app --react`","`npm install react my-app`","`npm create vite@latest my-app -- --template react-ts`"]

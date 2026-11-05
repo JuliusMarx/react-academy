@@ -8,13 +8,31 @@
             <span>{{ text().lessonOf(pos.index, pos.total) }}</span>
             <span aria-hidden="true">·</span>
           }
-          <span>{{ text().readingTime(lesson.minutes) }}</span>
+          <span class="full-only">{{ text().readingTime(lesson.minutes) }}</span>
+          <span class="short-only">{{ text().readingTime(lesson.summaryMinutes) }}</span>
         </p>
+
+        <div class="reading-mode" role="group" [attr.aria-label]="text().readingMode">
+          <button type="button" [attr.aria-pressed]="readingMode.mode() === 'short'" (click)="readingMode.set('short')">
+            {{ text().readingShort }}
+          </button>
+          <button type="button" [attr.aria-pressed]="readingMode.mode() === 'full'" (click)="readingMode.set('full')">
+            {{ text().readingFull }}
+          </button>
+        </div>
+
+        <div class="short-only">
+          <h1>{{ lesson.title }}</h1>
+          <section class="summary" [attr.aria-label]="text().quickCourse">
+            <div [innerHTML]="lesson.summary | safeHtml"></div>
+          </section>
+          <p class="summary-hint">{{ text().quickCourseHint }}</p>
+        </div>
 
         @for (segment of lesson.segments; track $index) {
           @switch (segment.type) {
             @case ('html') {
-              <div [innerHTML]="segment.html | safeHtml"></div>
+              <div class="full-only" [innerHTML]="segment.html | safeHtml"></div>
             }
             @case ('tryit') {
               <app-try-it [example]="segment.example" [lang]="lang()" />
@@ -64,7 +82,7 @@
     </div>
 
     @if (lesson.toc.length > 1) {
-      <aside class="toc">
+      <aside class="toc full-only">
         <app-toc [entries]="lesson.toc" [lang]="lang()" />
       </aside>
     }

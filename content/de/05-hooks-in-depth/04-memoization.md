@@ -1,6 +1,27 @@
 ---
 title: memo, useMemo und useCallback
 minutes: 9
+summary: |-
+  - `memo(Komponente)` überspringt das Rendern, solange alle Props gleich bleiben (Vergleich mit `Object.is`).
+  - Objekte, Arrays und Funktionen gelten nur als gleich, wenn es **dasselbe** Objekt ist.
+  - `useMemo(fn, deps)` rechnet nur neu, wenn sich eine Abhängigkeit ändert – für teure Berechnungen oder stabile Werte für `memo`-Kinder.
+  - `useCallback(fn, deps)` behält dieselbe Funktion; es entspricht `useMemo(() => fn, deps)`.
+  - Erst mit dem Profiler der React DevTools messen, dann optimieren. Oft reicht es, State nach unten zu verlagern oder `children` zu nutzen.
+  - Der **React Compiler** fügt Memoisierung beim Build automatisch ein – wenn dein Code die Regeln von React einhält.
+
+  ```tsx
+  const ProductList = memo(function ProductList({ products, onSelect }: Props) {
+    // …
+  });
+
+  const visible = useMemo(
+    () => products.filter((p) => p.name.includes(query)),
+    [products, query],
+  );
+  const handleSelect = useCallback((id: number) => setSelected(id), []);
+
+  <ProductList products={visible} onSelect={handleSelect} />
+  ```
 quiz:
   - question: "Wann überspringt eine mit `memo` umhüllte Komponente das Rendern?"
     options: ["Immer","Nie, `memo` ist nur ein Hinweis für Entwickler","Wenn sie keinen State hat","Wenn alle Props gleich geblieben sind (Vergleich mit `Object.is`)"]

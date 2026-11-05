@@ -1,6 +1,22 @@
 ---
 title: Conditional rendering
 minutes: 6
+summary: |-
+  - JSX has no `if` – you use plain JavaScript.
+  - Outside the JSX, `if` with an early `return` works fine. A component that should show nothing returns `null`.
+  - Either – or: the ternary operator `{loggedIn ? <LogoutButton /> : <LoginForm />}`.
+  - Only if: `{condition && <p>…</p>}`. If the left side is falsy, React shows nothing.
+  - With many cases, compute the content in a variable first and then put it into the JSX.
+
+  ```tsx
+  function StatusMessage({ status }: { status: 'loading' | 'error' | 'done' }) {
+    if (status === 'loading') return <p>Loading …</p>;
+    if (status === 'error') return <p>Error!</p>;
+    return <p>Done.</p>;
+  }
+  ```
+
+  > [!WARNING] `{messages.length && <p>…</p>}` shows a **0** for an empty list – compare explicitly: `messages.length > 0 &&`.
 quiz:
   - question: "What does `{count && <p>New</p>}` show when `count` is 0?"
     options: ["Nothing","`false`","A 0","An error"]

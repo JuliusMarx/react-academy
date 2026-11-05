@@ -1,6 +1,29 @@
 <section class="hero">
   <h1>{{ text().appName }}</h1>
   <p>{{ text().tagline }}</p>
+
+  <fieldset class="modes">
+    <legend>{{ text().courseMode }}</legend>
+    <div class="options">
+      @for (option of modes(); track option.mode) {
+        <label class="option" [class]="option.mode">
+          <input
+            type="radio"
+            name="course-mode"
+            class="visually-hidden"
+            [value]="option.mode"
+            [checked]="readingMode.mode() === option.mode"
+            (change)="readingMode.set(option.mode)"
+          />
+          <span class="option-title">{{ option.title }}</span>
+          <span class="option-text">{{ option.description }}</span>
+          <span class="option-meta">{{ lessonCount() }} {{ text().lessons }} · {{ text().duration(option.minutes) }}</span>
+        </label>
+      }
+    </div>
+    <p class="hint">{{ text().courseModeHint }}</p>
+  </fieldset>
+
   @if (startLesson(); as lesson) {
     <a class="button" [routerLink]="['/', lang(), lesson.chapter, lesson.slug]">
       {{ hasStarted() ? text().continue : text().start }} →
@@ -22,7 +45,11 @@
           }
         </h3>
         <p>{{ chapter.description }}</p>
-        <p class="meta">{{ chapter.lessons.length }} {{ text().lessons }}</p>
+        <p class="meta">
+          {{ chapter.lessons.length }} {{ text().lessons }} ·
+          <span class="full-only">{{ text().duration(chapter.minutes) }}</span>
+          <span class="short-only">{{ text().duration(chapter.summaryMinutes) }}</span>
+        </p>
         <app-progress-bar [value]="chapter.percent" [label]="text().progress + ': ' + chapter.title" />
       </div>
     </li>

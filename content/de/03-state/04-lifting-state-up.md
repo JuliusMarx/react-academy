@@ -1,6 +1,26 @@
 ---
 title: State teilen
 minutes: 8
+summary: |-
+  - Sollen mehrere Komponenten denselben State nutzen, verlagerst du ihn in die nächste gemeinsame Elternkomponente (*lifting state up*).
+  - Drei Schritte: State aus dem Kind entfernen, Wert und Änderungsfunktion als Props übergeben, State in der Elternkomponente anlegen.
+  - Das Kind ist dann kontrolliert: Die Elternkomponente entscheidet, das Kind meldet nur Wünsche über Callback-Props wie `onShow`.
+  - Daten fließen über Props nach unten, Ereignisse über Callbacks nach oben.
+  - Für jeden Wert gibt es eine einzige Quelle der Wahrheit: die Komponente, die den State besitzt.
+
+  ```tsx
+  export default function Accordion() {
+    const [activeIndex, setActiveIndex] = useState(0);
+    return (
+      <>
+        <Panel title="Info" isActive={activeIndex === 0} onShow={() => setActiveIndex(0)}>…</Panel>
+        <Panel title="Details" isActive={activeIndex === 1} onShow={() => setActiveIndex(1)}>…</Panel>
+      </>
+    );
+  }
+  ```
+
+  > [!TIP] Müsstest du Props durch sehr viele Ebenen reichen, hilft Context (Kapitel 5).
 quiz:
   - question: "Zwei Geschwisterkomponenten sollen denselben Wert anzeigen und ändern. Wo gehört der State hin?"
     options: ["In beide Komponenten, synchron gehalten", "In die nächste gemeinsame Elternkomponente", "In eine globale Variable", "In `localStorage`"]

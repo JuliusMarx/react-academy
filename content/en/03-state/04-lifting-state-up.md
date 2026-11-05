@@ -1,6 +1,26 @@
 ---
 title: Sharing State
 minutes: 8
+summary: |-
+  - When several components need the same state, move it up to their closest common parent (*lifting state up*).
+  - Three steps: remove the state from the child, pass the value and a function to change it as props, create the state in the parent.
+  - The child is then controlled: the parent decides, and the child only reports requests through callback props like `onShow`.
+  - Data flows down through props, events flow up through callbacks.
+  - Every value has a single source of truth: the component that owns the state.
+
+  ```tsx
+  export default function Accordion() {
+    const [activeIndex, setActiveIndex] = useState(0);
+    return (
+      <>
+        <Panel title="Info" isActive={activeIndex === 0} onShow={() => setActiveIndex(0)}>…</Panel>
+        <Panel title="Details" isActive={activeIndex === 1} onShow={() => setActiveIndex(1)}>…</Panel>
+      </>
+    );
+  }
+  ```
+
+  > [!TIP] If you'd have to pass props through many levels, Context helps (chapter 5).
 quiz:
   - question: "Two sibling components should display and change the same value. Where does the state belong?"
     options: ["In both components, kept in sync", "In the closest common parent component", "In a global variable", "In `localStorage`"]

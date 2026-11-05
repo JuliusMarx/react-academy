@@ -1,6 +1,29 @@
 ---
 title: Data with Loaders
 minutes: 9
+summary: |-
+  - In **Data Mode** you describe routes as objects with `createBrowserRouter([...])` and render `<RouterProvider router={router} />`. Create the router once, outside any component.
+  - `RouterProvider` comes from `react-router/dom`, everything else from `react-router`.
+  - A `loader` fetches the data **before** the route renders. The component reads it with `useLoaderData<typeof loader>()` – no effect, no loading state.
+  - While loading, `useNavigation().state` is `'loading'`.
+  - If a loader throws, the route's `errorElement` appears (otherwise the nearest parent's). `throw data('…', { status: 404 })` creates an error response; `useRouteError()` reads it.
+
+  ```tsx
+  async function userLoader({ params }: LoaderFunctionArgs) {
+    const user = await getUser(Number(params.id));
+    if (!user) throw data('User not found', { status: 404 });
+    return user;
+  }
+
+  function UserPage() {
+    const user = useLoaderData<typeof userLoader>();
+    return <h2>{user.name}</h2>;
+  }
+
+  { path: 'users/:id', loader: userLoader, element: <UserPage />, errorElement: <ErrorPage /> }
+  ```
+
+  > [!TIP] For small apps, `BrowserRouter` (Declarative Mode) is enough. If the router should also load data, use Data Mode.
 quiz:
   - question: "When does a route's `loader` run?"
     options: ["After the component has rendered, like an effect","Only on the server","Only on the first load of the app","Before the route renders – the component gets the data immediately"]

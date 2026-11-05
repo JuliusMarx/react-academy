@@ -1,6 +1,30 @@
 ---
 title: useReducer
 minutes: 8
+summary: |-
+  - `useReducer` sammelt alle State-Änderungen in einer **Reducer-Funktion** statt in vielen Event-Handlern.
+  - Handler melden nur, *was passiert ist*: `dispatch({ type: 'added', title })`.
+  - Der Reducer bekommt den aktuellen State und eine Action und gibt den nächsten State zurück.
+  - Ein TypeScript-Union-Typ für die Actions sorgt dafür, dass jede Action die richtigen Felder hat und jeder Fall behandelt wird.
+  - Reducer sind rein: nichts verändern, sondern neue Objekte und Arrays zurückgeben; keine Nebenwirkungen wie `fetch` oder Timer. Dafür lassen sie sich ohne React testen.
+  - `dispatch` bleibt über alle Renderings dieselbe Funktion und kann bedenkenlos an Kinder gehen.
+
+  ```ts
+  function todosReducer(todos: Todo[], action: Action): Todo[] {
+    switch (action.type) {
+      case 'added':
+        return [...todos, { id: nextId++, title: action.title, done: false }];
+      case 'toggled':
+        return todos.map((t) => (t.id === action.id ? { ...t, done: !t.done } : t));
+      case 'deleted':
+        return todos.filter((t) => t.id !== action.id);
+    }
+  }
+
+  const [todos, dispatch] = useReducer(todosReducer, initialTodos);
+  ```
+
+  > [!TIP] Nimm `useReducer`, wenn die Update-Logik wächst oder du sie getrennt testen willst.
 quiz:
   - question: "Was gibt `useReducer(reducer, initialState)` zurück?"
     options: ["Nur den State","Den Reducer und den State","Den aktuellen State und eine `dispatch`-Funktion","Ein Promise"]

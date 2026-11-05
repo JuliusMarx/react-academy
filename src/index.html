@@ -15,6 +15,7 @@
       var t = JSON.parse(localStorage.getItem('react-academy.theme'));
       if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       document.documentElement.dataset.theme = t;
+      if (JSON.parse(localStorage.getItem('react-academy.reading-mode')) === 'short') document.documentElement.dataset.reading = 'short';
     } catch (e) {}
   </script>
 </head>

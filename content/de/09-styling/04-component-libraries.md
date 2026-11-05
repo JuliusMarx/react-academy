@@ -1,6 +1,29 @@
 ---
 title: Komponentenbibliotheken
 minutes: 6
+summary: |-
+  - Dialoge, Dropdowns oder Datumsauswahlen, die mit Tastatur und Screenreader funktionieren, sind viel Arbeit – dafür gibt es Bibliotheken.
+  - **Komplett gestylt** (MUI, Mantine, Chakra UI): fertige Komponenten mit eigenem Design, anpassbar über Themes.
+  - **Headless** (Radix UI, React Aria, Headless UI, Base UI): Verhalten, Fokus, Tastatursteuerung und ARIA – das Aussehen machst du selbst, z. B. mit Tailwind.
+  - **shadcn/ui** kopiert die Komponenten als Quellcode in dein Projekt (`npx shadcn add dialog`). Du kannst alles ändern, sie aktualisieren sich aber nicht von selbst.
+  - Faustregel: schnelle interne App → gestylte Bibliothek; eigenes Design → Headless oder shadcn/ui; ein paar einfache Elemente → selbst bauen.
+
+  ```tsx
+  import * as Dialog from '@radix-ui/react-dialog';
+
+  <Dialog.Root>
+    <Dialog.Trigger>Öffnen</Dialog.Trigger>
+    <Dialog.Portal>
+      <Dialog.Overlay className="fixed inset-0 bg-black/40" />
+      <Dialog.Content className="rounded-xl bg-white p-6">
+        <Dialog.Title>Einstellungen</Dialog.Title>
+        <Dialog.Close>Schließen</Dialog.Close>
+      </Dialog.Content>
+    </Dialog.Portal>
+  </Dialog.Root>
+  ```
+
+  > [!TIP] Für viele einfache Fälle reicht das HTML-Element `<dialog>` – es bringt Fokusverwaltung und Escape schon mit.
 quiz:
   - question: "Was ist eine Headless-Bibliothek wie Radix UI oder React Aria?"
     options: ["Fertiges Verhalten und Barrierefreiheit ohne vorgegebenes Aussehen – das Styling machst du selbst","Eine Bibliothek ohne JavaScript","Eine Bibliothek nur für Server","Ein CSS-Framework"]

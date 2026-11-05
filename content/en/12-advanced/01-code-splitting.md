@@ -1,6 +1,32 @@
 ---
 title: Code Splitting with lazy
 minutes: 7
+summary: |-
+  - Code splitting divides the build into several files: the browser loads rarely used parts only when they're needed.
+  - `import('./Editor')` is a dynamic import – Vite puts the editor into its own file. That file must provide the component as its default export.
+  - `lazy` turns it into a component that suspends on first render until the code has arrived. The nearest `<Suspense>` boundary shows its fallback meanwhile.
+  - It pays off for whole pages, large components with heavy dependencies (editors, charts, maps) and rarely shown parts like dialogs.
+  - Splitting small components gains nothing – every file is a separate request.
+
+  ```tsx
+  const Editor = lazy(() => import('./Editor'));
+
+  function Post() {
+    const [editing, setEditing] = useState(false);
+    return (
+      <>
+        <button onClick={() => setEditing(true)}>Edit</button>
+        {editing && (
+          <Suspense fallback={<p>Loading editor …</p>}>
+            <Editor />
+          </Suspense>
+        )}
+      </>
+    );
+  }
+  ```
+
+  > [!WARNING] `lazy` belongs at the top level of a module, never inside a component – otherwise every render creates a new component.
 quiz:
   - question: "What does `const Editor = lazy(() => import('./Editor'))` do?"
     options: ["The editor renders more slowly","The editor is removed at build time","The editor's code is only loaded when the component is rendered for the first time","The editor is pre-rendered in the background"]

@@ -1,6 +1,27 @@
 ---
 title: Eigene Hooks
 minutes: 8
+summary: |-
+  - Ein eigener Hook ist eine Funktion, deren Name mit `use` plus Großbuchstabe beginnt und die andere Hooks verwendet.
+  - Er lagert Logik aus, die mehrere Komponenten brauchen – die Komponente sagt nur noch, *was* sie braucht.
+  - Jeder Aufruf hat **seinen eigenen State**: Geteilt wird der Code, nicht der State. Für gemeinsamen State: nach oben verlagern oder Context.
+  - Es gelten die Hook-Regeln: nur auf oberster Ebene aufrufen, nicht in Bedingungen oder Schleifen.
+  - Eine Funktion ohne Hooks braucht kein `use` – sie ist eine normale Hilfsfunktion.
+  - Gute Kandidaten: `useOnlineStatus`, `useMediaQuery`, `useToggle`, `useLocalStorage`.
+
+  ```ts
+  export function useWindowWidth() {
+    const [width, setWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+      const onResize = () => setWidth(window.innerWidth);
+      window.addEventListener('resize', onResize);
+      return () => window.removeEventListener('resize', onResize);
+    }, []);
+
+    return width;
+  }
+  ```
 quiz:
   - question: "Was macht eine Funktion zu einem eigenen Hook?"
     options: ["Sie ist mit `@hook` markiert","Sie liegt im Ordner `hooks/`","Ihr Name beginnt mit `use` und sie ruft andere Hooks auf","Sie gibt JSX zurück"]

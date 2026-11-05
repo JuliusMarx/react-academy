@@ -1,6 +1,26 @@
 ---
 title: Zustand
 minutes: 8
+summary: |-
+  - `create` aus `zustand` liefert einen Hook – kein Provider, keine Action-Typen. State und Actions stehen zusammen in einem Objekt.
+  - `set` ändert den State: Du gibst nur die geänderten Felder an, Zustand fügt sie mit dem Rest zusammen. Wie bei `useState` gilt: neue Objekte statt Veränderung.
+  - Mit TypeScript schreibst du `create<BearState>()(…)` – die doppelten Klammern braucht die Typableitung.
+  - Komponenten wählen mit einem Selektor aus, was sie brauchen, und rendern nur neu, wenn sich genau dieser Wert ändert.
+  - Außerhalb von React liest und ändert `useBearStore.getState()` den Store, `subscribe()` meldet Änderungen.
+  - Middleware wie `persist` (speichert in `localStorage`) oder `devtools` erweitert den Store.
+
+  ```ts
+  export const useBearStore = create<BearState>()((set) => ({
+    bears: 0,
+    addBear: () => set((state) => ({ bears: state.bears + 1 })),
+    reset: () => set({ bears: 0 }),
+  }));
+
+  // in einer Komponente
+  const bears = useBearStore((state) => state.bears);
+  ```
+
+  > [!WARNING] Ein Selektor, der jedes Mal ein neues Objekt erzeugt (`(s) => ({ a: s.a, b: s.b })`), löst eine Endlosschleife aus – wähle Werte einzeln oder nimm `useShallow`.
 quiz:
   - question: "Was gibt `create` in Zustand zurück?"
     options: ["Einen Hook, mit dem Komponenten den Store lesen","Einen Provider","Eine Klasse","Einen Reducer"]

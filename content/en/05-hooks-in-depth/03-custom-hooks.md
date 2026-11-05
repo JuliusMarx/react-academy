@@ -1,6 +1,27 @@
 ---
 title: Custom Hooks
 minutes: 8
+summary: |-
+  - A custom hook is a function whose name starts with `use` plus a capital letter and that uses other hooks.
+  - It extracts logic that several components need – the component only says *what* it needs.
+  - Every call has **its own state**: the code is shared, not the state. For shared state, lift it up or use Context.
+  - The rules of hooks apply: call them only at the top level, not in conditions or loops.
+  - A function that calls no hooks doesn't need `use` – it's a regular helper function.
+  - Good candidates: `useOnlineStatus`, `useMediaQuery`, `useToggle`, `useLocalStorage`.
+
+  ```ts
+  export function useWindowWidth() {
+    const [width, setWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+      const onResize = () => setWidth(window.innerWidth);
+      window.addEventListener('resize', onResize);
+      return () => window.removeEventListener('resize', onResize);
+    }, []);
+
+    return width;
+  }
+  ```
 quiz:
   - question: "What makes a function a custom hook?"
     options: ["It is marked with `@hook`","It lives in the `hooks/` folder","Its name starts with `use` and it calls other hooks","It returns JSX"]

@@ -1,6 +1,24 @@
 ---
 title: useState
 minutes: 8
+summary: |-
+  - A regular variable isn't enough: changing it doesn't trigger a re-render, and on the next call it starts at its initial value again.
+  - `useState(0)` creates state with an initial value and returns a pair: the current value and a setter, usually written as `[x, setX]`.
+  - The setter stores the new value and re-renders the component. Each instance of a component has its own state.
+  - State is a snapshot: within one render, `count` stays the same, even right after `setCount`.
+  - If the new value depends on the old one, pass an updater function: `setCount((c) => c + 1)`.
+  - Call hooks (anything starting with `use…`) only at the top level of a component – not in conditions, loops, or nested functions.
+
+  ```tsx
+  import { useState } from 'react';
+
+  function Counter() {
+    const [count, setCount] = useState(0);
+    return <button onClick={() => setCount(count + 1)}>{count} clicks</button>;
+  }
+  ```
+
+  > [!WARNING] Calling `setCount(count + 1)` three times only adds 1 – with `setCount((c) => c + 1)` it really adds 3.
 quiz:
   - question: "Why doesn't a regular variable `let count = 0` show the new value after `count++`?"
     options: ["Because `let` is forbidden in React","Because numbers aren't displayed","Because changing it doesn't trigger a re-render, and on the next render the value is 0 again","It does show it"]

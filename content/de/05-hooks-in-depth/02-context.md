@@ -1,6 +1,28 @@
 ---
 title: Context
 minutes: 8
+summary: |-
+  - Context macht einen Wert für einen ganzen Teilbaum verfügbar, ohne ihn durch jede Ebene zu reichen (*Prop Drilling*).
+  - Drei Schritte: `createContext(standardwert)`, Wert mit `<ThemeContext value={…}>` bereitstellen, mit `useContext(ThemeContext)` lesen.
+  - Ändert sich der Wert, rendern alle Komponenten neu, die ihn lesen.
+  - Ohne Provider gilt der Standardwert; bei mehreren gewinnt der nächstgelegene darüber.
+  - Seit React 19 ist `<ThemeContext>` selbst der Provider (`.Provider` geht weiterhin). `use(ThemeContext)` darf auch in `if` stehen.
+  - Bewährt: eine eigene Provider-Komponente plus kleiner Hook wie `useTasks()`.
+
+  ```tsx
+  export const ThemeContext = createContext<Theme>('light');
+
+  <ThemeContext value={theme}>
+    <Layout />
+  </ThemeContext>
+
+  function ThemedButton() {
+    const theme = useContext(ThemeContext);
+    return <button className={theme}>Speichern</button>;
+  }
+  ```
+
+  > [!WARNING] Context ersetzt nicht jede Prop – reiche Daten zuerst normal weiter oder nutze `children`.
 quiz:
   - question: "Welches Problem löst Context?"
     options: ["Props durch viele Ebenen reichen zu müssen (Prop Drilling)","Langsame Komponenten","Fehlende Typen","Daten vom Server laden"]

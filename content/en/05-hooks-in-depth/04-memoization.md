@@ -1,6 +1,27 @@
 ---
 title: memo, useMemo and useCallback
 minutes: 9
+summary: |-
+  - `memo(Component)` skips rendering as long as all props stay equal (compared with `Object.is`).
+  - Objects, arrays, and functions only count as equal if they are the **same** object.
+  - `useMemo(fn, deps)` only recomputes when a dependency changes – for expensive calculations or stable values for `memo` children.
+  - `useCallback(fn, deps)` keeps the same function; it equals `useMemo(() => fn, deps)`.
+  - Measure with the React DevTools Profiler first, then optimize. Often moving state down or using `children` is enough.
+  - The **React Compiler** adds memoization automatically at build time – if your code follows the rules of React.
+
+  ```tsx
+  const ProductList = memo(function ProductList({ products, onSelect }: Props) {
+    // …
+  });
+
+  const visible = useMemo(
+    () => products.filter((p) => p.name.includes(query)),
+    [products, query],
+  );
+  const handleSelect = useCallback((id: number) => setSelected(id), []);
+
+  <ProductList products={visible} onSelect={handleSelect} />
+  ```
 quiz:
   - question: "When does a component wrapped in `memo` skip rendering?"
     options: ["Always","Never, `memo` is only a hint for developers","When it has no state","When all props stayed the same (compared with `Object.is`)"]

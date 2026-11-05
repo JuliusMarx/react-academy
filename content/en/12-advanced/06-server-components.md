@@ -1,6 +1,29 @@
 ---
 title: Server Components and Frameworks
 minutes: 8
+summary: |-
+  - With server-side rendering (SSR), the server generates finished HTML for each request; React then makes it interactive in the browser (hydration). If the HTML is generated at build time, that's static site generation (SSG).
+  - Server Components run only on the server – their code never reaches the browser. They may be `async` and load data directly.
+  - They have no state and no event handlers. Anything interactive lives in Client Components, marked with `'use client'` at the top of the file; they receive serializable props.
+  - `'use server'` marks Server Functions that the client can call, e.g. as a form action.
+  - Server Components need a framework like Next.js or React Router (framework mode). A plain Vite app is still a good choice for apps behind a login, tools and dashboards.
+
+  ```tsx
+  export default async function ProductsPage() {
+    const products = await db.product.findMany();
+    return (
+      <ul>
+        {products.map((p) => (
+          <li key={p.id}>
+            {p.name} <AddToCartButton id={p.id} />
+          </li>
+        ))}
+      </ul>
+    );
+  }
+  ```
+
+  > [!WARNING] Every Server Function is a public endpoint – always check inside it whether the user is signed in and allowed to perform the action.
 quiz:
   - question: "Where do React Server Components run?"
     options: ["Only in the browser", "On the server (or at build time) – their code never reaches the browser", "In a web worker", "In the database"]

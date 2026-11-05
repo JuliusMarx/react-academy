@@ -1,6 +1,25 @@
 ---
 title: use() und Suspense
 minutes: 8
+summary: |-
+  - `<Suspense fallback={…}>` zeigt einen Platzhalter, solange eine Komponente darin noch wartet. Grenzen lassen sich verschachteln.
+  - `use(promise)` liest den Wert eines Promise; ist es noch offen, **suspendiert** die Komponente.
+  - Die Komponente beschreibt nur den fertigen Zustand – kein Ladezustand, kein Effekt, kein State. Ein abgelehntes Promise landet bei der nächsten Error Boundary.
+  - Anders als andere Hooks darf `use` in `if` und Schleifen stehen und liest auch Context.
+  - Mit `useTransition` bleibt beim Wechsel der alte Inhalt sichtbar, bis der neue fertig ist; `isPending` zeigt, dass geladen wird.
+
+  ```tsx
+  function Profile({ userPromise }: { userPromise: Promise<User> }) {
+    const user = use(userPromise);
+    return <h2>{user.name}</h2>;
+  }
+
+  <Suspense fallback={<p>Lädt …</p>}>
+    <Profile userPromise={userPromise} />
+  </Suspense>
+  ```
+
+  > [!WARNING] Kein `use(fetch(…))` in derselben Komponente – das Promise muss gecacht sein, sonst suspendiert sie endlos.
 quiz:
   - question: "Was passiert, wenn eine Komponente `use(promise)` aufruft und das Promise noch nicht erfüllt ist?"
     options: ["Sie gibt `undefined` zurück", "Sie „suspendiert“ – die nächste `<Suspense>`-Grenze zeigt ihr Fallback", "Sie wirft einen Fehler, der die App beendet", "Sie wartet blockierend"]

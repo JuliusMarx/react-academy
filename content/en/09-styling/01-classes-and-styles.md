@@ -1,6 +1,24 @@
 ---
 title: Classes and Inline Styles
 minutes: 7
+summary: |-
+  - With Vite you import CSS files directly into a component: `import './App.css'`. They apply to the whole page.
+  - `className` takes a string; separate multiple classes with spaces. Build conditional classes with template strings, a ternary or the `clsx` package.
+  - `style` takes an **object** with camelCase properties. Numbers become pixels.
+  - Inline styles suit values that arise at runtime. `:hover`, `:focus` and media queries don't work with them.
+  - Middle ground: the styling lives in CSS, only the value comes from React as a CSS variable.
+
+  ```tsx
+  import clsx from 'clsx';
+
+  <button className={clsx('tab', { active: isActive, disabled: !enabled })}>…</button>
+
+  <div style={{ width: `${progress}%`, marginTop: 8 }} />
+
+  <p className="swatch" style={{ '--swatch': color } as CSSProperties}>…</p>
+  ```
+
+  > [!WARNING] Regular CSS files are global: two classes named `.card` override each other.
 quiz:
   - question: "How do you write the CSS property `background-color` as an inline style in JSX?"
     options: ["`style=\"background-color: red\"`", "`style={{ backgroundColor: 'red' }}`", "`style={{ 'background-color': red }}`", "`css={{ background: red }}`"]

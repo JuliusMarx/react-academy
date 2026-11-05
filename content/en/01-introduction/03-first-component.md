@@ -1,6 +1,30 @@
 ---
 title: Your First Component
 minutes: 7
+summary: |-
+  - A component is a JavaScript function that returns JSX – or `null` if nothing should be shown.
+  - The name starts with a capital letter: `<Welcome />` is a component, while React treats `<welcome />` as an HTML element.
+  - You use a component like an HTML tag, as often as you like.
+  - Wrap multi-line JSX after `return` in parentheses.
+  - Larger components get their own file. `export default` allows one main component per file, named exports (`export function Avatar`) as many as you like. Stay consistent within a project.
+
+  ```tsx
+  function Welcome() {
+    return <p>Welcome to the React Academy!</p>;
+  }
+
+  export default function App() {
+    return (
+      <main>
+        <h1>Components</h1>
+        <Welcome />
+        <Welcome />
+      </main>
+    );
+  }
+  ```
+
+  > [!WARNING] Never define components inside other components – they are recreated on every render and lose their state.
 quiz:
   - question: "Why must a component name start with a capital letter?"
     options: ["Otherwise React treats `<welcome />` as an HTML element","It's just a style rule","Because of TypeScript","So the file can be found"]

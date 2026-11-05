@@ -42,7 +42,7 @@ npx netlify-cli dev --offline --dir dist/react-academy/browser
 ```
 content/<sprache>/<NN-kapitel>/
   _chapter.md              # Kapitel-Titel und -Beschreibung (Frontmatter)
-  <NN-lektion>.md          # Lektion: Markdown + Frontmatter (title, minutes, quiz)
+  <NN-lektion>.md          # Lektion: Markdown + Frontmatter (title, minutes, summary, quiz)
 examples/
   _base/                   # Gemeinsames Vite-+-React-Projekt für alle Live-Beispiele
   _exercise-kit/           # Prüf-Kit, das jede Übung zusätzlich bekommt
@@ -61,6 +61,8 @@ src/app/
 ---
 title: Meine Lektion
 minutes: 6
+summary: |-               # Pflicht: Kurzfassung für den Kurzkurs (Ansicht „Kurz“)
+  - 4–7 Kernpunkte mit `Code`, danach meist ein kurzer Codeblock
 quiz:
   - question: Frage?
     options: [A, B, C]

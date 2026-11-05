@@ -1,6 +1,26 @@
 ---
 title: TanStack Query
 minutes: 9
+summary: |-
+  - TanStack Query handles loading, caching, refetching, and errors for server data.
+  - Setup: `npm install @tanstack/react-query`, then wrap the app in `<QueryClientProvider client={queryClient}>`.
+  - `useQuery({ queryKey, queryFn })` returns `data`, `isPending`, `isError`, and `error`.
+  - The `queryKey` identifies the data in the cache; values the request depends on belong in it: `['todo', id]`.
+  - The library refetches stale data automatically, e.g. when you return to the tab. `staleTime` sets how long data counts as fresh.
+  - `useMutation` changes data; `queryClient.invalidateQueries` then makes sure lists are refreshed.
+
+  ```tsx
+  const { data, isPending, isError, error } = useQuery({
+    queryKey: ['todos'],
+    queryFn: fetchTodos,
+  });
+
+  if (isPending) return <p>Loading …</p>;
+  if (isError) return <p role="alert">{error.message}</p>;
+  return <ul>{data.map((t) => <li key={t.id}>{t.title}</li>)}</ul>;
+  ```
+
+  > [!TIP] The TanStack Query Devtools show which queries are in the cache and whether they are stale.
 quiz:
   - question: "What is the `queryKey` for?"
     options: ["It is the URL of the request","It sorts the results","It is an API key","It identifies the data in the cache – identical keys share the same data"]

@@ -1,6 +1,25 @@
 ---
 title: Tailwind CSS
 minutes: 8
+summary: |-
+  - Tailwind setzt kleine **Utility-Klassen** direkt im JSX zusammen, jede macht genau eine Sache (`px-4`, `rounded-lg`). Ungenutzte Stile verschwinden aus dem Build.
+  - Einrichten: `tailwindcss` und `@tailwindcss/vite` installieren, `tailwindcss()` als Vite-Plugin eintragen, `@import 'tailwindcss';` ins CSS. Keine `tailwind.config.js` nötig.
+  - Eigene Farben und Abstände legst du im CSS mit `@theme` fest.
+  - Präfixe wie `hover:`, `focus-visible:`, `md:` oder `dark:` wenden eine Klasse nur unter einer Bedingung an. Ohne Präfix gilt sie immer (mobile first).
+  - Wiederholt sich eine Kombination, machst du eine Komponente daraus (`<Button>`), statt eigene CSS-Klassen zu schreiben.
+
+  ```tsx
+  const colors = {
+    success: 'bg-green-100 text-green-800',
+    error: 'bg-red-100 text-red-800',
+  };
+
+  <div className="grid gap-4 md:grid-cols-2">
+    <span className={`rounded-full px-3 py-1 ${colors[status]}`}>…</span>
+  </div>
+  ```
+
+  > [!WARNING] Tailwind findet nur vollständige Klassennamen – zusammengesetzte wie `` `bg-${color}-100` `` fehlen im CSS.
 quiz:
   - question: "Wie richtest du Tailwind CSS 4 in einem Vite-Projekt ein?"
     options: ["Mit einer `tailwind.config.js` und PostCSS","Mit einem `<script>` von einem CDN","Mit dem Plugin `@tailwindcss/vite` und `@import 'tailwindcss'` in der CSS-Datei","Gar nicht, es ist in React eingebaut"]

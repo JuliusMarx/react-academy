@@ -1,6 +1,25 @@
 ---
 title: Testing User Interactions
 minutes: 8
+summary: |-
+  - `@testing-library/user-event` simulates interactions the way a person performs them: a click fires pointer, focus, `mousedown`, `mouseup` and `click` events.
+  - Create a user with `userEvent.setup()` at the start of each test.
+  - All actions are asynchronous, so always `await` them: `user.click`, `user.type`, `user.clear`, `user.selectOptions`, `user.keyboard('{Enter}')`, `user.tab()`.
+  - `fireEvent` dispatches just a single event – use it only when `userEvent` can't do something.
+  - If something appears later, wait with `await screen.findBy…` (up to one second) or with `waitFor(() => …)`.
+
+  ```tsx
+  it('counts clicks', async () => {
+    const user = userEvent.setup();
+    render(<Counter />);
+
+    await user.click(screen.getByRole('button', { name: 'Increment' }));
+
+    expect(screen.getByLabelText('count')).toHaveTextContent('1');
+  });
+  ```
+
+  > [!TIP] Test behavior ("after the click, 'Saved' is shown"), not intermediate steps like "`setSaved` was called".
 quiz:
   - question: "Why use `userEvent` instead of `fireEvent`?"
     options: ["`fireEvent` no longer exists", "`userEvent` simulates a real interaction with all its events (focus, key presses, click) – `fireEvent` only fires a single event", "`userEvent` is synchronous", "There is no difference"]

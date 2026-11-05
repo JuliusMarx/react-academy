@@ -1,6 +1,24 @@
 ---
 title: Wann du keinen Effekt brauchst
 minutes: 8
+summary: |-
+  - Effekte sind ein Notausgang für die Synchronisation mit externen Systemen. Viele Effekte in der Praxis sind überflüssig.
+  - Was sich aus Props und State ergibt, berechnest du direkt beim Rendern – kein zusätzlicher State, kein Effekt. Teure Berechnungen merkst du dir mit `useMemo`.
+  - Soll eine Komponente von vorn beginnen, gib ihr einen neuen `key`: `<Profile key={userId} … />` setzt ihren gesamten State zurück.
+  - Code, der wegen einer Nutzeraktion läuft, gehört in den Event-Handler; Code, der wegen der Anzeige synchron bleiben muss, in einen Effekt.
+  - Vermeide Ketten von Effekten, die State setzen und den nächsten Effekt auslösen.
+  - Richtig sind Effekte für Timer, Browser-APIs, Verbindungen, Abos und Nicht-React-Bibliotheken.
+
+  ```tsx
+  // ✗ Unnötig: zusätzlicher State plus Effekt
+  const [fullName, setFullName] = useState('');
+  useEffect(() => {
+    setFullName(`${firstName} ${lastName}`);
+  }, [firstName, lastName]);
+
+  // ✓ Einfach beim Rendern berechnen
+  const fullName = `${firstName} ${lastName}`;
+  ```
 quiz:
   - question: "Aus `items` und `query` soll eine gefilterte Liste entstehen. Wie machst du das am besten?"
     options: ["Mit `useState` und einem `useEffect`, der die Liste aktualisiert", "Direkt beim Rendern berechnen: `const visible = items.filter(…)`", "In einem Ref speichern", "In `localStorage` ablegen"]

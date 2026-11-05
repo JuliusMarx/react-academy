@@ -1,6 +1,30 @@
 ---
 title: Parameter und Navigation
 minutes: 8
+summary: |-
+  - Ein Doppelpunkt macht ein Segment zum Parameter: `path="/products/:id"`. Mit `?` wird ein Segment optional (`/:lang?/about`).
+  - `useParams()` liefert die Parameter als Objekt – immer als **Strings**. Für Zahlen wandelst du um: `Number(id)`.
+  - Rechne damit, dass es zur ID nichts gibt, und zeige dann eine passende Meldung.
+  - `useNavigate()` navigiert per Code, z. B. nach dem Speichern. `navigate(-1)` geht zurück, `{ replace: true }` ersetzt den Historien-Eintrag.
+  - `useSearchParams()` funktioniert wie `useState`, nur steht der Wert nach dem `?` in der URL – ideal für Filter und Sortierung.
+
+  ```tsx
+  function ProductPage() {
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const product = products.find((p) => p.id === Number(id));
+
+    if (!product) return <p>Produkt nicht gefunden.</p>;
+    return (
+      <>
+        <h2>{product.name}</h2>
+        <button onClick={() => navigate('/products')}>Zur Liste</button>
+      </>
+    );
+  }
+  ```
+
+  > [!TIP] Für normale Verweise nimm trotzdem `<Link>` – er lässt sich mit Strg+Klick im neuen Tab öffnen und wird von Screenreadern erkannt.
 quiz:
   - question: "Die Route ist `path=\"/products/:id\"`, die URL `/products/42`. Was liefert `useParams()`?"
     options: ["`{ id: '42' }`","`{ id: 42 }`","`42`","`['products', '42']`"]

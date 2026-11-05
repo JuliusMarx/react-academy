@@ -1,6 +1,27 @@
 ---
 title: Formularfelder
 minutes: 7
+summary: |-
+  - Ein kontrolliertes Feld bekommt `value` aus dem State und meldet jede Änderung per `onChange` zurück. So kannst du den Wert sofort anzeigen, prüfen oder zurücksetzen.
+  - `<textarea>` und `<select>` funktionieren genauso mit `value`.
+  - Bei Checkboxen und Radiobuttons heißt das Attribut `checked`, im Handler liest du `e.target.checked`.
+  - Gültigkeit ist ein abgeleiteter Wert: Berechne sie beim Rendern, statt sie in eigenem State zu speichern.
+  - Brauchst du den Wert erst beim Absenden, reicht ein unkontrolliertes Feld mit `defaultValue` und `FormData`.
+
+  ```tsx
+  function NameForm() {
+    const [name, setName] = useState('');
+    return (
+      <label>
+        Name <input value={name} onChange={(e) => setName(e.target.value)} />
+      </label>
+    );
+  }
+
+  const isValid = name.trim().length >= 2 && email.includes('@');
+  ```
+
+  > [!WARNING] Ein Feld mit `value`, aber ohne `onChange` ist schreibgeschützt.
 quiz:
   - question: "Was macht ein Eingabefeld „kontrolliert“?"
     options: ["Ein `name`-Attribut","Das Attribut `controlled`","Ein `<form>` darum herum","`value` kommt aus dem State und `onChange` aktualisiert ihn"]

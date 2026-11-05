@@ -1,6 +1,32 @@
 ---
 title: Redux Toolkit
 minutes: 9
+summary: |-
+  - Redux Toolkit (RTK) ist die offizielle, moderne Art, Redux zu schreiben: ein zentraler Store, Änderungen nur über Actions und Reducer.
+  - `createSlice` bündelt State und Reducer eines Bereichs und erzeugt zu jedem Reducer einen Action Creator: `amountAdded(10)` ergibt `{ type: 'counter/amountAdded', payload: 10 }`.
+  - Dank Immer darfst du `state` im Reducer scheinbar verändern. Alternativ gibst du einen neuen State zurück.
+  - `configureStore` baut den Store. Typisierte Hooks bekommst du mit `useSelector.withTypes<RootState>()` und `useDispatch.withTypes<AppDispatch>()`.
+  - `<Provider store={store}>` umhüllt die App. Komponenten rendern nur neu, wenn sich der ausgewählte Wert ändert.
+  - RTK lohnt sich vor allem in großen Apps mit vielen Entwicklern; für Serverdaten gibt es RTK Query.
+
+  ```ts
+  export const counterSlice = createSlice({
+    name: 'counter',
+    initialState: { value: 0 },
+    reducers: {
+      incremented: (state) => {
+        state.value += 1;
+      },
+    },
+  });
+  export const { incremented } = counterSlice.actions;
+
+  // in einer Komponente
+  const value = useAppSelector((state) => state.counter.value);
+  const dispatch = useAppDispatch(); // dispatch(incremented())
+  ```
+
+  > [!TIP] `connect`, `mapStateToProps` und Action-Typen wie `'INCREMENT'` sind klassisches Redux – für neuen Code nimmst du RTK und die Hooks.
 quiz:
   - question: "Warum darfst du in einem Reducer von `createSlice` scheinbar den State verändern (`state.value += 1`)?"
     options: ["Weil Redux keine Unveränderlichkeit braucht", "Weil Redux Toolkit intern Immer verwendet und daraus eine unveränderliche Aktualisierung macht", "Das darfst du nicht", "Weil der State eine Kopie ist, die verworfen wird"]

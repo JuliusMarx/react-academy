@@ -1,6 +1,24 @@
 ---
 title: useState
 minutes: 8
+summary: |-
+  - Eine normale Variable reicht nicht: Ihre Änderung löst kein neues Rendern aus, und beim nächsten Aufruf beginnt sie wieder beim Startwert.
+  - `useState(0)` legt State mit Startwert an und liefert ein Paar: aktueller Wert und Setter, üblich als `[x, setX]`.
+  - Der Setter merkt sich den neuen Wert und rendert die Komponente neu. Jede Instanz einer Komponente hat ihren eigenen State.
+  - State ist ein Schnappschuss: Innerhalb eines Renderns bleibt `count` gleich, auch direkt nach `setCount`.
+  - Hängt der neue Wert vom alten ab, übergib eine Updater-Funktion: `setCount((c) => c + 1)`.
+  - Hooks (alles mit `use…`) rufst du nur auf oberster Ebene einer Komponente auf – nicht in Bedingungen, Schleifen oder verschachtelten Funktionen.
+
+  ```tsx
+  import { useState } from 'react';
+
+  function Counter() {
+    const [count, setCount] = useState(0);
+    return <button onClick={() => setCount(count + 1)}>{count} Klicks</button>;
+  }
+  ```
+
+  > [!WARNING] Dreimal `setCount(count + 1)` erhöht nur um 1 – mit `setCount((c) => c + 1)` wirklich um 3.
 quiz:
   - question: "Warum zeigt eine normale Variable `let count = 0` nach `count++` nicht den neuen Wert an?"
     options: ["Weil `let` in React verboten ist","Weil Zahlen nicht angezeigt werden","Weil eine Änderung kein neues Rendern auslöst und der Wert beim nächsten Rendern wieder 0 ist","Sie zeigt ihn an"]

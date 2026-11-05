@@ -1,6 +1,15 @@
 ---
 title: Welcher State wohin?
 minutes: 6
+summary: |-
+  - Frag zuerst, welche Art von State es ist. Die meisten Probleme mit „globalem State“ verschwinden, wenn jeder State am richtigen Ort liegt.
+  - So lokal wie möglich: `useState` oder `useReducer` in der tiefsten Komponente, die ihn braucht. Teilen zwei Geschwister ihn, wandert er in die nächste gemeinsame Elternkomponente.
+  - Serverdaten sind kein Client-State: TanStack Query, Router-Loader oder Server Components übernehmen Caching und Aktualisieren.
+  - Filter, Sortierung oder Seite gehören in die URL (`useSearchParams`) – dann funktionieren Neuladen, Teilen und der Zurück-Button.
+  - Abgeleitetes wie Summen oder gefilterte Listen speicherst du nicht, sondern berechnest es beim Rendern.
+  - Für App-weiten Client-State reicht Context bei seltenen Änderungen – er rendert aber alle Leser neu. Zustand und Redux Toolkit abonnieren per Selektor nur den Teil, den eine Komponente braucht.
+
+  > [!TIP] Echtes State Management brauchst du nur für App-weiten Client-State wie Warenkorb oder Farbschema – und der ist oft kleiner als gedacht.
 quiz:
   - question: "Wo gehören Daten vom Server hin, z. B. eine Produktliste?"
     options: ["In einen globalen Store wie Redux","In `localStorage`","In eine Bibliothek für Serverdaten wie TanStack Query oder in die Loader des Routers","In eine globale Variable"]

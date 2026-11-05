@@ -1,6 +1,23 @@
 ---
 title: Vitest und Testing Library
 minutes: 9
+summary: |-
+  - Vitest ist der Test-Runner, React Testing Library rendert Komponenten und fragt sie ab. `environment: 'jsdom'` liefert ein simuliertes DOM, `@testing-library/jest-dom/vitest` Matcher wie `toBeInTheDocument()`.
+  - `describe` gruppiert Tests, `it` ist ein einzelner Test, `render` rendert, `screen` fragt die Seite ab, `expect` prüft. `npx vitest` führt alle `.test.tsx`-Dateien im Watch-Modus aus.
+  - Teste Verhalten wie ein Nutzer: zuerst `getByRole` mit Namen, dann `getByLabelText`, `getByText` – `getByTestId` nur als letzter Ausweg.
+  - `getBy…` wirft, wenn nichts gefunden wird. `queryBy…` gibt `null` zurück (zum Prüfen, dass etwas fehlt). `findBy…` wartet per Promise.
+  - Für mehrere Treffer gibt es `getAllBy…`, `queryAllBy…` und `findAllBy…`.
+
+  ```tsx
+  describe('Greeting', () => {
+    it('begrüßt den Nutzer mit Namen', () => {
+      render(<Greeting name="Ada" />);
+      expect(screen.getByRole('heading', { name: 'Hallo, Ada!' })).toBeInTheDocument();
+    });
+  });
+  ```
+
+  > [!TIP] Findet `getByRole` deinen Button nicht, ist er wahrscheinlich auch für Screenreader schlecht zugänglich.
 quiz:
   - question: "Welche Abfrage solltest du bevorzugen, um einen Button zu finden?"
     options: ["`container.querySelector('.btn')`","`document.getElementsByTagName('button')[0]`","`screen.getByTestId('save')`","`screen.getByRole('button', { name: 'Speichern' })`"]

@@ -1,6 +1,26 @@
 ---
 title: Fetching Data in Effects
 minutes: 9
+summary: |-
+  - The simplest way to load data: `fetch` in an Effect with the ID as a dependency.
+  - Model three states: **loading**, **error**, **done**.
+  - `fetch` doesn't throw on HTTP errors like 404 or 500 – always check `res.ok`.
+  - If the ID changes quickly, a stale response can arrive last (race condition). A cleanup function with an `ignore` flag discards it; an `AbortController` cancels the request.
+  - Limits: no caching, waterfalls, lots of manual work in every component – real projects usually use a library like TanStack Query.
+
+  ```tsx
+  useEffect(() => {
+    let ignore = false;
+    fetchUser(userId).then((data) => {
+      if (!ignore) setUser(data);
+    });
+    return () => {
+      ignore = true; // this Effect is stale
+    };
+  }, [userId]);
+  ```
+
+  > [!WARNING] The Vite dev server answers unknown paths with `index.html` and status 200 – a missing JSON file then gives a parse error instead of a 404.
 quiz:
   - question: "The user quickly switches from profile 1 to profile 2. The response for profile 1 arrives last. What does a component without cleanup show?"
     options: ["Profile 2","Nothing","An error","Profile 1 – the stale response overwrites the current one"]

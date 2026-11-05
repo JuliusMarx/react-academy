@@ -1,6 +1,26 @@
 ---
 title: Zustand
 minutes: 8
+summary: |-
+  - `create` from `zustand` returns a hook – no provider, no action types. State and actions live together in one object.
+  - `set` updates the state: you pass only the changed fields and Zustand merges them with the rest. As with `useState`: new objects instead of mutation.
+  - In TypeScript you write `create<BearState>()(…)` – the double parentheses are needed for type inference.
+  - Components pick what they need with a selector and only re-render when exactly that value changes.
+  - Outside React, `useBearStore.getState()` reads and changes the store, and `subscribe()` reports changes.
+  - Middleware like `persist` (saves to `localStorage`) or `devtools` extends the store.
+
+  ```ts
+  export const useBearStore = create<BearState>()((set) => ({
+    bears: 0,
+    addBear: () => set((state) => ({ bears: state.bears + 1 })),
+    reset: () => set({ bears: 0 }),
+  }));
+
+  // in a component
+  const bears = useBearStore((state) => state.bears);
+  ```
+
+  > [!WARNING] A selector that creates a new object on every call (`(s) => ({ a: s.a, b: s.b })`) triggers an infinite loop – select values individually or use `useShallow`.
 quiz:
   - question: "What does `create` return in Zustand?"
     options: ["A hook that components use to read the store","A provider","A class","A reducer"]

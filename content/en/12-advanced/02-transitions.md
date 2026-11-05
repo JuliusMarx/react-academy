@@ -1,6 +1,25 @@
 ---
 title: Transitions and Deferred Values
 minutes: 8
+summary: |-
+  - Transitions mark updates as non-urgent: React handles the urgent part first, such as the input field, and renders the rest in the background, interruptibly.
+  - `useDeferredValue(query)` returns a version that may lag behind. React first renders with the old value, then with the new one in the background – if you keep typing, it aborts and starts over.
+  - When `query !== deferredQuery`, the list still shows old results – a good moment to dim it.
+  - If you call the setter yourself, use `useTransition`: `startTransition(() => setTab('reports'))`. The old view stays usable, and `isPending` shows that something is happening.
+  - Rule of thumb: your own setter → `useTransition`; value from outside (prop, input) → `useDeferredValue`.
+
+  ```tsx
+  const [query, setQuery] = useState('');
+  const deferredQuery = useDeferredValue(query);
+  const isStale = query !== deferredQuery;
+
+  <input value={query} onChange={(e) => setQuery(e.target.value)} />
+  <div style={{ opacity: isStale ? 0.5 : 1 }}>
+    <SlowList query={deferredQuery} />
+  </div>
+  ```
+
+  > [!WARNING] The slow component must be wrapped in `memo` (or the React Compiler must be active) – otherwise it still re-renders during the urgent render.
 quiz:
   - question: "What does `useDeferredValue(query)` do?"
     options: ["It delays every input by one second","It makes the component asynchronous","It stores `query` in `localStorage`","It returns a version of `query` that is allowed to lag behind during expensive updates – the input itself stays smooth"]

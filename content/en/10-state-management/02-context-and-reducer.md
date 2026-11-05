@@ -1,6 +1,29 @@
 ---
 title: Context and Reducer
 minutes: 8
+summary: |-
+  - Context plus `useReducer` gives you a small store without a library: the reducer holds the logic, the provider holds the state and provides it.
+  - Two contexts separate reading from writing. Components that only need `dispatch` don't re-render when the state changes – `dispatch` never changes.
+  - You render the context itself as the provider: `<CartContext value={cart}>`.
+  - Custom hooks like `useCart()` and `useCartDispatch()` hide the internal structure. With `null` as the default value they detect a missing provider and throw a clear error.
+  - Limit: every change re-renders all components that call `useCart()`. For large, frequently changing state, a store with selectors helps.
+
+  ```tsx
+  export function CartProvider({ children }: { children: ReactNode }) {
+    const [cart, dispatch] = useReducer(cartReducer, []);
+    return (
+      <CartContext value={cart}>
+        <CartDispatchContext value={dispatch}>{children}</CartDispatchContext>
+      </CartContext>
+    );
+  }
+
+  export function useCart() {
+    const cart = useContext(CartContext);
+    if (!cart) throw new Error('useCart must be used inside <CartProvider>');
+    return cart;
+  }
+  ```
 quiz:
   - question: "Why is state often split from `dispatch` into two contexts?"
     options: ["Components that only need `dispatch` then don't re-render when the state changes","It is required","Because `dispatch` doesn't work otherwise","Because of TypeScript"]

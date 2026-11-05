@@ -1,6 +1,24 @@
 ---
 title: TypeScript-Muster
 minutes: 9
+summary: |-
+  - Jede Komponente beschreibt ihre Props mit `type` oder `interface`: optionale mit `?`, beliebigen Inhalt als `ReactNode`, Callbacks etwa als `() => void`.
+  - `ComponentProps<'button'>` übernimmt alle Props eines nativen Elements. Mit `...rest` reichst du sie weiter – auch `ref`, das seit React 19 eine normale Prop ist.
+  - Event-Handler typisierst du mit `MouseEvent<HTMLButtonElement>`, `ChangeEvent<HTMLInputElement>` oder `FormEvent<HTMLFormElement>`. Steht der Handler direkt im JSX, leitet TypeScript den Typ selbst ab.
+  - Discriminated Unions beschreiben Props, die sich ausschließen: Nach `props.status === 'error'` weiß TypeScript, dass es `message` gibt.
+  - Generische Komponenten wie `List<T>` arbeiten mit beliebigen Datentypen und bleiben trotzdem typsicher.
+
+  ```tsx
+  import type { ComponentProps } from 'react';
+
+  type ButtonProps = ComponentProps<'button'> & { variant?: 'primary' | 'danger' };
+
+  function Button({ variant = 'primary', className, ...rest }: ButtonProps) {
+    return <button {...rest} className={`btn btn-${variant} ${className ?? ''}`} />;
+  }
+
+  <Button type="submit" disabled={saving} aria-label="Speichern" />;
+  ```
 quiz:
   - question: "Wie gibst du einer eigenen Button-Komponente alle Props eines normalen `<button>`?"
     options: ["Mit `ComponentProps<'button'>`","Mit `any`","Indem du jede Prop einzeln aufschreibst","Gar nicht"]

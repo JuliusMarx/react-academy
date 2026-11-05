@@ -1,6 +1,31 @@
 ---
 title: Routes and Links
 minutes: 8
+summary: |-
+  - Install `react-router`. The `react-router-dom` package no longer exists as of version 8.
+  - `<BrowserRouter>` connects the router to the address bar and goes once, at the very outside.
+  - `<Routes>` shows the `element` of the `<Route>` that matches the URL. Order doesn't matter – the most specific one wins. `path="*"` catches everything else (404 page).
+  - `<Link to="…">` changes the page without a reload: state and loaded data are kept.
+  - `<NavLink>` gets the class `active` and `aria-current="page"` on the current page.
+  - `<Navigate to="/" replace />` redirects. `replace` replaces the entry in the history.
+
+  ```tsx
+  import { BrowserRouter, NavLink, Route, Routes } from 'react-router';
+
+  <BrowserRouter>
+    <nav>
+      <NavLink to="/">Home</NavLink>
+      <NavLink to="/about">About</NavLink>
+    </nav>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  </BrowserRouter>
+  ```
+
+  > [!WARNING] If someone opens `/about` directly, the server must serve `index.html` (Netlify: `/* /index.html 200`), otherwise you get a 404.
 quiz:
   - question: "In React Router 8, which package do you import `BrowserRouter`, `Routes` and `Link` from?"
     options: ["`react-router-dom`","`@react-router/browser`","`react-router`","`react-dom/router`"]

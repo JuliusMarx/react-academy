@@ -1,6 +1,28 @@
 ---
 title: Events
 minutes: 7
+summary: |-
+  - Auf Benutzeraktionen reagierst du mit Event-Handlern, die du als Prop wie `onClick`, `onChange` oder `onSubmit` übergibst.
+  - Übergib die Funktion selbst: `onClick={handleClick}`. Für Argumente nimmst du eine Pfeilfunktion: `onClick={() => remove(item.id)}`.
+  - Namenskonvention: Handler heißen `handle` + Ereignis, die Props `on` + Ereignis.
+  - Jeder Handler bekommt ein Event-Objekt. `e.preventDefault()` verhindert z. B., dass ein Formular die Seite neu lädt.
+  - Events steigen im Baum nach oben (Bubbling). `e.stopPropagation()` hält das an.
+  - Eigene Komponenten können Handler als Props entgegennehmen – so entscheidet die Elternkomponente, was passiert.
+
+  ```tsx
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    console.log(data.get('city'));
+  }
+
+  <form onSubmit={handleSubmit}>
+    <input name="city" />
+    <button type="submit">Senden</button>
+  </form>
+  ```
+
+  > [!WARNING] `onClick={handleClick()}` ruft die Funktion sofort beim Rendern auf, nicht erst beim Klick.
 quiz:
   - question: "Welche Schreibweise ruft `handleClick` erst beim Klick auf?"
     options: ["`onClick={handleClick()}`","`onclick=\"handleClick\"`","`onClick={handleClick}`","`onClick=\"handleClick()\"`"]

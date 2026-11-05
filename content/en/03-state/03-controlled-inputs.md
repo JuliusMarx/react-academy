@@ -1,6 +1,27 @@
 ---
 title: Form Fields
 minutes: 7
+summary: |-
+  - A controlled field gets its `value` from state and reports every change via `onChange`. That lets you show, validate, or reset the value right away.
+  - `<textarea>` and `<select>` work the same way with `value`.
+  - For checkboxes and radio buttons the attribute is `checked`; in the handler you read `e.target.checked`.
+  - Validity is a derived value: compute it during rendering instead of storing it in separate state.
+  - If you only need the value on submit, an uncontrolled field with `defaultValue` and `FormData` is often enough.
+
+  ```tsx
+  function NameForm() {
+    const [name, setName] = useState('');
+    return (
+      <label>
+        Name <input value={name} onChange={(e) => setName(e.target.value)} />
+      </label>
+    );
+  }
+
+  const isValid = name.trim().length >= 2 && email.includes('@');
+  ```
+
+  > [!WARNING] A field with `value` but no `onChange` is read-only.
 quiz:
   - question: "What makes an input field “controlled”?"
     options: ["A `name` attribute","The `controlled` attribute","A `<form>` around it","`value` comes from state and `onChange` updates it"]

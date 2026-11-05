@@ -1,6 +1,32 @@
 ---
 title: Nested Routes
 minutes: 8
+summary: |-
+  - Nested routes share a frame: the outer route renders the layout, `<Outlet />` marks where the matching child route appears.
+  - A route **without `path`** is a pure layout route and adds nothing to the URL.
+  - Child paths are **relative** to the parent route: `settings` under `/` becomes `/settings`.
+  - An **index route** (`index` instead of `path`) appears when the URL exactly matches the parent route's path.
+  - On navigation the layout stays put; only the content in the `Outlet` changes. Layouts can be nested as deep as you like.
+
+  ```tsx
+  function Layout() {
+    return (
+      <>
+        <header><NavLink to="/" end>Home</NavLink></header>
+        <main><Outlet /></main>
+      </>
+    );
+  }
+
+  <Routes>
+    <Route element={<Layout />}>
+      <Route index element={<Home />} />
+      <Route path="settings" element={<Settings />} />
+    </Route>
+  </Routes>
+  ```
+
+  > [!TIP] `NavLink` is also active when the URL merely starts with its target – so set `end` for `/` and overview pages.
 quiz:
   - question: "Where does a layout route show the page of the matching child route?"
     options: ["Where it renders `<Outlet />`","Below the layout, automatically","In `children`","Nowhere, you have to import it"]

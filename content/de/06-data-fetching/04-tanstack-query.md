@@ -1,6 +1,26 @@
 ---
 title: TanStack Query
 minutes: 9
+summary: |-
+  - TanStack Query kümmert sich bei Serverdaten um Laden, Caching, erneutes Laden und Fehler.
+  - Einrichten: `npm install @tanstack/react-query`, dann die App in `<QueryClientProvider client={queryClient}>` hüllen.
+  - `useQuery({ queryKey, queryFn })` liefert `data`, `isPending`, `isError` und `error`.
+  - Der `queryKey` identifiziert die Daten im Cache; Werte, von denen die Anfrage abhängt, gehören hinein: `['todo', id]`.
+  - Veraltete Daten lädt die Bibliothek automatisch neu, z. B. bei Rückkehr zum Tab. `staleTime` legt fest, wie lange sie frisch sind.
+  - `useMutation` ändert Daten; `queryClient.invalidateQueries` sorgt danach für frische Listen.
+
+  ```tsx
+  const { data, isPending, isError, error } = useQuery({
+    queryKey: ['todos'],
+    queryFn: fetchTodos,
+  });
+
+  if (isPending) return <p>Lädt …</p>;
+  if (isError) return <p role="alert">{error.message}</p>;
+  return <ul>{data.map((t) => <li key={t.id}>{t.title}</li>)}</ul>;
+  ```
+
+  > [!TIP] Die TanStack Query Devtools zeigen dir, welche Queries im Cache liegen und ob sie veraltet sind.
 quiz:
   - question: "Wozu dient der `queryKey`?"
     options: ["Er ist die URL der Anfrage","Er sortiert die Ergebnisse","Er ist ein API-Schlüssel","Er identifiziert die Daten im Cache – gleiche Keys teilen sich dieselben Daten"]

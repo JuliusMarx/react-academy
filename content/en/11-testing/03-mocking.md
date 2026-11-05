@@ -1,6 +1,28 @@
 ---
 title: Mocks
 minutes: 8
+summary: |-
+  - Mocks replace dependencies you don't want for real in a test and record how they were called.
+  - For callback props, pass `vi.fn()` and check with `toHaveBeenCalledTimes(n)`, `toHaveBeenCalledWith(…)` or `not.toHaveBeenCalled()`.
+  - `mockReturnValue(42)` or `mockResolvedValue(data)` sets what the mock returns.
+  - `vi.spyOn(globalThis, 'fetch')` simulates server responses without a server. With `new Response('{}', { status: 500 })` you test the error case.
+  - Restore the originals after each test: `vi.restoreAllMocks()` in `afterEach` or `restoreMocks: true` in the config.
+  - `vi.mock('./api')` replaces whole modules; MSW intercepts requests at the network level.
+
+  ```tsx
+  it('loads the user', async () => {
+    const fetchSpy = vi
+      .spyOn(globalThis, 'fetch')
+      .mockResolvedValue(new Response(JSON.stringify({ id: 7, name: 'Grace Hopper' })));
+
+    render(<UserCard userId={7} />);
+
+    expect(await screen.findByRole('heading', { name: 'Grace Hopper' })).toBeInTheDocument();
+    expect(fetchSpy).toHaveBeenCalledWith('/api/users/7');
+  });
+  ```
+
+  > [!WARNING] Mock as little as possible – every mock is an assumption, and too many make your tests verify those assumptions instead of the real interplay.
 quiz:
   - question: "How do you check that a component calls its callback prop `onSave` with the right data?"
     options: ["With `console.log`","With a real server","You can't","With `const onSave = vi.fn()` and `expect(onSave).toHaveBeenCalledWith(…)`"]

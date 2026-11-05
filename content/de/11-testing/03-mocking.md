@@ -1,6 +1,28 @@
 ---
 title: Mocks
 minutes: 8
+summary: |-
+  - Mocks ersetzen Abhängigkeiten, die du im Test nicht echt haben willst, und zeichnen auf, wie sie aufgerufen wurden.
+  - Für Callback-Props übergibst du `vi.fn()` und prüfst mit `toHaveBeenCalledTimes(n)`, `toHaveBeenCalledWith(…)` oder `not.toHaveBeenCalled()`.
+  - `mockReturnValue(42)` oder `mockResolvedValue(data)` legt fest, was der Mock zurückgibt.
+  - `vi.spyOn(globalThis, 'fetch')` simuliert Serverantworten ohne Server. Mit `new Response('{}', { status: 500 })` testest du den Fehlerfall.
+  - Nach jedem Test stellst du die Originale wieder her: `vi.restoreAllMocks()` in `afterEach` oder `restoreMocks: true` in der Konfiguration.
+  - `vi.mock('./api')` ersetzt ganze Module; MSW fängt Anfragen auf Netzwerkebene ab.
+
+  ```tsx
+  it('lädt den Nutzer', async () => {
+    const fetchSpy = vi
+      .spyOn(globalThis, 'fetch')
+      .mockResolvedValue(new Response(JSON.stringify({ id: 7, name: 'Grace Hopper' })));
+
+    render(<UserCard userId={7} />);
+
+    expect(await screen.findByRole('heading', { name: 'Grace Hopper' })).toBeInTheDocument();
+    expect(fetchSpy).toHaveBeenCalledWith('/api/users/7');
+  });
+  ```
+
+  > [!WARNING] Mocke so wenig wie möglich – jeder Mock ist eine Annahme, und zu viele prüfen deine Annahmen statt des echten Zusammenspiels.
 quiz:
   - question: "Wie prüfst du, dass eine Komponente ihre Callback-Prop `onSave` mit den richtigen Daten aufruft?"
     options: ["Mit `console.log`","Mit einem echten Server","Gar nicht","Mit `const onSave = vi.fn()` und `expect(onSave).toHaveBeenCalledWith(…)`"]

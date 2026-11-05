@@ -1,6 +1,30 @@
 ---
 title: Props
 minutes: 8
+summary: |-
+  - Mit Props gibt eine Elternkomponente Daten an ihre Kinder weiter, ähnlich wie Attribute in HTML.
+  - Strings stehen in Anführungszeichen, alles andere in `{ }`: `price={3.5}`. Ein Attribut ohne Wert (`onSale`) ist `true`.
+  - Die Komponente bekommt alle Props als ein Objekt, meist direkt in der Parameterliste zerlegt. Mit TypeScript beschreibst du sie als Typ; optionale Props bekommen `?` und einen Standardwert.
+  - Props sind schreibgeschützt: gleiche Props, gleiches Ergebnis. Was sich ändern soll, ist State.
+  - Der Inhalt zwischen öffnendem und schließendem Tag kommt als `children` (Typ `ReactNode`) an – ideal für Rahmen-Komponenten.
+  - `<Avatar {...props} />` reicht alle Props weiter. Sparsam einsetzen, explizite Props sind leichter zu lesen.
+
+  ```tsx
+  type ProductCardProps = {
+    name: string;
+    price: number;
+    onSale?: boolean;
+  };
+
+  function ProductCard({ name, price, onSale = false }: ProductCardProps) {
+    return (
+      <article>
+        <h2>{name}</h2>
+        <p>{price.toFixed(2)} € {onSale && <strong>Angebot!</strong>}</p>
+      </article>
+    );
+  }
+  ```
 quiz:
   - question: "Darf eine Komponente ihre Props ändern?"
     options: ["Nein, Props sind schreibgeschützt","Ja, jederzeit","Nur Zahlen und Strings","Nur mit `setProps`"]

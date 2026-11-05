@@ -1,6 +1,26 @@
 ---
 title: Lists and keys
 minutes: 8
+summary: |-
+  - You create lists with `map`: each data item becomes a JSX element. To filter, call `filter` first.
+  - Every list item needs a `key`. When items are added, removed, or reordered, React uses it to tell which element is which and where state belongs.
+  - The `key` must be unique among siblings and stable across renders – ideally an ID from the data.
+  - The index as `key` only works for lists that never change. `Math.random()` is even worse: React then rebuilds every element on every render.
+  - Handle empty lists with conditional rendering.
+
+  ```tsx
+  function FruitList() {
+    return (
+      <ul>
+        {fruits.map((fruit) => (
+          <li key={fruit.id}>{fruit.name}</li>
+        ))}
+      </ul>
+    );
+  }
+  ```
+
+  > [!WARNING] With `key={index}`, state "wanders" to the wrong element when you reorder or delete items.
 quiz:
   - question: "What is the `key` for in list items?"
     options: ["React uses it to tell which element is which when the list changes","It is output as an HTML attribute","It sorts the list","It only matters for TypeScript"]

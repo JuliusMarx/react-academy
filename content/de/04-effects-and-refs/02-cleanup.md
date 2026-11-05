@@ -1,6 +1,22 @@
 ---
 title: Aufräumen
 minutes: 8
+summary: |-
+  - Startet ein Effekt etwas, das weiterläuft, gibt er eine **Cleanup-Funktion** zurück, die es wieder beendet.
+  - React ruft sie auf, bevor der Effekt erneut läuft, und wenn die Komponente entfernt wird (Unmount).
+  - Typische Paare: `setInterval`/`clearInterval`, `addEventListener`/`removeEventListener`, verbinden/trennen, abonnieren/abbestellen.
+  - Ändert sich eine Abhängigkeit, räumt React erst mit den alten Werten auf und startet dann mit den neuen.
+  - Im Entwicklungsmodus läuft unter `StrictMode` Effekt → Cleanup → Effekt, damit fehlendes Aufräumen sofort auffällt. Im fertigen Build läuft der Effekt einmal.
+
+  ```tsx
+  useEffect(() => {
+    const connection = createConnection(roomId);
+    connection.connect();
+    return () => connection.disconnect(); // trennt den alten Raum
+  }, [roomId]);
+  ```
+
+  > [!NOTE] Umgehe das doppelte Starten nicht mit einer „schon gestartet“-Variable – räume stattdessen sauber auf.
 quiz:
   - question: "Wann ruft React die Cleanup-Funktion eines Effekts auf?"
     options: ["Nur beim Neuladen der Seite", "Bevor der Effekt erneut läuft und wenn die Komponente entfernt wird", "Nach jedem Klick", "Nie automatisch"]

@@ -1,6 +1,25 @@
 ---
 title: The React Compiler
 minutes: 6
+summary: |-
+  - The React Compiler analyzes your components at build time and inserts memoization automatically – like `memo`, `useMemo` and `useCallback`, but without changing your code.
+  - Setup: install `babel-plugin-react-compiler` and add it to `@vitejs/plugin-react` under `babel.plugins`.
+  - It detects which values depend on which props and state, and reuses JSX, computed values and functions as long as none of those change – even arrow functions in JSX.
+  - It relies on the Rules of React: pure components, never mutate props or state, hooks at the top level. Otherwise it skips the component; `eslint-plugin-react-hooks` flags such spots.
+  - You rarely need `memo` and friends anymore – only in existing code or for precise control, e.g. stable effect dependencies.
+
+  ```ts
+  // vite.config.ts
+  export default defineConfig({
+    plugins: [
+      react({
+        babel: { plugins: ['babel-plugin-react-compiler'] },
+      }),
+    ],
+  });
+  ```
+
+  > [!TIP] React DevTools marks components the compiler has optimized with a **Memo ✨** badge.
 quiz:
   - question: "What does the React Compiler do?"
     options: ["It translates React into another language", "It automatically adds memoization at build time – similar to `memo`, `useMemo`, and `useCallback`", "It replaces Vite", "It checks TypeScript types"]

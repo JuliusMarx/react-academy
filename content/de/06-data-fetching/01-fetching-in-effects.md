@@ -1,6 +1,26 @@
 ---
 title: Daten im Effekt laden
 minutes: 9
+summary: |-
+  - Die einfachste Art zu laden: `fetch` in einem Effekt mit der ID als Abhängigkeit.
+  - Bilde drei Zustände ab: **lädt**, **Fehler**, **fertig**.
+  - `fetch` wirft bei HTTP-Fehlern wie 404 oder 500 keinen Fehler – prüfe immer `res.ok`.
+  - Wechselt die ID schnell, kann eine veraltete Antwort zuletzt ankommen (Race Condition). Eine Cleanup-Funktion mit `ignore`-Flag verwirft sie, ein `AbortController` bricht die Anfrage ab.
+  - Grenzen: kein Caching, Wasserfälle, viel Handarbeit in jeder Komponente – in echten Projekten nimmst du meist eine Bibliothek wie TanStack Query.
+
+  ```tsx
+  useEffect(() => {
+    let ignore = false;
+    fetchUser(userId).then((data) => {
+      if (!ignore) setUser(data);
+    });
+    return () => {
+      ignore = true; // dieser Effekt ist veraltet
+    };
+  }, [userId]);
+  ```
+
+  > [!WARNING] Der Vite-Dev-Server beantwortet unbekannte Pfade mit `index.html` und Status 200 – ein fehlendes JSON ergibt dann einen Parse-Fehler statt 404.
 quiz:
   - question: "Der Nutzer wechselt schnell von Profil 1 zu Profil 2. Die Antwort für Profil 1 kommt zuletzt an. Was zeigt eine Komponente ohne Cleanup?"
     options: ["Profil 2","Nichts","Einen Fehler","Profil 1 – die veraltete Antwort überschreibt die aktuelle"]

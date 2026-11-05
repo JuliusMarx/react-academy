@@ -1,6 +1,30 @@
 ---
 title: Error Boundaries
 minutes: 7
+summary: |-
+  - Without an Error Boundary, an error during rendering removes the **entire** app from the screen.
+  - An Error Boundary catches errors from its children and shows a fallback – only for its part of the page.
+  - It's the one case where you still need a **class component**: `getDerivedStateFromError` sets the state, `componentDidCatch` logs.
+  - Resetting `error` to `null` renders the children again – handy for a "Try again" button.
+  - Together with `<Suspense>` you cover both **still loading** and **failed**.
+  - Not caught: errors in event handlers, in asynchronous code, and in the boundary itself.
+
+  ```tsx
+  class ErrorBoundary extends Component<Props, State> {
+    state: State = { error: null };
+
+    static getDerivedStateFromError(error: Error): State {
+      return { error };
+    }
+
+    render() {
+      if (this.state.error) return <p role="alert">Something went wrong.</p>;
+      return this.props.children;
+    }
+  }
+  ```
+
+  > [!TIP] The `react-error-boundary` package offers a ready-made boundary, a reset function, and `useErrorBoundary`.
 quiz:
   - question: "Which errors does an error boundary catch?"
     options: ["All errors on the page","Errors in `setTimeout`","Errors in event handlers","Errors while rendering its children (including from `use()`)"]

@@ -1,6 +1,24 @@
 ---
 title: You Might Not Need an Effect
 minutes: 8
+summary: |-
+  - Effects are an escape hatch for syncing with external systems. Many Effects seen in practice are unnecessary.
+  - Whatever follows from props and state, compute directly during rendering – no extra state, no Effect. Remember expensive results with `useMemo`.
+  - To make a component start over, give it a new `key`: `<Profile key={userId} … />` resets all of its state.
+  - Code that runs because of a user action belongs in the event handler; code that must stay in sync because the component is displayed belongs in an Effect.
+  - Avoid chains of Effects that set state which triggers the next Effect.
+  - Effects are right for timers, browser APIs, connections, subscriptions, and non-React libraries.
+
+  ```tsx
+  // ✗ Unnecessary: extra state plus an Effect
+  const [fullName, setFullName] = useState('');
+  useEffect(() => {
+    setFullName(`${firstName} ${lastName}`);
+  }, [firstName, lastName]);
+
+  // ✓ Simply compute it during rendering
+  const fullName = `${firstName} ${lastName}`;
+  ```
 quiz:
   - question: "You want to build a filtered list from `items` and `query`. What is the best way?"
     options: ["With `useState` and a `useEffect` that updates the list", "Calculate it directly during rendering: `const visible = items.filter(…)`", "Store it in a ref", "Save it in `localStorage`"]

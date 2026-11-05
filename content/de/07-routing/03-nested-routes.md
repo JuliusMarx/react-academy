@@ -1,6 +1,32 @@
 ---
 title: Verschachtelte Routen
 minutes: 8
+summary: |-
+  - Verschachtelte Routen teilen sich einen Rahmen: Die äußere Route rendert das Layout, `<Outlet />` markiert die Stelle für die passende Kind-Route.
+  - Eine Route **ohne `path`** ist eine reine Layout-Route und fügt der URL nichts hinzu.
+  - Kind-Pfade sind **relativ** zur Eltern-Route: `settings` unter `/` ergibt `/settings`.
+  - Eine **Index-Route** (`index` statt `path`) erscheint, wenn die URL genau dem Pfad der Eltern-Route entspricht.
+  - Beim Seitenwechsel bleibt das Layout stehen, nur der Inhalt im `Outlet` wechselt. Layouts lassen sich beliebig tief schachteln.
+
+  ```tsx
+  function Layout() {
+    return (
+      <>
+        <header><NavLink to="/" end>Start</NavLink></header>
+        <main><Outlet /></main>
+      </>
+    );
+  }
+
+  <Routes>
+    <Route element={<Layout />}>
+      <Route index element={<Home />} />
+      <Route path="settings" element={<Settings />} />
+    </Route>
+  </Routes>
+  ```
+
+  > [!TIP] `NavLink` ist auch aktiv, wenn die URL nur mit seinem Ziel beginnt – für `/` und Übersichtsseiten setzt du deshalb `end`.
 quiz:
   - question: "Wo zeigt eine Layout-Route die Seite der passenden Kind-Route an?"
     options: ["Dort, wo sie `<Outlet />` rendert","Unter dem Layout, automatisch","In `children`","Gar nicht, man muss sie importieren"]

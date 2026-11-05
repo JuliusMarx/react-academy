@@ -1,6 +1,30 @@
 ---
 title: Params and Navigation
 minutes: 8
+summary: |-
+  - A colon turns a segment into a parameter: `path="/products/:id"`. With `?` a segment becomes optional (`/:lang?/about`).
+  - `useParams()` returns the parameters as an object – always as **strings**. Convert for numbers: `Number(id)`.
+  - Expect that nothing may exist for the ID, and show a suitable message then.
+  - `useNavigate()` navigates in code, e.g. after saving. `navigate(-1)` goes back, `{ replace: true }` replaces the history entry.
+  - `useSearchParams()` works like `useState`, except the value lives after the `?` in the URL – ideal for filters and sorting.
+
+  ```tsx
+  function ProductPage() {
+    const { id } = useParams();
+    const navigate = useNavigate();
+    const product = products.find((p) => p.id === Number(id));
+
+    if (!product) return <p>Product not found.</p>;
+    return (
+      <>
+        <h2>{product.name}</h2>
+        <button onClick={() => navigate('/products')}>Back to list</button>
+      </>
+    );
+  }
+  ```
+
+  > [!TIP] For ordinary links, still use `<Link>` – it opens in a new tab with Ctrl+click and screen readers recognize it.
 quiz:
   - question: "The route is `path=\"/products/:id\"` and the URL is `/products/42`. What does `useParams()` return?"
     options: ["`{ id: '42' }`","`{ id: 42 }`","`42`","`['products', '42']`"]
