@@ -74,3 +74,19 @@ main {
     background: rgb(0 0 0 / 40%);
   }
 }
+
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 1.5rem;
+  max-width: var(--content-width);
+  margin: 4rem auto 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.88rem;
+
+  a {
+    color: var(--text-muted);
+  }
+}

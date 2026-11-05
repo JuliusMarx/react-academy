@@ -9,6 +9,16 @@ export const serverRoutes: ServerRoute[] = [
     getPrerenderParams: async () => LANGS.map((lang) => ({ lang })),
   },
   {
+    path: ':lang/imprint',
+    renderMode: RenderMode.Prerender,
+    getPrerenderParams: async () => LANGS.map((lang) => ({ lang })),
+  },
+  {
+    path: ':lang/privacy',
+    renderMode: RenderMode.Prerender,
+    getPrerenderParams: async () => LANGS.map((lang) => ({ lang })),
+  },
+  {
     path: ':lang/cheatsheet',
     renderMode: RenderMode.Prerender,
     getPrerenderParams: async () => LANGS.map((lang) => ({ lang })),

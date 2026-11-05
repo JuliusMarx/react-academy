@@ -12,5 +12,10 @@
   }
   <main id="main" tabindex="-1">
     <router-outlet />
+    <footer class="site-footer no-print" [attr.aria-label]="text().footer">
+      <a [routerLink]="['/', lang(), 'imprint']">{{ text().imprint }}</a>
+      <a [routerLink]="['/', lang(), 'privacy']">{{ text().privacy }}</a>
+      <a [href]="repoUrl">GitHub</a>
+    </footer>
   </main>
 </div>

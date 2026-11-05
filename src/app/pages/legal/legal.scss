@@ -1,0 +1,21 @@
+:host {
+  display: block;
+}
+
+.legal {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+address {
+  font-style: normal;
+}
+
+.note {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+code {
+  overflow-wrap: anywhere;
+}

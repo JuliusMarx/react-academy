@@ -107,7 +107,7 @@ test('the cheat sheet lists every lesson and the certificate needs all of them',
 });
 
 test.describe('accessibility', () => {
-  const pages = ['/de/', firstUrl, '/de/placement', '/de/review', '/de/cheatsheet', '/de/certificate', '/en/'];
+  const pages = ['/de/', firstUrl, '/de/placement', '/de/review', '/de/cheatsheet', '/de/certificate', '/de/imprint', '/de/privacy', '/en/privacy', '/en/'];
   for (const colorScheme of ['light', 'dark'] as const) {
     for (const path of pages) {
       test(`${path} has no axe violations (${colorScheme})`, async ({ page }) => {

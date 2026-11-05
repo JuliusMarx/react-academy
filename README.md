@@ -20,6 +20,8 @@ npm run e2e        # Plattform-Tests (Playwright) gegen den Build, vorher npm ru
 
 ## Deployment
 
+**Vor dem Veröffentlichen:** Impressum und Datenschutzerklärung (`/de/imprint`, `/de/privacy`) lesen ihre Angaben aus `src/app/core/site.ts` (`operator`). Dort stehen Platzhalter, die ausgefüllt werden müssen. Wer etwas einbaut, das externe Inhalte lädt oder Daten speichert, ergänzt die Datenschutzerklärung (`src/app/pages/legal/privacy-page.html`).
+
 Die Seite läuft auf Netlify unter <https://react-academy-de.netlify.app> (Projekt `react-academy-de`). Die Konfiguration steht in [netlify.toml](netlify.toml): Ausgabeordner, Weiterleitungen (Startseite je nach Browsersprache auf `/de` oder `/en`) und Header (u. a. COOP/COEP für StackBlitz).
 
 Das Repo ist **nicht** mit Netlify verbunden – Pushes lösen keinen Deploy aus. Veröffentlicht wird manuell mit dem lokal gebauten Stand, das spart Build-Minuten auf Netlify:

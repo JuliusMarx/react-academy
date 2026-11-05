@@ -1,0 +1,166 @@
+<div class="prose legal">
+  <h1>{{ text().privacy }}</h1>
+
+  @if (lang() === 'de') {
+    <h2>Das Wichtigste in Kürze</h2>
+    <ul>
+      <li>Es gibt keine Benutzerkonten, keine Cookies, kein Tracking und keine Werbung.</li>
+      <li>Dein Lernfortschritt wird nur in deinem Browser gespeichert und nie an mich übertragen.</li>
+      <li>Der Hosting-Anbieter Netlify verarbeitet beim Aufruf technisch nötige Daten wie deine IP-Adresse.</li>
+      <li>Erst wenn du ein Live-Beispiel startest, werden Daten an StackBlitz übertragen.</li>
+    </ul>
+
+    <h2>Verantwortlicher</h2>
+    <address>
+      {{ site.operator.name }}<br />
+      {{ site.operator.street }}<br />
+      {{ site.operator.city }}<br />
+      {{ site.operator.country }}<br />
+      E-Mail: {{ site.operator.email }}
+    </address>
+
+    <h2>Hosting bei Netlify</h2>
+    <p>
+      Diese Website liegt bei Netlify, Inc. (USA). Wenn du eine Seite aufrufst, verarbeitet Netlify die Daten, die dein
+      Browser dabei technisch übermittelt: IP-Adresse, Datum und Uhrzeit, aufgerufene Adresse, Referrer und Browser-Kennung
+      (User-Agent). Das ist nötig, um die Seite auszuliefern und vor Angriffen zu schützen. Rechtsgrundlage ist mein
+      berechtigtes Interesse an einem sicheren und zuverlässigen Betrieb (Art. 6 Abs. 1 lit. f DSGVO).
+    </p>
+    <p>
+      Netlify kann Daten in den USA verarbeiten. Netlify ist nach dem EU-US Data Privacy Framework zertifiziert und nutzt
+      zusätzlich die Standardvertragsklauseln der EU-Kommission (Art. 45 und 46 DSGVO). Mehr dazu in der
+      <a href="https://www.netlify.com/privacy/">Datenschutzerklärung von Netlify</a>.
+    </p>
+
+    <h2>Speicherung in deinem Browser</h2>
+    <p>
+      Damit du später weitermachen kannst, speichert die Seite im lokalen Speicher deines Browsers (<em>localStorage</em>):
+    </p>
+    <ul>
+      <li>
+        <code>{{ site.storagePrefix }}.progress</code> – deinen Lernfortschritt: erledigte Lektionen, Quiz-Ergebnisse, gelöste
+        Übungen, Fragen zum Wiederholen und, falls du eins erstellst, den Namen auf dem Zertifikat,
+      </li>
+      <li><code>{{ site.storagePrefix }}.theme</code> – helles oder dunkles Farbschema,</li>
+      <li><code>{{ site.storagePrefix }}.reading-mode</code> – ob du die Kurzfassung oder den ganzen Text liest.</li>
+    </ul>
+    <p>
+      Diese Daten bleiben auf deinem Gerät und werden nicht an mich oder Dritte übertragen. Die Speicherung ist für die
+      Funktionen nötig, die du ausdrücklich nutzt (§ 25 Abs. 2 Nr. 2 TDDDG). Du kannst alles jederzeit löschen: über
+      „Fortschritt verwalten“ → „Zurücksetzen“ auf der <a [routerLink]="['/', lang()]">Startseite</a> oder über die
+      Einstellungen deines Browsers.
+    </p>
+
+    <h2>Live-Beispiele mit StackBlitz</h2>
+    <p>
+      Die Beispiele und Übungen laufen in StackBlitz, einem Dienst der StackBlitz, Inc. (USA). Sie werden
+      <strong>erst geladen, wenn du auf „Ausprobieren“, „Übung starten“ oder „In StackBlitz öffnen“ klickst</strong>.
+      Dann überträgt dein Browser Daten an StackBlitz, insbesondere deine IP-Adresse und technische Angaben zum Browser,
+      und lädt den Beispielcode dorthin. StackBlitz kann dabei eigene Cookies oder ähnliche Techniken einsetzen.
+      Rechtsgrundlage ist deine Handlung, mit der du das Beispiel startest, und mein berechtigtes Interesse an
+      ausführbaren Beispielen (Art. 6 Abs. 1 lit. f DSGVO).
+    </p>
+    <p>
+      Für Übermittlungen in die USA nutzt StackBlitz nach eigenen Angaben Standardvertragsklauseln. Mehr dazu in der
+      <a href="https://stackblitz.com/privacy-policy">Datenschutzerklärung von StackBlitz</a>. Die Ergebnisse der
+      Übungsprüfungen schickt die Vorschau nur an die geöffnete Kursseite in deinem Browser, nicht an mich.
+    </p>
+
+    <h2>Links zu GitHub</h2>
+    <p>
+      Der Link „Fehler in dieser Lektion melden“ öffnet GitHub (GitHub, Inc., USA) mit einem vorausgefüllten Formular. Daten
+      werden erst übertragen, wenn du den Link anklickst, und dort gilt die
+      <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement">Datenschutzerklärung von GitHub</a>.
+      Was du dort veröffentlichst, ist öffentlich sichtbar.
+    </p>
+
+    <h2>Deine Rechte</h2>
+    <p>
+      Du hast das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung deiner Daten, auf
+      Datenübertragbarkeit und auf Widerspruch gegen eine Verarbeitung auf Grundlage berechtigter Interessen (Art. 15–21
+      DSGVO). Schreib mir dafür an die oben genannte Adresse. Außerdem kannst du dich bei einer
+      Datenschutz-Aufsichtsbehörde beschweren (Art. 77 DSGVO), zum Beispiel bei der Behörde deines Bundeslands.
+    </p>
+
+    <p class="note">Stand: {{ date() }}</p>
+  } @else {
+    <p class="note">This is an English translation. The German version is legally binding.</p>
+
+    <h2>In short</h2>
+    <ul>
+      <li>There are no user accounts, no cookies, no tracking and no ads.</li>
+      <li>Your learning progress is stored only in your browser and never sent to me.</li>
+      <li>The hosting provider Netlify processes technically necessary data such as your IP address when you visit.</li>
+      <li>Data is sent to StackBlitz only once you start a live example.</li>
+    </ul>
+
+    <h2>Controller</h2>
+    <address>
+      {{ site.operator.name }}<br />
+      {{ site.operator.street }}<br />
+      {{ site.operator.city }}<br />
+      Germany<br />
+      Email: {{ site.operator.email }}
+    </address>
+
+    <h2>Hosting on Netlify</h2>
+    <p>
+      This website is hosted by Netlify, Inc. (USA). When you open a page, Netlify processes the data your browser sends
+      for technical reasons: IP address, date and time, the requested address, referrer and browser identification
+      (user agent). This is necessary to deliver the site and protect it against attacks. The legal basis is my legitimate
+      interest in secure and reliable operation (Art. 6 (1) (f) GDPR).
+    </p>
+    <p>
+      Netlify may process data in the USA. Netlify is certified under the EU-US Data Privacy Framework and additionally
+      uses the European Commission's standard contractual clauses (Art. 45 and 46 GDPR). See
+      <a href="https://www.netlify.com/privacy/">Netlify's privacy policy</a>.
+    </p>
+
+    <h2>Storage in your browser</h2>
+    <p>So you can pick up where you left off, the site stores in your browser's local storage (<em>localStorage</em>):</p>
+    <ul>
+      <li>
+        <code>{{ site.storagePrefix }}.progress</code> – your learning progress: completed lessons, quiz results, solved
+        exercises, questions to review and, if you create one, the name on the certificate,
+      </li>
+      <li><code>{{ site.storagePrefix }}.theme</code> – light or dark color scheme,</li>
+      <li><code>{{ site.storagePrefix }}.reading-mode</code> – whether you read the summary or the full text.</li>
+    </ul>
+    <p>
+      This data stays on your device and is not sent to me or anyone else. Storing it is necessary for the features you
+      explicitly use (§ 25 (2) no. 2 TDDDG). You can delete it at any time: via "Manage progress" → "Reset" on the
+      <a [routerLink]="['/', lang()]">home page</a> or in your browser settings.
+    </p>
+
+    <h2>Live examples with StackBlitz</h2>
+    <p>
+      Examples and exercises run in StackBlitz, a service of StackBlitz, Inc. (USA). They are
+      <strong>loaded only when you click "Try it yourself", "Start exercise" or "Open in StackBlitz"</strong>. Your browser then sends
+      data to StackBlitz, in particular your IP address and technical details about your browser, and uploads the example
+      code there. StackBlitz may use its own cookies or similar technologies. The legal basis is your action of starting
+      the example and my legitimate interest in runnable examples (Art. 6 (1) (f) GDPR).
+    </p>
+    <p>
+      According to StackBlitz, transfers to the USA rely on standard contractual clauses. See
+      <a href="https://stackblitz.com/privacy-policy">StackBlitz's privacy policy</a>. The preview sends exercise check
+      results only to the open course page in your browser, not to me.
+    </p>
+
+    <h2>Links to GitHub</h2>
+    <p>
+      The link "Report a mistake in this lesson" opens GitHub (GitHub, Inc., USA) with a prefilled form. Data is sent only
+      when you click the link, and
+      <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>
+      applies there. Whatever you post there is public.
+    </p>
+
+    <h2>Your rights</h2>
+    <p>
+      You have the right to access, rectification, erasure and restriction of processing of your data, to data
+      portability and to object to processing based on legitimate interests (Art. 15–21 GDPR). Just write to the address
+      above. You can also lodge a complaint with a data protection supervisory authority (Art. 77 GDPR).
+    </p>
+
+    <p class="note">Last updated: {{ date() }}</p>
+  }
+</div>

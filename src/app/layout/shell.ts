@@ -1,9 +1,10 @@
 import { DOCUMENT, ViewportScroller } from '@angular/common';
 import { afterNextRender, Component, computed, effect, inject, Injector, input, signal, viewChild } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { filter, map, pairwise, startWith } from 'rxjs';
 import { Lang } from '../content/content.model';
+import { SITE } from '../core/site';
 import { UI_TEXT } from '../core/ui-text';
 import { Header } from './header';
 import { SearchDialog } from './search-dialog';
@@ -11,7 +12,7 @@ import { Sidebar } from './sidebar';
 
 @Component({
   selector: 'app-shell',
-  imports: [RouterOutlet, Header, SearchDialog, Sidebar],
+  imports: [RouterOutlet, RouterLink, Header, SearchDialog, Sidebar],
   templateUrl: './shell.html',
   styleUrl: './shell.scss',
   host: {
@@ -22,6 +23,7 @@ import { Sidebar } from './sidebar';
 export default class Shell {
   private readonly router = inject(Router);
   private readonly document = inject(DOCUMENT);
+  protected readonly repoUrl = SITE.repoUrl;
 
   readonly lang = input.required<Lang>();
   protected readonly text = computed(() => UI_TEXT[this.lang()]);

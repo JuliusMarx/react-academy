@@ -10,6 +10,8 @@ const ci = !!process.env['CI'];
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
+  // More workers make the prerendered pages hydrate too slowly on a busy machine.
+  workers: 2,
   forbidOnly: ci,
   retries: ci ? 1 : 0,
   reporter: ci ? [['github'], ['list']] : 'list',

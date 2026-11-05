@@ -2,6 +2,21 @@
 export const SITE = {
   repoUrl: 'https://github.com/JuliusMarx/react-academy',
   url: 'https://react-academy-de.netlify.app',
+  /** Storage keys in the visitor's browser, listed in the privacy policy. */
+  storagePrefix: 'react-academy',
+  /**
+   * Operator for the imprint and privacy policy.
+   * TODO: fill in before publishing – the pages show these placeholders until then.
+   */
+  operator: {
+    name: '[Vor- und Nachname]',
+    street: '[Straße und Hausnummer]',
+    city: '[PLZ und Ort]',
+    country: 'Deutschland',
+    email: '[E-Mail-Adresse]',
+  },
+  /** Date of the privacy policy, shown at its end. */
+  privacyDate: '2026-11-05',
 };
 
 /** Link to a new GitHub issue about a lesson, with title and body filled in. */
