@@ -16,6 +16,23 @@ import { ProgressBar } from '../shared/progress-bar';
         <app-progress-bar [value]="overall()" [label]="text().progress" />
       </div>
 
+      <section>
+        <h2>{{ text().learningTools }}</h2>
+        <ul>
+          @for (tool of tools(); track tool.path) {
+            <li>
+              <a [routerLink]="['/', lang(), tool.path]" routerLinkActive="active" ariaCurrentWhenActive="page">
+                <span class="tool-icon" aria-hidden="true">{{ tool.icon }}</span>
+                {{ tool.title }}
+                @if (tool.badge) {
+                  <span class="badge">{{ tool.badge }}</span>
+                }
+              </a>
+            </li>
+          }
+        </ul>
+      </section>
+
       @for (chapter of chapters(); track chapter.slug; let i = $index) {
         <section>
           <h2>
@@ -102,6 +119,21 @@ import { ProgressBar } from '../shared/progress-bar';
         font-weight: 600;
       }
     }
+    .tool-icon {
+      flex: none;
+      width: 1.1rem;
+      text-align: center;
+      color: var(--text-muted);
+    }
+    .badge {
+      margin-left: auto;
+      padding: 0 0.45rem;
+      border-radius: 1rem;
+      background: var(--accent);
+      color: var(--on-accent);
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
     .check {
       flex: none;
       display: inline-grid;
@@ -128,6 +160,18 @@ export class Sidebar {
 
   protected readonly text = computed(() => UI_TEXT[this.lang()]);
   protected readonly chapters = computed(() => this.content.chapters(this.lang()));
+  /** Due reviews; 0 until the stored progress is loaded (the prerendered page knows none). */
+  private readonly reviewDue = computed(() => (this.progress.loaded() ? this.progress.dueReviews().length : 0));
+  protected readonly tools = computed(() => {
+    const text = this.text();
+    const due = this.reviewDue();
+    return [
+      { path: 'review', icon: '↻', title: text.review, badge: due ? text.reviewDueBadge(due) : '' },
+      { path: 'placement', icon: '?', title: text.placement, badge: '' },
+      { path: 'cheatsheet', icon: '≡', title: text.cheatsheet, badge: '' },
+      { path: 'certificate', icon: '★', title: text.certificate, badge: '' },
+    ];
+  });
   protected readonly overall = computed(() =>
     this.progress.percent(this.content.allLessons(this.lang()).map((l) => l.id)),
   );

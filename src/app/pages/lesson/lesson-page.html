@@ -65,6 +65,12 @@
         </button>
       </div>
 
+      <p class="report no-print">
+        <a [href]="reportUrl()" target="_blank" rel="noopener">
+          {{ text().reportIssue }} <span class="visually-hidden">{{ text().opensGithub }}</span>
+        </a>
+      </p>
+
       <nav class="pager" [attr.aria-label]="text().lessons">
         @if (neighbours().previous; as prev) {
           <a class="prev" [routerLink]="['/', lang(), prev.chapter, prev.slug]">

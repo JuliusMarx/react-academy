@@ -7,6 +7,7 @@ import { Lang } from '../../content/content.model';
 import { ContentService } from '../../content/content.service';
 import { ProgressService } from '../../core/progress.service';
 import { ReadingModeService } from '../../core/reading-mode.service';
+import { reportIssueUrl } from '../../core/site';
 import { UI_TEXT } from '../../core/ui-text';
 import { SafeHtmlPipe } from '../../shared/safe-html.pipe';
 import { Exercise } from './exercise';
@@ -50,6 +51,10 @@ export default class LessonPage {
     loader: ({ params }) => this.content.loadLesson(params.lang, params.id),
   });
 
+  protected readonly reportUrl = computed(() => {
+    const lesson = this.data.value();
+    return lesson ? reportIssueUrl(lesson, this.lang()) : '';
+  });
   protected readonly done = computed(() => this.progress.completed().has(this.lessonId()));
 
   constructor() {
