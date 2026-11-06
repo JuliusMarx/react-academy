@@ -20,6 +20,8 @@ npm run e2e        # Plattform-Tests (Playwright) gegen den Build, vorher npm ru
 
 ## Deployment
 
+**Zugangscode:** Vor jeder Seite steht eine Code-Abfrage (in `src/index.html`). Sie ist ein Sichtschutz, kein echter Schutz – die vorgerenderten Seiten enthalten ihren Inhalt im HTML. Den Code setzt oder ändert `npm run access-code` (gespeichert wird nur ein Hash). Ohne gesetzten Code kommt niemand rein, und der Playwright-Test "an access code is set" schlägt fehl. Suchmaschinen werden per `noindex` ausgesperrt.
+
 **Vor dem Veröffentlichen:** Impressum und Datenschutzerklärung (`/de/imprint`, `/de/privacy`) lesen ihre Angaben aus `src/app/core/site.ts` (`operator`). Dort stehen Platzhalter, die ausgefüllt werden müssen. Wer etwas einbaut, das externe Inhalte lädt oder Daten speichert, ergänzt die Datenschutzerklärung (`src/app/pages/legal/privacy-page.html`).
 
 Die Seite läuft auf Netlify unter <https://react-academy-de.netlify.app> (Projekt `react-academy-de`). Die Konfiguration steht in [netlify.toml](netlify.toml): Ausgabeordner, Weiterleitungen (Startseite je nach Browsersprache auf `/de` oder `/en`) und Header (u. a. COOP/COEP für StackBlitz).

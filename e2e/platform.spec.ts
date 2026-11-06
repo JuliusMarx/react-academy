@@ -3,12 +3,16 @@ import { expect, test, type Page } from '@playwright/test';
 import { curriculum } from '../src/app/content/generated/curriculum';
 import placement from '../src/app/content/generated/placement/de';
 import quizzes from '../src/app/content/generated/quizzes/de';
+import { unlock } from './access';
 
 // Everything is derived from the generated content, so the tests work for every Academy fork.
 const chapters = curriculum.de;
 const lessons = chapters.flatMap((c) => c.lessons.map((l) => ({ ...l, chapter: c.slug })));
 const first = lessons[0];
 const firstUrl = `/de/${first.chapter}/${first.slug}`;
+
+// The gate itself is tested in gate.spec.ts; here every page opens unlocked.
+test.beforeEach(({ page }) => unlock(page));
 
 /** The stored progress, whatever the fork calls its storage key. */
 async function storedProgress(page: Page) {

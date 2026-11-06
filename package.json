@@ -11,7 +11,8 @@
     "prestart": "npm run content",
     "prebuild": "npm run content",
     "pretest": "npm run content",
-    "e2e": "playwright test"
+    "e2e": "playwright test",
+    "access-code": "node scripts/set-access-code.mjs"
   },
   "private": true,
   "packageManager": "npm@11.4.2",

@@ -31,6 +31,8 @@
   [headers.values]
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    # The site sits behind an access code – keep it out of search engines.
+    X-Robots-Tag = "noindex, nofollow"
     # Cross-origin isolation: the embedded StackBlitz WebContainers need SharedArrayBuffer.
     Cross-Origin-Opener-Policy = "same-origin"
     Cross-Origin-Embedder-Policy = "credentialless"
