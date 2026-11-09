@@ -10,6 +10,8 @@ const chapters = curriculum.de;
 const lessons = chapters.flatMap((c) => c.lessons.map((l) => ({ ...l, chapter: c.slug })));
 const first = lessons[0];
 const firstUrl = `/de/${first.chapter}/${first.slug}`;
+const last = lessons[lessons.length - 1];
+const lastUrl = `/de/${last.chapter}/${last.slug}`;
 
 // The gate itself is tested in gate.spec.ts; here every page opens unlocked.
 test.beforeEach(({ page }) => unlock(page));
@@ -177,7 +179,7 @@ test('the glossary filters terms and links to lessons', async ({ page }) => {
 });
 
 test.describe('accessibility', () => {
-  const pages = ['/de/', firstUrl, '/de/placement', '/de/review', '/de/cheatsheet', '/de/glossary', '/de/notes', '/de/certificate', '/de/imprint', '/de/privacy', '/en/privacy', '/en/'];
+  const pages = ['/de/', firstUrl, lastUrl, '/de/placement', '/de/review', '/de/cheatsheet', '/de/glossary', '/de/notes', '/de/certificate', '/de/imprint', '/de/privacy', '/en/privacy', '/en/'];
   for (const colorScheme of ['light', 'dark'] as const) {
     for (const path of pages) {
       test(`${path} has no axe violations (${colorScheme})`, async ({ page }) => {
