@@ -169,6 +169,8 @@ export class Sidebar {
       { path: 'review', icon: '↻', title: text.review, badge: due ? text.reviewDueBadge(due) : '' },
       { path: 'placement', icon: '?', title: text.placement, badge: '' },
       { path: 'cheatsheet', icon: '≡', title: text.cheatsheet, badge: '' },
+      { path: 'glossary', icon: 'A', title: text.glossary, badge: '' },
+      { path: 'notes', icon: '✎', title: text.notes, badge: '' },
       { path: 'certificate', icon: '★', title: text.certificate, badge: '' },
     ];
   });

@@ -15,6 +15,8 @@ export const routes: Routes = [
       { path: 'privacy', loadComponent: () => import('./pages/legal/privacy-page') },
       { path: 'cheatsheet', loadComponent: () => import('./pages/cheatsheet/cheatsheet-page') },
       { path: 'certificate', loadComponent: () => import('./pages/certificate/certificate-page') },
+      { path: 'notes', loadComponent: () => import('./pages/notes/notes-page') },
+      { path: 'glossary', loadComponent: () => import('./pages/glossary/glossary-page') },
       { path: ':chapter/:lesson', loadComponent: () => import('./pages/lesson/lesson-page') },
       { path: '**', loadComponent: () => import('./pages/not-found/not-found-page') },
     ],

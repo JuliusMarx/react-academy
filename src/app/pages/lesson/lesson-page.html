@@ -12,12 +12,24 @@
           <span class="short-only">{{ text().readingTime(lesson.summaryMinutes) }}</span>
         </p>
 
-        <div class="reading-mode" role="group" [attr.aria-label]="text().readingMode">
-          <button type="button" [attr.aria-pressed]="readingMode.mode() === 'short'" (click)="readingMode.set('short')">
-            {{ text().readingShort }}
-          </button>
-          <button type="button" [attr.aria-pressed]="readingMode.mode() === 'full'" (click)="readingMode.set('full')">
-            {{ text().readingFull }}
+        <div class="lesson-tools no-print">
+          <div class="reading-mode" role="group" [attr.aria-label]="text().readingMode">
+            <button type="button" [attr.aria-pressed]="readingMode.mode() === 'short'" (click)="readingMode.set('short')">
+              {{ text().readingShort }}
+            </button>
+            <button type="button" [attr.aria-pressed]="readingMode.mode() === 'full'" (click)="readingMode.set('full')">
+              {{ text().readingFull }}
+            </button>
+          </div>
+          <button
+            type="button"
+            class="bookmark"
+            [attr.aria-pressed]="bookmarked()"
+            [disabled]="!progress.loaded()"
+            (click)="progress.toggleBookmark(lessonId())"
+          >
+            <span aria-hidden="true">{{ bookmarked() ? '★' : '☆' }}</span>
+            {{ bookmarked() ? text().bookmarked : text().bookmark }}
           </button>
         </div>
 
@@ -47,6 +59,7 @@
         @if (lesson.exercise; as exercise) {
           <app-exercise [exercise]="exercise" [lessonId]="lesson.id" [lang]="lang()" />
         }
+        <app-lesson-notes [lessonId]="lessonId()" [lang]="lang()" />
       </article>
 
       <div class="done-row">

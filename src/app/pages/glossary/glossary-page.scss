@@ -1,0 +1,103 @@
+:host {
+  display: block;
+}
+
+.glossary {
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  line-height: 1.2;
+}
+
+.intro,
+.count {
+  color: var(--text-muted);
+}
+
+.filter {
+  display: grid;
+  gap: 0.4rem;
+  margin: 1.5rem 0 0.5rem;
+
+  label {
+    font-weight: 600;
+  }
+
+  input {
+    max-width: 24rem;
+    padding: 0.55rem 0.8rem;
+    border: 1px solid var(--border-strong);
+    border-radius: 0.5rem;
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+  }
+}
+
+.count {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.letters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin: 1rem 0 0.5rem;
+
+  a {
+    display: inline-grid;
+    place-items: center;
+    min-width: 2.2rem;
+    height: 2.2rem;
+    border: 1px solid var(--border);
+    border-radius: 0.4rem;
+    background: var(--surface);
+    color: var(--text);
+    font-weight: 700;
+    text-decoration: none;
+
+    &:hover {
+      background: var(--surface-hover);
+    }
+  }
+}
+
+h2 {
+  margin: 2rem 0 0.5rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 2px solid var(--accent);
+  font-size: 1.4rem;
+}
+
+dl {
+  margin: 0;
+}
+
+.entry {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border);
+  scroll-margin-top: calc(var(--header-height) + 1rem);
+}
+
+dt {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+dd {
+  margin: 0.25rem 0 0;
+
+  p {
+    margin: 0.25rem 0;
+  }
+}
+
+.more {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}

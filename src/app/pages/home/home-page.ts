@@ -57,6 +57,8 @@ export default class HomePage {
       { path: 'placement', title: text.placement, description: text.toolPlacementText },
       { path: 'review', title: text.review, description: text.toolReviewText },
       { path: 'cheatsheet', title: text.cheatsheet, description: text.toolCheatsheetText },
+      { path: 'glossary', title: text.glossary, description: text.toolGlossaryText },
+      { path: 'notes', title: text.notes, description: text.toolNotesText },
       { path: 'certificate', title: text.certificate, description: text.toolCertificateText },
     ];
   });

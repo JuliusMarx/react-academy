@@ -1,0 +1,61 @@
+<div class="glossary">
+  <h1>{{ text().glossary }}</h1>
+  <p class="intro">{{ text().glossaryIntro }}</p>
+
+  <div class="filter">
+    <label for="glossary-filter">{{ text().glossaryFilter }}</label>
+    <input
+      id="glossary-filter"
+      type="search"
+      autocomplete="off"
+      aria-describedby="glossary-count"
+      [value]="query()"
+      (input)="query.set($any($event.target).value)"
+    />
+    <p id="glossary-count" class="count" role="status">
+      @if (filtered().length) {
+        {{ text().glossaryCount(filtered().length) }}
+      } @else {
+        {{ text().glossaryEmpty(query()) }}
+      }
+    </p>
+  </div>
+
+  <nav class="letters" [attr.aria-label]="text().glossary + ' A–Z'">
+    @for (group of groups(); track group.letter) {
+      <a [routerLink]="['/', lang(), 'glossary']" [fragment]="'letter-' + group.letter">{{ group.letter }}</a>
+    }
+  </nav>
+
+  @for (group of groups(); track group.letter) {
+    <section [attr.aria-labelledby]="'letter-' + group.letter">
+      <h2 [id]="'letter-' + group.letter">{{ group.letter }}</h2>
+      <dl>
+        @for (entry of group.entries; track entry.id) {
+          <div class="entry" [id]="entry.id">
+            <dt>{{ entry.term }}</dt>
+            <dd>
+              <p>
+                @for (segment of entry.text; track $index) {
+                  @if (segment.code) {
+                    <code>{{ segment.part }}</code>
+                  } @else {
+                    {{ segment.part }}
+                  }
+                }
+              </p>
+              @if (entry.lessons.length) {
+                <p class="more">
+                  {{ text().glossaryMore }}
+                  @for (lesson of entry.lessons; track lesson.id; let last = $last) {
+                    <a [routerLink]="['/', lang(), lesson.chapter, lesson.slug]">{{ lesson.title }}</a>@if (!last) {<span>, </span>}
+                  }
+                </p>
+              }
+            </dd>
+          </div>
+        }
+      </dl>
+    </section>
+  }
+</div>

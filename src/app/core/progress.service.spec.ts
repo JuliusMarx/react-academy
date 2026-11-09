@@ -51,6 +51,40 @@ describe('ProgressService', () => {
     expect(service.importJson('{"version":2}')).toBe(false);
   });
 
+  it('stores notes and bookmarks and removes blank notes', () => {
+    service.setNote('a/one', 'Merken: über signal() nachlesen');
+    service.toggleBookmark('a/one');
+    service.toggleBookmark('a/two');
+    expect(service.progress().notes).toEqual({ 'a/one': 'Merken: über signal() nachlesen' });
+    expect(service.progress().bookmarks).toEqual(['a/one', 'a/two']);
+    expect(service.hasData()).toBe(true);
+
+    service.setNote('a/one', '   ');
+    service.toggleBookmark('a/one');
+    expect(service.progress().notes).toEqual({});
+    expect(service.bookmarks().has('a/one')).toBe(false);
+  });
+
+  it('round-trips through the transfer code, also with umlauts and line breaks', () => {
+    service.markCompleted('a/one');
+    service.setNote('a/one', 'Größe ändern\nzweite Zeile');
+    const code = service.exportCode();
+    expect(code).toMatch(/^[A-Za-z0-9+/=]+$/);
+
+    service.reset();
+    expect(service.hasData()).toBe(false);
+    // Chat apps may wrap long text – the code must still work.
+    expect(service.importJson(code.replace(/(.{40})/g, '$1\n'))).toBe(true);
+    expect(service.isCompleted('a/one')).toBe(true);
+    expect(service.progress().notes['a/one']).toBe('Größe ändern\nzweite Zeile');
+  });
+
+  it('accepts older exports without notes and bookmarks', () => {
+    expect(service.importJson('{"version":1,"completedLessons":[],"quizResults":{}}')).toBe(true);
+    expect(service.progress().notes).toEqual({});
+    expect(service.progress().bookmarks).toEqual([]);
+  });
+
   it('keeps the certificate date when the name changes', () => {
     service.setCertificateName('Erika', Date.UTC(2026, 10, 5));
     service.setCertificateName('Erika Mustermann', Date.UTC(2026, 11, 24));

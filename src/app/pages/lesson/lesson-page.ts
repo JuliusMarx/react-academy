@@ -11,13 +11,14 @@ import { reportIssueUrl } from '../../core/site';
 import { UI_TEXT } from '../../core/ui-text';
 import { SafeHtmlPipe } from '../../shared/safe-html.pipe';
 import { Exercise } from './exercise';
+import { LessonNotes } from './lesson-notes';
 import { Quiz } from './quiz';
 import { Toc } from './toc';
 import { TryIt } from './try-it';
 
 @Component({
   selector: 'app-lesson-page',
-  imports: [RouterLink, SafeHtmlPipe, Exercise, Quiz, Toc, TryIt],
+  imports: [RouterLink, SafeHtmlPipe, Exercise, LessonNotes, Quiz, Toc, TryIt],
   templateUrl: './lesson-page.html',
   styleUrl: './lesson-page.scss',
   host: { '(click)': 'onClick($event)' },
@@ -56,6 +57,7 @@ export default class LessonPage {
     return lesson ? reportIssueUrl(lesson, this.lang()) : '';
   });
   protected readonly done = computed(() => this.progress.completed().has(this.lessonId()));
+  protected readonly bookmarked = computed(() => this.progress.bookmarks().has(this.lessonId()));
 
   constructor() {
     effect(() => {

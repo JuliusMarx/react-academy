@@ -110,8 +110,74 @@ test('the cheat sheet lists every lesson and the certificate needs all of them',
   await expect(page.getByText(`Erledigt hast du 0 von ${lessons.length}.`, { exact: false })).toBeVisible();
 });
 
+test('notes and bookmarks are saved and collected on the notes page', async ({ page }) => {
+  await page.goto(firstUrl);
+  const main = page.getByRole('main');
+  await main.getByRole('button', { name: 'Lektion merken' }).click();
+  await expect(main.getByRole('button', { name: 'Gemerkt' })).toHaveAttribute('aria-pressed', 'true');
+  await main.getByRole('textbox', { name: 'Deine Notizen zu dieser Lektion' }).fill('Später nochmal lesen');
+  await expect(main.getByRole('status').filter({ hasText: 'Gespeichert' })).toBeVisible();
+
+  // Survives a reload …
+  await page.reload();
+  await expect(main.getByRole('textbox', { name: 'Deine Notizen zu dieser Lektion' })).toHaveValue('Später nochmal lesen');
+
+  // … and shows up on the notes page.
+  await page.goto('/de/notes');
+  await expect(main.getByRole('heading', { name: 'Lesezeichen', exact: true })).toBeVisible();
+  await expect(main.getByRole('listitem').getByRole('link', { name: first.title })).toBeVisible();
+  await expect(main.getByText('Später nochmal lesen')).toBeVisible();
+
+  await main.getByRole('button', { name: `„${first.title}“ aus den Lesezeichen entfernen` }).click();
+  await expect(main.getByText('Noch keine Lektion gemerkt.', { exact: false })).toBeVisible();
+  expect((await storedProgress(page)).bookmarks).toEqual([]);
+});
+
+test('the transfer code moves progress and notes to another browser', async ({ page, browser }) => {
+  await page.goto(firstUrl);
+  await page.getByRole('main').getByRole('textbox', { name: 'Deine Notizen zu dieser Lektion' }).fill('Mitnehmen');
+  await page.getByRole('main').getByRole('button', { name: 'Als erledigt markieren' }).click();
+  await page.goto('/de/');
+  await page.getByText('Fortschritt verwalten').click();
+  await page.getByRole('button', { name: 'Code kopieren' }).click();
+  const code = await page.getByRole('textbox', { name: 'Dein Übertragungscode' }).inputValue();
+  expect(code).toMatch(/^[A-Za-z0-9+/=]+$/);
+
+  // A fresh browser context has no progress yet, so no confirmation is needed.
+  const other = await browser.newPage();
+  await unlock(other);
+  await other.goto('/de/');
+  await other.getByText('Fortschritt verwalten').click();
+  await other.getByRole('textbox', { name: 'Code vom anderen Gerät' }).fill(code);
+  await other.getByRole('button', { name: 'Übernehmen' }).click();
+  await expect(other.getByRole('status').filter({ hasText: 'Fortschritt übernommen.' })).toBeVisible();
+  const progress = await storedProgress(other);
+  expect(progress.completedLessons).toContain(first.id);
+  expect(progress.notes[first.id]).toBe('Mitnehmen');
+  await other.close();
+});
+
+test('the glossary filters terms and links to lessons', async ({ page }) => {
+  await page.goto('/de/glossary');
+  const main = page.getByRole('main');
+  const terms = main.locator('dt');
+  const total = await terms.count();
+  expect(total).toBeGreaterThan(20);
+
+  await main.getByRole('searchbox', { name: 'Begriff filtern' }).fill('zzzz');
+  await expect(main.getByText('Kein Begriff passt zu „zzzz“.')).toBeVisible();
+  await expect(terms).toHaveCount(0);
+
+  await main.getByRole('searchbox', { name: 'Begriff filtern' }).fill('');
+  await expect(terms).toHaveCount(total);
+  const lessonLink = main.locator('dd a').first();
+  const title = await lessonLink.textContent();
+  await lessonLink.click();
+  await expect(page.locator('main h1:visible').first()).toHaveText(title!.trim());
+});
+
 test.describe('accessibility', () => {
-  const pages = ['/de/', firstUrl, '/de/placement', '/de/review', '/de/cheatsheet', '/de/certificate', '/de/imprint', '/de/privacy', '/en/privacy', '/en/'];
+  const pages = ['/de/', firstUrl, '/de/placement', '/de/review', '/de/cheatsheet', '/de/glossary', '/de/notes', '/de/certificate', '/de/imprint', '/de/privacy', '/en/privacy', '/en/'];
   for (const colorScheme of ['light', 'dark'] as const) {
     for (const path of pages) {
       test(`${path} has no axe violations (${colorScheme})`, async ({ page }) => {

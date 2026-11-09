@@ -1,0 +1,55 @@
+<div class="notes-page">
+  <h1>{{ text().notes }} <span class="print-only">– {{ text().appName }}</span></h1>
+  <p class="intro no-print">{{ text().notesIntro }}</p>
+
+  @if (progress.loaded()) {
+    <section class="no-print" aria-labelledby="bookmarks-title">
+      <h2 id="bookmarks-title">{{ text().bookmarks }}</h2>
+      @if (bookmarks().length) {
+        <ul class="bookmarks">
+          @for (lesson of bookmarks(); track lesson.id) {
+            <li>
+              <a [routerLink]="['/', lang(), lesson.chapter, lesson.slug]">
+                <small>{{ lesson.chapterTitle }}</small>
+                <span>{{ lesson.title }}</span>
+              </a>
+              <button
+                type="button"
+                class="remove"
+                [attr.aria-label]="text().removeBookmark(lesson.title)"
+                (click)="progress.toggleBookmark(lesson.id)"
+              >
+                <span aria-hidden="true">✕</span>
+              </button>
+            </li>
+          }
+        </ul>
+      } @else {
+        <p class="empty">{{ text().noBookmarks }}</p>
+      }
+    </section>
+
+    <section aria-labelledby="notes-title">
+      <div class="notes-header">
+        <h2 id="notes-title">{{ text().myNotes }}</h2>
+        @if (notes().length) {
+          <button type="button" class="button secondary no-print" (click)="print()">{{ text().print }}</button>
+        }
+      </div>
+      @for (entry of notes(); track entry.lesson.id) {
+        <article class="note">
+          <h3>
+            <small>{{ entry.lesson.chapterTitle }}</small>
+            <a [routerLink]="['/', lang(), entry.lesson.chapter, entry.lesson.slug]" fragment="lesson-notes-title">
+              {{ entry.lesson.title }}
+              <span class="visually-hidden">– {{ text().editNote(entry.lesson.title) }}</span>
+            </a>
+          </h3>
+          <p>{{ entry.note }}</p>
+        </article>
+      } @empty {
+        <p class="empty">{{ text().noNotes }}</p>
+      }
+    </section>
+  }
+</div>
