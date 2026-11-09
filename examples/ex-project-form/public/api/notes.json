@@ -1,0 +1,5 @@
+[
+  { "id": 1, "title": "Groceries", "body": "Milk, eggs, coffee", "pinned": true },
+  { "id": 2, "title": "React ideas", "body": "Build a notes app with routing and forms.", "pinned": false },
+  { "id": 3, "title": "Call the dentist", "body": "Monday morning – ask about Friday.", "pinned": false }
+]
