@@ -1,4 +1,4 @@
-@if (data.value(); as lesson) {
+@if (lessonData(); as lesson) {
   <div class="layout">
     <div class="main">
       <article class="prose">
@@ -106,8 +106,6 @@
       </aside>
     }
   </div>
-} @else if (data.isLoading()) {
-  <p class="loading" aria-live="polite">…</p>
 } @else {
   <div class="prose">
     <h1>{{ text().notFound }}</h1>

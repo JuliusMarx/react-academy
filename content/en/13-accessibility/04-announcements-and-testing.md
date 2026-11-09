@@ -94,7 +94,12 @@ npm install -D vitest-axe
 
 ```ts
 // src/setupTests.ts
-import 'vitest-axe/extend-expect';
+import { expect } from 'vitest';
+import * as axeMatchers from 'vitest-axe/matchers';
+
+// In the current npm release (0.1.0), `vitest-axe/extend-expect` only adds types –
+// the matcher has to be registered by hand
+expect.extend(axeMatchers);
 ```
 
 ```tsx

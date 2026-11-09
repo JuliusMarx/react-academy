@@ -3,7 +3,7 @@ title: Der React Compiler
 minutes: 6
 summary: |-
   - Der React Compiler analysiert deine Komponenten beim Build und fügt Memoisierung automatisch ein – wie `memo`, `useMemo` und `useCallback`, aber ohne Änderung am Code.
-  - Einrichten: `babel-plugin-react-compiler` installieren und in `@vitejs/plugin-react` unter `babel.plugins` eintragen.
+  - Einrichten mit Vite 7 und `@vitejs/plugin-react` 5 (wie in diesem Kurs): `babel-plugin-react-compiler` installieren und unter `babel.plugins` eintragen. Ab `@vitejs/plugin-react` 6 (Vite 8) gibt es die Option `babel` nicht mehr – dort nimmst du `@rolldown/plugin-babel` mit `reactCompilerPreset()`.
   - Er erkennt, welche Werte von welchen Props und welchem State abhängen, und verwendet JSX, berechnete Werte und Funktionen wieder, solange sich nichts davon ändert – auch Pfeilfunktionen im JSX.
   - Voraussetzung sind die Regeln von React: reine Komponenten, Props und State nie verändern, Hooks auf oberster Ebene. Sonst überspringt er die Komponente; `eslint-plugin-react-hooks` zeigt solche Stellen an.
   - `memo` & Co. brauchst du kaum noch – nur in bestehendem Code oder für genaue Kontrolle, etwa stabile Effekt-Abhängigkeiten.
@@ -53,6 +53,18 @@ export default defineConfig({
 ```
 
 Das ist alles. Dein Code bleibt unverändert – kein `memo`, kein `useMemo`, kein `useCallback`.
+
+> [!NOTE]
+> Diese Konfiguration gilt für Vite 7 mit `@vitejs/plugin-react` 5, wie in den Beispielen dieses Kurses. Ein neues Projekt mit `npm create vite@latest` bekommt Vite 8 und `@vitejs/plugin-react` 6 – dort wurde die Option `babel` entfernt. Stattdessen installierst du `@rolldown/plugin-babel`, `@babel/core` und `babel-plugin-react-compiler` und schreibst:
+>
+> ```ts
+> import babel from '@rolldown/plugin-babel';
+> import react, { reactCompilerPreset } from '@vitejs/plugin-react';
+>
+> export default defineConfig({
+>   plugins: [react(), babel({ presets: [reactCompilerPreset()] })],
+> });
+> ```
 
 ## Was er tut
 

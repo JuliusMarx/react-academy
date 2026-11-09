@@ -1,9 +1,9 @@
 import { DOCUMENT, ViewportScroller } from '@angular/common';
-import { afterNextRender, Component, computed, effect, inject, Injector, input, resource } from '@angular/core';
+import { afterNextRender, Component, computed, effect, inject, Injector, input } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { Lang } from '../../content/content.model';
+import { Lang, Lesson } from '../../content/content.model';
 import { ContentService } from '../../content/content.service';
 import { ProgressService } from '../../core/progress.service';
 import { ReadingModeService } from '../../core/reading-mode.service';
@@ -47,13 +47,11 @@ export default class LessonPage {
     return index < 0 ? null : { index: index + 1, total: lessons.length };
   });
 
-  protected readonly data = resource({
-    params: () => ({ lang: this.lang(), id: this.lessonId() }),
-    loader: ({ params }) => this.content.loadLesson(params.lang, params.id),
-  });
+  /** Loaded by the route resolver (see app.routes.ts); undefined for an unknown lesson. */
+  readonly lessonData = input<Lesson>();
 
   protected readonly reportUrl = computed(() => {
-    const lesson = this.data.value();
+    const lesson = this.lessonData();
     return lesson ? reportIssueUrl(lesson, this.lang()) : '';
   });
   protected readonly done = computed(() => this.progress.completed().has(this.lessonId()));
@@ -61,7 +59,7 @@ export default class LessonPage {
 
   constructor() {
     effect(() => {
-      const lesson = this.data.value();
+      const lesson = this.lessonData();
       this.title.setTitle(lesson ? `${lesson.title} – ${this.text().appName}` : this.text().appName);
     });
     effect(() => this.progress.visit(this.lessonId()));
@@ -73,7 +71,7 @@ export default class LessonPage {
     const injector = inject(Injector);
     effect(() => {
       const id = fragment();
-      if (!this.data.value() || !id) return;
+      if (!this.lessonData() || !id) return;
       afterNextRender(
         () => {
           const heading = this.document.getElementById(id);

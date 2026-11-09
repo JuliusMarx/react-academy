@@ -85,7 +85,7 @@ React compares each value with the one from the last render (`Object.is`). Only 
 The array must contain **every value from the component** that the Effect reads – props, state, and variables computed from them. If one is missing, the Effect works with stale values.
 
 > [!TIP]
-> The ESLint rule `react-hooks/exhaustive-deps` (already set up in the Vite template) finds missing dependencies automatically. Follow its hints instead of turning it off.
+> The ESLint rule `react-hooks/exhaustive-deps` finds missing dependencies automatically. The current Vite template uses the Oxlint linter instead of ESLint, which already includes the same check as `react/exhaustive-deps`. Follow its hints instead of turning it off.
 
 If you want an Effect to run *less often*, change the Effect's code – not the array. An updater function such as `setCount((c) => c + 1)` often helps, since then `count` doesn't need to be in the list.
 

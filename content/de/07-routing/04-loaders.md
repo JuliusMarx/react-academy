@@ -126,7 +126,7 @@ Mit `data(…, { status })` erzeugst du eine Fehlerantwort mit Statuscode. Hat e
 
 ## Actions und mehr
 
-Im Data Mode gibt es noch mehr: **Actions** verarbeiten Formulare (`<Form method="post">`), danach lädt der Router die betroffenen Daten automatisch neu. Und im **Framework Mode** wird React Router zu einem vollständigen Framework mit dateibasierten Routen und Server-Rendering.
+Im Data Mode gibt es noch mehr: **Actions** verarbeiten Formulare (`<Form method="post">`), danach lädt der Router die betroffenen Daten automatisch neu. Und im **Framework Mode** wird React Router zu einem vollständigen Framework mit typisierten Route-Modulen, automatischem Code-Splitting und Server-Rendering.
 
 > [!TIP]
 > Welcher Modus? Für eine kleine App reicht der **Declarative Mode** (`BrowserRouter`). Soll der Router auch Daten laden, nimm den **Data Mode**. Für neue, größere Projekte mit Server-Rendering lohnt sich der **Framework Mode** – oder ein Framework wie Next.js.

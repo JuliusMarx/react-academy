@@ -85,7 +85,7 @@ React vergleicht jeden Wert mit dem vom letzten Rendern (`Object.is`). Nur wenn 
 In das Array gehört **jeder Wert aus der Komponente**, den der Effekt liest – Props, State und daraus berechnete Variablen. Fehlt einer, arbeitet der Effekt mit veralteten Werten.
 
 > [!TIP]
-> Die ESLint-Regel `react-hooks/exhaustive-deps` (im Vite-Template schon eingerichtet) findet fehlende Abhängigkeiten automatisch. Folge ihren Hinweisen, statt sie abzuschalten.
+> Die ESLint-Regel `react-hooks/exhaustive-deps` findet fehlende Abhängigkeiten automatisch. Das aktuelle Vite-Template nutzt statt ESLint den Linter Oxlint, der dieselbe Prüfung als `react/exhaustive-deps` schon mitbringt. Folge ihren Hinweisen, statt sie abzuschalten.
 
 Willst du, dass ein Effekt *seltener* läuft, ändere den Code des Effekts – nicht das Array. Oft hilft eine Updater-Funktion wie `setCount((c) => c + 1)`, dann muss `count` nicht in die Liste.
 

@@ -5,7 +5,7 @@ summary: |-
   - End-to-end tests run the real app in a real browser and click through it like a user – routing, data and forms all together.
   - `npm init playwright@latest` asks for the test folder (here `e2e/`), creates `playwright.config.ts` and sample tests, and installs the browsers. With `webServer`, Playwright starts the dev server itself.
   - The locators `getByRole`, `getByLabel` and `getByText` work like in Testing Library.
-  - Actions and `expect` checks like `toBeVisible()` wait automatically (up to 5 seconds by default) – you almost never need your own `waitForTimeout` pauses.
+  - Actions wait automatically until the element is ready, and `expect` checks like `toBeVisible()` retry until they pass (up to 5 seconds by default) – you almost never need your own `waitForTimeout` pauses.
   - `npx playwright test` runs in Chromium, Firefox and WebKit; `--ui`, `codegen` and `show-report` help you write and review tests.
   - Write many component tests and a few end-to-end tests for the most important flows.
 

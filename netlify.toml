@@ -37,6 +37,18 @@
     Cross-Origin-Opener-Policy = "same-origin"
     Cross-Origin-Embedder-Policy = "credentialless"
 
+# Build output file names contain a content hash, so they can be cached forever.
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# After the hashed-file rules: for the same header, Netlify applies the last matching rule.
 # The service worker and its manifest must always be fetched fresh, or updates get stuck.
 [[headers]]
   for = "/ngsw.json"
@@ -48,13 +60,7 @@
   [headers.values]
     Cache-Control = "no-cache"
 
-# Build output file names contain a content hash, so they can be cached forever.
 [[headers]]
-  for = "/*.js"
+  for = "/manifest.webmanifest"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
-
-[[headers]]
-  for = "/*.css"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "application/manifest+json"
