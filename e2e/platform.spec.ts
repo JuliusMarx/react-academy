@@ -178,6 +178,32 @@ test('the glossary filters terms and links to lessons', async ({ page }) => {
   await expect(page.locator('main h1:visible').first()).toHaveText(title!.trim());
 });
 
+test('lessons stay readable offline once the service worker has cached the course', async ({ page, context }) => {
+  test.setTimeout(120_000);
+  await page.goto(firstUrl);
+
+  // Going offline while the worker is still downloading would abort its installation,
+  // so wait until every file of the app group is in its cache.
+  await expect
+    .poll(
+      () =>
+        page.evaluate(async () => {
+          if (!navigator.serviceWorker.controller) return false;
+          const manifest = await fetch('/ngsw.json', { cache: 'no-store' }).then((r) => r.json());
+          const app = manifest.assetGroups.find((group: { name: string }) => group.name === 'app');
+          const name = (await caches.keys()).find((key) => key.endsWith(':assets:app:cache'));
+          return !!name && (await (await caches.open(name)).keys()).length >= app.urls.length;
+        }),
+      { timeout: 90_000 },
+    )
+    .toBe(true);
+
+  await context.setOffline(true);
+  await page.goto(lastUrl);
+  await expect(page.locator('main h1:visible').first()).toHaveText(last.title);
+  await context.setOffline(false);
+});
+
 test.describe('accessibility', () => {
   const pages = ['/de/', firstUrl, lastUrl, '/de/placement', '/de/review', '/de/cheatsheet', '/de/glossary', '/de/notes', '/de/certificate', '/de/imprint', '/de/privacy', '/en/privacy', '/en/'];
   for (const colorScheme of ['light', 'dark'] as const) {

@@ -37,6 +37,17 @@
     Cross-Origin-Opener-Policy = "same-origin"
     Cross-Origin-Embedder-Policy = "credentialless"
 
+# The service worker and its manifest must always be fetched fresh, or updates get stuck.
+[[headers]]
+  for = "/ngsw.json"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/ngsw-worker.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+
 # Build output file names contain a content hash, so they can be cached forever.
 [[headers]]
   for = "/*.js"

@@ -9,10 +9,11 @@ import { UI_TEXT } from '../core/ui-text';
 import { Header } from './header';
 import { SearchDialog } from './search-dialog';
 import { Sidebar } from './sidebar';
+import { UpdateBanner } from './update-banner';
 
 @Component({
   selector: 'app-shell',
-  imports: [RouterOutlet, RouterLink, Header, SearchDialog, Sidebar],
+  imports: [RouterOutlet, RouterLink, Header, SearchDialog, Sidebar, UpdateBanner],
   templateUrl: './shell.html',
   styleUrl: './shell.scss',
   host: {

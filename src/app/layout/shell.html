@@ -3,6 +3,7 @@
 
 <app-header [lang]="lang()" [url]="url()" [(menuOpen)]="menuOpen" (searchRequested)="searchDialog.open()" />
 <app-search-dialog #searchDialog [lang]="lang()" />
+<app-update-banner [lang]="lang()" />
 
 <div class="layout">
   <!-- inert keeps the off-screen mobile menu out of the tab order and away from screen readers. -->
