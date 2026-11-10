@@ -88,3 +88,107 @@ Beides in **beiden** Repos in `src/app/core/site.ts` unter `cloud` eintragen. Di
 - Jede Änderung wird nach 2 Sekunden hochgeladen. Beim Öffnen der Seite und wenn der Tab wieder in den Vordergrund kommt, holt die App neuere Stände.
 - Hat sich nur die Cloud geändert, übernimmt die App sie unverändert (auch Abwahlen von einem anderen Gerät). Haben sich beide Seiten geändert – oder meldet man sich zum ersten Mal auf einem Gerät an –, werden sie zusammengeführt (`progress-merge.ts`): Erledigtes bleibt erledigt, Notizen werden kombiniert.
 - Die Supabase-Bibliothek wird nur geladen, wenn jemand angemeldet ist oder sich anmeldet.
+
+## 6. Statistik und Admin-Dashboard
+
+Ein zweites Skript im **SQL Editor** legt die Zählung der Seitenaufrufe und das Dashboard an (`/de/admin`, nur für Admins sichtbar):
+
+```sql
+-- Seitenaufrufe: ohne Cookie und ohne Besucher-Kennung, nur Seite, Sprache, Zeit (+ Konto, wenn angemeldet)
+create table public.page_views (
+  id uuid primary key default gen_random_uuid(),
+  app text not null check (app in ('angular-academy', 'react-academy')),
+  path text not null check (char_length(path) <= 200),
+  lang text check (lang in ('de', 'en')),
+  user_id uuid default auth.uid() references auth.users (id) on delete set null,
+  signed_in boolean generated always as (user_id is not null) stored,
+  created_at timestamptz not null default now()
+);
+create index page_views_app_created on public.page_views (app, created_at);
+
+alter table public.page_views enable row level security;
+
+-- Jeder darf einen Aufruf eintragen, aber nur für sich selbst (oder anonym) – lesen darf niemand direkt
+create policy "record own views" on public.page_views
+  for insert to anon, authenticated
+  with check (user_id is not distinct from (select auth.uid()));
+grant insert on public.page_views to anon, authenticated;
+
+-- Admins: nur hier im SQL Editor pflegbar, nicht über die App
+create table public.admins (user_id uuid primary key references auth.users (id) on delete cascade);
+alter table public.admins enable row level security;
+
+create function public.is_admin() returns boolean
+language sql stable security definer set search_path = '' as $$
+  select exists (select 1 from public.admins where user_id = (select auth.uid()));
+$$;
+revoke execute on function public.is_admin() from public, anon;
+grant execute on function public.is_admin() to authenticated;
+
+-- Zahlen fürs Dashboard (nur für Admins)
+create function public.admin_stats(p_app text, p_days int default 30) returns jsonb
+language plpgsql stable security definer set search_path = '' as $$
+declare
+  since timestamptz := date_trunc('day', now()) - make_interval(days => p_days - 1);
+begin
+  if not public.is_admin() then
+    raise exception 'admins only' using errcode = '42501';
+  end if;
+  return jsonb_build_object(
+    'views', (
+      select jsonb_build_object(
+        'total', count(*),
+        'signedIn', count(*) filter (where signed_in),
+        'anonymous', count(*) filter (where not signed_in),
+        'today', count(*) filter (where created_at >= date_trunc('day', now())))
+      from public.page_views where app = p_app and created_at >= since),
+    'daily', (
+      select coalesce(jsonb_agg(jsonb_build_object(
+          'day', to_char(d.day, 'YYYY-MM-DD'), 'signedIn', d.signed_in, 'anonymous', d.anonymous) order by d.day), '[]')
+      from (
+        select day,
+          count(v.id) filter (where v.signed_in) as signed_in,
+          count(v.id) filter (where not v.signed_in) as anonymous
+        from generate_series(since, date_trunc('day', now()), interval '1 day') as day
+        left join public.page_views v
+          on v.app = p_app and v.created_at >= day and v.created_at < day + interval '1 day'
+        group by day) d),
+    'topPages', (
+      select coalesce(jsonb_agg(jsonb_build_object('path', t.path, 'views', t.views) order by t.views desc), '[]')
+      from (
+        select path, count(*) as views from public.page_views
+        where app = p_app and created_at >= since
+        group by path order by views desc limit 15) t),
+    'activeUsers', (
+      select count(distinct user_id) from public.page_views
+      where app = p_app and created_at >= since and user_id is not null),
+    'users', (
+      select jsonb_build_object(
+        'total', count(*),
+        'new', count(*) filter (where created_at >= since),
+        'activeWeek', count(*) filter (where last_sign_in_at >= now() - interval '7 days'),
+        'github', count(*) filter (where raw_app_meta_data -> 'providers' ? 'github'),
+        'email', count(*) filter (where raw_app_meta_data -> 'providers' ? 'email'))
+      from auth.users),
+    'learners', (
+      select jsonb_build_object(
+        'withProgress', count(*),
+        'completedLessons', coalesce(sum(jsonb_array_length(data -> 'completedLessons')), 0),
+        'certificates', count(*) filter (where data ? 'certificate'))
+      from public.progress where app = p_app));
+end $$;
+revoke execute on function public.admin_stats(text, int) from public, anon;
+grant execute on function public.admin_stats(text, int) to authenticated;
+```
+
+Dann dich selbst zum Admin machen. Die ID steht unter **Authentication → Users** bei deinem Konto:
+
+```sql
+insert into public.admins (user_id) values ('<deine-user-id>');
+```
+
+Aufrufe von `localhost` zählen nicht. Zum Ausprobieren lokal im Browser `localStorage.setItem('<prefix>.track-local', '1')` setzen (`<prefix>` = `angular-academy` bzw. `react-academy`).
+
+## 7. E-Mails (Bestätigung, Passwort vergessen)
+
+Ohne eigenen Mailserver schickt Supabase E-Mails **nur an Mitglieder deines Supabase-Teams** und nur wenige pro Stunde. Ohne SMTP: unter **Authentication → Sign In / Providers → Email** „Confirm email“ ausschalten und in `site.ts` `cloud.emails: false` lassen (blendet „Passwort vergessen?“ aus). Mit SMTP: unter **Authentication → Emails → SMTP Settings** einen SMTP-Zugang eintragen (z. B. Brevo, kostenlos bis 300 Mails am Tag; Absender-Adresse dort bestätigen; ohne eigene Domain besser den SMTP-Server des eigenen Mail-Anbieters) und `cloud.emails: true` setzen. Die Vorlagen unter **Authentication → Emails → Templates** kann man auf Deutsch übersetzen.

@@ -95,6 +95,27 @@ describe('CloudService', () => {
     expect(JSON.parse(localStorage.getItem(key('cloud'))!)).toMatchObject({ base: db.row!.updated_at, dirty: false });
   });
 
+  it('counts an anonymous page view with one small request, without the Supabase library', async () => {
+    const createClient = vi.fn();
+    const fetch = vi.spyOn(globalThis, 'fetch').mockResolvedValue(new Response(null, { status: 201 }));
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: CLOUD_CONFIG, useValue: { url: 'https://example.supabase.co', key: 'publishable' } },
+        { provide: CLOUD_CLIENT, useValue: createClient },
+      ],
+    });
+    const cloud = TestBed.inject(CloudService);
+    TestBed.tick();
+    await cloud.recordPageView('/de/signals', 'de');
+
+    expect(createClient).not.toHaveBeenCalled();
+    expect(fetch).toHaveBeenCalledOnce();
+    const [url, init] = fetch.mock.calls[0];
+    expect(url).toBe('https://example.supabase.co/rest/v1/page_views');
+    expect(JSON.parse(init!.body as string)).toEqual({ app: SITE.storagePrefix, path: '/de/signals', lang: 'de' });
+    fetch.mockRestore();
+  });
+
   it('keeps the local progress after signing out', async () => {
     const { progress, cloud } = await signedIn({ data: remoteProgress(['a/one']), updated_at: 't0' });
     await cloud.signOut();

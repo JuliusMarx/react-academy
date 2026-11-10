@@ -5,11 +5,12 @@
     <h2>Das Wichtigste in Kürze</h2>
     <ul>
       @if (cloud) {
-        <li>Es gibt keine Cookies, kein Tracking und keine Werbung.</li>
+        <li>Es gibt keine Cookies, kein Tracking durch Dritte und keine Werbung.</li>
         <li>
-          Dein Lernfortschritt wird in deinem Browser gespeichert. Nur wenn du dich freiwillig mit GitHub anmeldest, wird er
-          zusätzlich in deinem Konto bei Supabase gespeichert.
+          Dein Lernfortschritt wird in deinem Browser gespeichert. Nur wenn du dich freiwillig anmeldest (mit GitHub oder
+          E-Mail), wird er zusätzlich in deinem Konto bei Supabase gespeichert.
         </li>
+        <li>Seitenaufrufe werden ohne Cookies und ohne Kennung gezählt, damit ich sehe, welche Lektionen genutzt werden.</li>
       } @else {
         <li>Es gibt keine Benutzerkonten, keine Cookies, kein Tracking und keine Werbung.</li>
         <li>Dein Lernfortschritt wird nur in deinem Browser gespeichert und nie an mich übertragen.</li>
@@ -60,11 +61,16 @@
     </p>
 
     @if (cloud) {
-      <h2>Konto (Anmeldung mit GitHub)</h2>
+      <h2>Konto (Anmeldung mit GitHub oder E-Mail)</h2>
       <p>
-        Ein Konto ist freiwillig. Wenn du dich auf der Seite <a [routerLink]="['/', lang(), 'account']">Konto</a> mit GitHub
-        anmeldest, übermittelt GitHub (GitHub, Inc., USA) deinen GitHub-Namen, deinen Anzeigenamen, deine E-Mail-Adresse
-        und die Adresse deines Profilbilds an Supabase. Gespeichert werden diese Angaben und dein Lernfortschritt (erledigte
+        Ein Konto ist freiwillig. Du kannst es auf der Seite <a [routerLink]="['/', lang(), 'account']">Konto</a> mit
+        E-Mail-Adresse und Passwort anlegen.
+        @if (site.cloud.emails) {
+          Dann bekommst du eine E-Mail zur Bestätigung und, falls du es anforderst, zum Zurücksetzen des Passworts.
+        }
+        Das Passwort wird nur verschlüsselt (als Hash) gespeichert. Meldest du dich mit GitHub
+        an, übermittelt GitHub (GitHub, Inc., USA) deinen GitHub-Namen, deinen Anzeigenamen, deine E-Mail-Adresse und die
+        Adresse deines Profilbilds an Supabase. Gespeichert werden diese Angaben und dein Lernfortschritt (erledigte
         Lektionen, Quiz-Ergebnisse, gelöste Übungen, Fragen zum Wiederholen, Notizen, Lesezeichen und gegebenenfalls der
         Name auf dem Zertifikat), damit du ihn auf jedem Gerät nutzen kannst. Rechtsgrundlage ist die Bereitstellung des
         Kontos, das du anforderst (Art. 6 Abs. 1 lit. b DSGVO).
@@ -75,6 +81,19 @@
         <a href="https://supabase.com/privacy">Datenschutzerklärung von Supabase</a>. Zur Anmeldung speichert die Seite
         zusätzlich <code>{{ site.storagePrefix }}.auth</code> und <code>{{ site.storagePrefix }}.cloud</code> im lokalen
         Speicher deines Browsers. Du kannst dein Konto samt Lernstand jederzeit auf der Kontoseite löschen.
+      </p>
+    }
+
+    @if (cloud) {
+      <h2>Zählung der Seitenaufrufe</h2>
+      <p>
+        Damit ich sehe, welche Lektionen genutzt werden, zählt die Seite Seitenaufrufe. Gespeichert werden dabei nur die
+        aufgerufene Seite, die Sprache, der Zeitpunkt und – wenn du angemeldet bist – dein Konto. Es gibt dafür keine
+        Cookies, keine Kennung in deinem Browser und kein Profil über mehrere Besuche; ich speichere deine IP-Adresse
+        nicht. Technisch geht die Anfrage an Supabase (siehe oben), das sie wie jeden Aufruf kurzzeitig in
+        Server-Protokollen verarbeiten kann. Rechtsgrundlage ist mein berechtigtes Interesse, das Kursangebot zu
+        verbessern (Art. 6 Abs. 1 lit. f DSGVO). Du kannst widersprechen, indem du die Anfragen an
+        <code>supabase.co</code> blockierst, etwa mit einem Inhaltsblocker.
       </p>
     }
 
@@ -116,11 +135,12 @@
     <h2>In short</h2>
     <ul>
       @if (cloud) {
-        <li>There are no cookies, no tracking and no ads.</li>
+        <li>There are no cookies, no third-party tracking and no ads.</li>
         <li>
-          Your learning progress is stored in your browser. Only if you choose to sign in with GitHub is it also stored in
-          your account at Supabase.
+          Your learning progress is stored in your browser. Only if you choose to sign in (with GitHub or email) is it also
+          stored in your account at Supabase.
         </li>
+        <li>Page views are counted without cookies or an identifier, so I can see which lessons are used.</li>
       } @else {
         <li>There are no user accounts, no cookies, no tracking and no ads.</li>
         <li>Your learning progress is stored only in your browser and never sent to me.</li>
@@ -168,11 +188,16 @@
     </p>
 
     @if (cloud) {
-      <h2>Account (sign in with GitHub)</h2>
+      <h2>Account (sign in with GitHub or email)</h2>
       <p>
-        An account is optional. When you sign in with GitHub on the <a [routerLink]="['/', lang(), 'account']">account</a>
-        page, GitHub (GitHub, Inc., USA) sends your GitHub username, display name, email address and the address of your
-        profile picture to Supabase. These details and your learning progress (completed lessons, quiz results, solved
+        An account is optional. You can create one on the <a [routerLink]="['/', lang(), 'account']">account</a> page with
+        an email address and password.
+        @if (site.cloud.emails) {
+          You then get an email to confirm it and, if you ask for it, to reset your password.
+        }
+        The password is stored only in encrypted form (as a hash). If you sign in with GitHub, GitHub (GitHub, Inc., USA)
+        sends your GitHub username, display name, email address and the address of your profile picture to Supabase. These
+        details and your learning progress (completed lessons, quiz results, solved
         exercises, questions to review, notes, bookmarks and, if created, the name on the certificate) are stored so you can
         use them on every device. The legal basis is providing the account you request (Art. 6 (1) (b) GDPR).
       </p>
@@ -182,6 +207,18 @@
         <a href="https://supabase.com/privacy">Supabase's privacy policy</a>. For signing in, the site also stores
         <code>{{ site.storagePrefix }}.auth</code> and <code>{{ site.storagePrefix }}.cloud</code> in your browser's local
         storage. You can delete your account and its progress at any time on the account page.
+      </p>
+    }
+
+    @if (cloud) {
+      <h2>Counting page views</h2>
+      <p>
+        So I can see which lessons are used, the site counts page views. Only the page, the language, the time and – if
+        you are signed in – your account are stored. There are no cookies, no identifier in your browser and no profile
+        across visits; I don't store your IP address. Technically the request goes to Supabase (see above), which may
+        process it briefly in server logs like any request. The legal basis is my legitimate interest in improving the
+        course (Art. 6 (1) (f) GDPR). You can object by blocking requests to <code>supabase.co</code>, e.g. with a content
+        blocker.
       </p>
     }
 

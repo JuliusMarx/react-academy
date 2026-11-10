@@ -208,6 +208,9 @@ test('the account page offers the GitHub sign-in – or explains that accounts a
   await expect(page.locator('main h1:visible').first()).toHaveText('Konto');
   if (SITE.cloud.url) {
     await expect(main.getByRole('button', { name: 'Mit GitHub anmelden' })).toBeVisible();
+    await expect(main.getByRole('textbox', { name: 'E-Mail-Adresse' })).toBeVisible();
+    await main.getByRole('button', { name: 'Noch kein Konto? Registrieren' }).click();
+    await expect(main.getByRole('button', { name: 'Konto erstellen' })).toBeVisible();
     await expect(nav.getByRole('link', { name: 'Konto' })).toBeVisible();
   } else {
     await expect(main.getByText('Konten sind auf dieser Seite noch nicht eingerichtet.', { exact: false })).toBeVisible();
@@ -215,8 +218,15 @@ test('the account page offers the GitHub sign-in – or explains that accounts a
   }
 });
 
+test('the admin dashboard is only for admins', async ({ page }) => {
+  await page.goto('/de/admin');
+  await expect(page.locator('main h1:visible').first()).toHaveText('Dashboard');
+  await expect(page.getByText('Diese Seite ist nur für Admins.', { exact: false })).toBeVisible();
+  await expect(page.getByRole('navigation', { name: 'Kursnavigation' }).getByRole('link', { name: 'Admin' })).toHaveCount(0);
+});
+
 test.describe('accessibility', () => {
-  const pages = ['/de/', firstUrl, lastUrl, '/de/placement', '/de/review', '/de/cheatsheet', '/de/glossary', '/de/notes', '/de/account', '/de/certificate', '/de/imprint', '/de/privacy', '/en/privacy', '/en/'];
+  const pages = ['/de/', firstUrl, lastUrl, '/de/placement', '/de/review', '/de/cheatsheet', '/de/glossary', '/de/notes', '/de/account', '/de/admin', '/de/certificate', '/de/imprint', '/de/privacy', '/en/privacy', '/en/'];
   for (const colorScheme of ['light', 'dark'] as const) {
     for (const path of pages) {
       test(`${path} has no axe violations (${colorScheme})`, async ({ page }) => {

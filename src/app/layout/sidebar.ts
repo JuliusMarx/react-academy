@@ -175,6 +175,7 @@ export class Sidebar {
       { path: 'notes', icon: '✎', title: text.notes, badge: '' },
       { path: 'certificate', icon: '★', title: text.certificate, badge: '' },
       ...(this.cloud.enabled ? [{ path: 'account', icon: '☁', title: text.account, badge: this.cloud.user() ? '✓' : '' }] : []),
+      ...(this.cloud.isAdmin() ? [{ path: 'admin', icon: '▦', title: 'Admin', badge: '' }] : []),
     ];
   });
   protected readonly overall = computed(() =>

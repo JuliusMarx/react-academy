@@ -27,6 +27,7 @@ export const routes: Routes = [
       { path: 'notes', loadComponent: () => import('./pages/notes/notes-page') },
       { path: 'glossary', loadComponent: () => import('./pages/glossary/glossary-page') },
       { path: 'account', loadComponent: () => import('./pages/account/account-page') },
+      { path: 'admin', loadComponent: () => import('./pages/admin/admin-page') },
       {
         path: ':chapter/:lesson',
         resolve: { lessonData: lessonResolver },

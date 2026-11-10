@@ -20,6 +20,11 @@ export const SITE = {
   cloud: {
     url: 'https://vqvamsbueximthbbgdeo.supabase.co',
     key: 'sb_publishable_4D7Ts0zWUDRNgIlHPdn-3g_36tAHGEU',
+    /**
+     * Whether Supabase can send emails to anyone (custom SMTP set up). Without it, "Confirm email" is off
+     * in Supabase, new email accounts work right away and "Forgot your password?" is hidden.
+     */
+    emails: false,
   },
   /** Date of the privacy policy, shown at its end. */
   privacyDate: '2026-11-10',
