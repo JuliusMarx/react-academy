@@ -202,7 +202,14 @@ test('lessons stay readable offline once the service worker has cached the cours
 });
 
 test('the account page offers the GitHub sign-in – or explains that accounts are off', async ({ page }) => {
-  await page.goto('/de/account');
+  if (SITE.cloud.url) {
+    // Reached from the sign-in button at the top right, on every page.
+    await page.goto('/de/');
+    await page.getByRole('banner').getByRole('link', { name: 'Anmelden' }).click();
+    await expect(page).toHaveURL(/\/de\/account$/);
+  } else {
+    await page.goto('/de/account');
+  }
   const main = page.getByRole('main');
   const nav = page.getByRole('navigation', { name: 'Kursnavigation' });
   await expect(page.locator('main h1:visible').first()).toHaveText('Konto');

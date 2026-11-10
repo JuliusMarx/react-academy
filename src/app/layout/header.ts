@@ -2,6 +2,7 @@ import { NgOptimizedImage } from '@angular/common';
 import { Component, computed, inject, input, model, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Lang, LANGS } from '../content/content.model';
+import { CloudService } from '../core/cloud.service';
 import { ThemeService } from '../core/theme.service';
 import { UI_TEXT } from '../core/ui-text';
 
@@ -47,6 +48,23 @@ import { UI_TEXT } from '../core/ui-text';
         <span aria-hidden="true">{{ theme.theme() === 'dark' ? '☀' : '☾' }}</span>
       </button>
     </nav>
+
+    @if (cloud.enabled) {
+      @if (cloud.user(); as user) {
+        <a class="account-link signed-in" [routerLink]="['/', lang(), 'account']" [attr.aria-label]="text().accountOf(user.name)">
+          <span class="avatar" aria-hidden="true">{{ user.name.charAt(0).toUpperCase() }}</span>
+          <span class="label" aria-hidden="true">{{ user.name }}</span>
+        </a>
+      } @else {
+        <a class="account-link" [routerLink]="['/', lang(), 'account']" [attr.aria-label]="text().signInShort">
+          <svg class="person" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="8" r="4" />
+            <path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7" />
+          </svg>
+          <span class="label" aria-hidden="true">{{ text().signInShort }}</span>
+        </a>
+      }
+    }
   `,
   styles: `
     :host {
@@ -143,6 +161,65 @@ import { UI_TEXT } from '../core/ui-text';
     .search-button + .actions {
       margin-left: 0;
     }
+    .account-link {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      min-height: 2.25rem;
+      padding: 0.25rem 0.7rem;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      color: var(--accent-text);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+      &:hover {
+        background: var(--accent-soft);
+      }
+      &.signed-in {
+        padding-left: 0.25rem;
+        border-color: var(--border-strong);
+        color: var(--text);
+      }
+      .label {
+        max-width: 9rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+    .person {
+      width: 1.1rem;
+      height: 1.1rem;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+    .avatar {
+      display: grid;
+      place-items: center;
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.85rem;
+    }
+    /* Phones: icon or avatar only – the link keeps its name via aria-label. */
+    @media (max-width: 600px) {
+      .account-link {
+        padding: 0.25rem;
+        border-radius: 50%;
+        .label {
+          display: none;
+        }
+      }
+      .account-link:not(.signed-in) {
+        width: 2.25rem;
+        justify-content: center;
+      }
+    }
     /* Narrow screens: icon only – the label stays available to screen readers. */
     @media (max-width: 600px) {
       .search-button .label {
@@ -161,6 +238,7 @@ import { UI_TEXT } from '../core/ui-text';
 })
 export class Header {
   protected readonly theme = inject(ThemeService);
+  protected readonly cloud = inject(CloudService);
   protected readonly langs = LANGS;
 
   readonly lang = input.required<Lang>();
