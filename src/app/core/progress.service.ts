@@ -43,6 +43,13 @@ export interface Progress {
 const STORAGE_KEY = 'react-academy.progress';
 const emptyProgress = (): Progress => ({ version: 1, completedLessons: [], quizResults: {}, solvedExercises: [], review: {}, notes: {}, bookmarks: [] });
 
+/** Progress from an export or the cloud, with fields added later filled in – undefined if it isn't progress. */
+export function normalizeProgress(data: unknown): Progress | undefined {
+  const progress = data as Partial<Progress> | null;
+  if (progress?.version !== 1 || !Array.isArray(progress.completedLessons)) return undefined;
+  return { ...emptyProgress(), ...progress } as Progress;
+}
+
 @Service()
 export class ProgressService {
   private readonly storage = inject(BrowserStorage);
@@ -179,13 +186,18 @@ export class ProgressService {
   importJson(input: string): boolean {
     try {
       const trimmed = input.trim();
-      const data = JSON.parse(trimmed.startsWith('{') ? trimmed : decodeCode(trimmed)) as Partial<Progress>;
-      if (data.version !== 1 || !Array.isArray(data.completedLessons)) return false;
-      this.update(() => ({ ...emptyProgress(), ...data }) as Progress);
+      const data = normalizeProgress(JSON.parse(trimmed.startsWith('{') ? trimmed : decodeCode(trimmed)));
+      if (!data) return false;
+      this.update(() => data);
       return true;
     } catch {
       return false;
     }
+  }
+
+  /** Replaces the whole progress, e.g. with the state synced from the cloud. */
+  replace(progress: Progress): void {
+    this.update(() => progress);
   }
 
   reset(): void {

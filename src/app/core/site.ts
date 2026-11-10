@@ -4,19 +4,25 @@ export const SITE = {
   url: 'https://react-academy-de.netlify.app',
   /** Storage keys in the visitor's browser, listed in the privacy policy. */
   storagePrefix: 'react-academy',
-  /**
-   * Operator for the imprint and privacy policy.
-   * TODO: fill in before publishing – the pages show these placeholders until then.
-   */
+  /** Operator for the imprint and privacy policy. */
   operator: {
-    name: '[Vor- und Nachname]',
-    street: '[Straße und Hausnummer]',
-    city: '[PLZ und Ort]',
+    name: 'Julius Marx',
+    street: 'Mühlenstr. 19a',
+    city: '53947 Nettersheim',
     country: 'Deutschland',
-    email: '[E-Mail-Adresse]',
+    email: 'julius.marx.1@gmx.de',
+  },
+  /**
+   * Supabase project for the optional account (GitHub login, progress in the cloud) – one project for
+   * both Academies, see docs/cloud-setup.md. Both values are public by design (the database is
+   * protected by row level security). Empty: no account feature, the site stays fully static.
+   */
+  cloud: {
+    url: 'https://vqvamsbueximthbbgdeo.supabase.co',
+    key: 'sb_publishable_4D7Ts0zWUDRNgIlHPdn-3g_36tAHGEU',
   },
   /** Date of the privacy policy, shown at its end. */
-  privacyDate: '2026-11-05',
+  privacyDate: '2026-11-10',
 };
 
 /** Link to a new GitHub issue about a lesson, with title and body filled in. */

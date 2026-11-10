@@ -26,6 +26,7 @@ export const routes: Routes = [
       { path: 'certificate', loadComponent: () => import('./pages/certificate/certificate-page') },
       { path: 'notes', loadComponent: () => import('./pages/notes/notes-page') },
       { path: 'glossary', loadComponent: () => import('./pages/glossary/glossary-page') },
+      { path: 'account', loadComponent: () => import('./pages/account/account-page') },
       {
         path: ':chapter/:lesson',
         resolve: { lessonData: lessonResolver },

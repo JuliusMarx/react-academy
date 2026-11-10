@@ -4,8 +4,16 @@
   @if (lang() === 'de') {
     <h2>Das Wichtigste in Kürze</h2>
     <ul>
-      <li>Es gibt keine Benutzerkonten, keine Cookies, kein Tracking und keine Werbung.</li>
-      <li>Dein Lernfortschritt wird nur in deinem Browser gespeichert und nie an mich übertragen.</li>
+      @if (cloud) {
+        <li>Es gibt keine Cookies, kein Tracking und keine Werbung.</li>
+        <li>
+          Dein Lernfortschritt wird in deinem Browser gespeichert. Nur wenn du dich freiwillig mit GitHub anmeldest, wird er
+          zusätzlich in deinem Konto bei Supabase gespeichert.
+        </li>
+      } @else {
+        <li>Es gibt keine Benutzerkonten, keine Cookies, kein Tracking und keine Werbung.</li>
+        <li>Dein Lernfortschritt wird nur in deinem Browser gespeichert und nie an mich übertragen.</li>
+      }
       <li>Der Hosting-Anbieter Netlify verarbeitet beim Aufruf technisch nötige Daten wie deine IP-Adresse.</li>
       <li>Erst wenn du ein Live-Beispiel startest, werden Daten an StackBlitz übertragen.</li>
     </ul>
@@ -51,6 +59,25 @@
       Einstellungen deines Browsers.
     </p>
 
+    @if (cloud) {
+      <h2>Konto (Anmeldung mit GitHub)</h2>
+      <p>
+        Ein Konto ist freiwillig. Wenn du dich auf der Seite <a [routerLink]="['/', lang(), 'account']">Konto</a> mit GitHub
+        anmeldest, übermittelt GitHub (GitHub, Inc., USA) deinen GitHub-Namen, deinen Anzeigenamen, deine E-Mail-Adresse
+        und die Adresse deines Profilbilds an Supabase. Gespeichert werden diese Angaben und dein Lernfortschritt (erledigte
+        Lektionen, Quiz-Ergebnisse, gelöste Übungen, Fragen zum Wiederholen, Notizen, Lesezeichen und gegebenenfalls der
+        Name auf dem Zertifikat), damit du ihn auf jedem Gerät nutzen kannst. Rechtsgrundlage ist die Bereitstellung des
+        Kontos, das du anforderst (Art. 6 Abs. 1 lit. b DSGVO).
+      </p>
+      <p>
+        Die Daten liegen bei Supabase, Inc. (USA) in einem Rechenzentrum in der EU (Frankfurt). Für mögliche Zugriffe aus den
+        USA nutzt Supabase die Standardvertragsklauseln der EU-Kommission (Art. 46 DSGVO); mehr dazu in der
+        <a href="https://supabase.com/privacy">Datenschutzerklärung von Supabase</a>. Zur Anmeldung speichert die Seite
+        zusätzlich <code>{{ site.storagePrefix }}.auth</code> und <code>{{ site.storagePrefix }}.cloud</code> im lokalen
+        Speicher deines Browsers. Du kannst dein Konto samt Lernstand jederzeit auf der Kontoseite löschen.
+      </p>
+    }
+
     <h2>Live-Beispiele mit StackBlitz</h2>
     <p>
       Die Beispiele und Übungen laufen in StackBlitz, einem Dienst der StackBlitz, Inc. (USA). Sie werden
@@ -88,8 +115,16 @@
 
     <h2>In short</h2>
     <ul>
-      <li>There are no user accounts, no cookies, no tracking and no ads.</li>
-      <li>Your learning progress is stored only in your browser and never sent to me.</li>
+      @if (cloud) {
+        <li>There are no cookies, no tracking and no ads.</li>
+        <li>
+          Your learning progress is stored in your browser. Only if you choose to sign in with GitHub is it also stored in
+          your account at Supabase.
+        </li>
+      } @else {
+        <li>There are no user accounts, no cookies, no tracking and no ads.</li>
+        <li>Your learning progress is stored only in your browser and never sent to me.</li>
+      }
       <li>The hosting provider Netlify processes technically necessary data such as your IP address when you visit.</li>
       <li>Data is sent to StackBlitz only once you start a live example.</li>
     </ul>
@@ -131,6 +166,24 @@
       explicitly use (§ 25 (2) no. 2 TDDDG). You can delete it at any time: via "Manage progress" → "Reset" on the
       <a [routerLink]="['/', lang()]">home page</a> or in your browser settings.
     </p>
+
+    @if (cloud) {
+      <h2>Account (sign in with GitHub)</h2>
+      <p>
+        An account is optional. When you sign in with GitHub on the <a [routerLink]="['/', lang(), 'account']">account</a>
+        page, GitHub (GitHub, Inc., USA) sends your GitHub username, display name, email address and the address of your
+        profile picture to Supabase. These details and your learning progress (completed lessons, quiz results, solved
+        exercises, questions to review, notes, bookmarks and, if created, the name on the certificate) are stored so you can
+        use them on every device. The legal basis is providing the account you request (Art. 6 (1) (b) GDPR).
+      </p>
+      <p>
+        The data is stored by Supabase, Inc. (USA) in a data center in the EU (Frankfurt). For possible access from the USA,
+        Supabase uses the European Commission's standard contractual clauses (Art. 46 GDPR); see
+        <a href="https://supabase.com/privacy">Supabase's privacy policy</a>. For signing in, the site also stores
+        <code>{{ site.storagePrefix }}.auth</code> and <code>{{ site.storagePrefix }}.cloud</code> in your browser's local
+        storage. You can delete your account and its progress at any time on the account page.
+      </p>
+    }
 
     <h2>Live examples with StackBlitz</h2>
     <p>

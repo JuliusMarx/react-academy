@@ -4,6 +4,7 @@ import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { filter, map, pairwise, startWith } from 'rxjs';
 import { Lang } from '../content/content.model';
+import { CloudService } from '../core/cloud.service';
 import { SITE } from '../core/site';
 import { UI_TEXT } from '../core/ui-text';
 import { Header } from './header';
@@ -42,6 +43,8 @@ export default class Shell {
   );
 
   constructor() {
+    // Restores a signed-in account (if any) on every page, not only on the account page.
+    inject(CloudService);
     // Anchor links (table of contents) must not scroll headings under the sticky header.
     // The router ignores CSS scroll-padding, so read the header height and pass it on.
     const scroller = inject(ViewportScroller);

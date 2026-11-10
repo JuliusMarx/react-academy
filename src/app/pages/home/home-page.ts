@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { Lang } from '../../content/content.model';
 import { ContentService } from '../../content/content.service';
 import { ProgressService } from '../../core/progress.service';
+import { SITE } from '../../core/site';
 import { ReadingMode, ReadingModeService } from '../../core/reading-mode.service';
 import { UI_TEXT } from '../../core/ui-text';
 import { ProgressBar } from '../../shared/progress-bar';
@@ -59,6 +60,7 @@ export default class HomePage {
       { path: 'cheatsheet', title: text.cheatsheet, description: text.toolCheatsheetText },
       { path: 'glossary', title: text.glossary, description: text.toolGlossaryText },
       { path: 'notes', title: text.notes, description: text.toolNotesText },
+      ...(SITE.cloud.url ? [{ path: 'account', title: text.account, description: text.toolAccountText }] : []),
       { path: 'certificate', title: text.certificate, description: text.toolCertificateText },
     ];
   });

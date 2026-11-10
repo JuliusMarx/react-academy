@@ -16,6 +16,25 @@ export class BrowserStorage {
     }
   }
 
+  /** True if anything is stored under the key, even a value that isn't JSON. */
+  has(key: string): boolean {
+    if (!this.isBrowser) return false;
+    try {
+      return localStorage.getItem(key) !== null;
+    } catch {
+      return false;
+    }
+  }
+
+  remove(key: string): void {
+    if (!this.isBrowser) return;
+    try {
+      localStorage.removeItem(key);
+    } catch {
+      // Blocked storage – nothing to remove.
+    }
+  }
+
   write(key: string, value: unknown): void {
     if (!this.isBrowser) return;
     try {

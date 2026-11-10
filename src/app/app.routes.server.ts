@@ -39,6 +39,11 @@ export const serverRoutes: ServerRoute[] = [
     getPrerenderParams: async () => LANGS.map((lang) => ({ lang })),
   },
   {
+    path: ':lang/account',
+    renderMode: RenderMode.Prerender,
+    getPrerenderParams: async () => LANGS.map((lang) => ({ lang })),
+  },
+  {
     path: ':lang/review',
     renderMode: RenderMode.Prerender,
     getPrerenderParams: async () => LANGS.map((lang) => ({ lang })),

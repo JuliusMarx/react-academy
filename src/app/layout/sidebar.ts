@@ -2,6 +2,7 @@ import { Component, computed, inject, input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { Lang } from '../content/content.model';
 import { ContentService } from '../content/content.service';
+import { CloudService } from '../core/cloud.service';
 import { ProgressService } from '../core/progress.service';
 import { UI_TEXT } from '../core/ui-text';
 import { ProgressBar } from '../shared/progress-bar';
@@ -155,6 +156,7 @@ import { ProgressBar } from '../shared/progress-bar';
 export class Sidebar {
   private readonly content = inject(ContentService);
   protected readonly progress = inject(ProgressService);
+  private readonly cloud = inject(CloudService);
 
   readonly lang = input.required<Lang>();
 
@@ -172,6 +174,7 @@ export class Sidebar {
       { path: 'glossary', icon: 'A', title: text.glossary, badge: '' },
       { path: 'notes', icon: '✎', title: text.notes, badge: '' },
       { path: 'certificate', icon: '★', title: text.certificate, badge: '' },
+      ...(this.cloud.enabled ? [{ path: 'account', icon: '☁', title: text.account, badge: this.cloud.user() ? '✓' : '' }] : []),
     ];
   });
   protected readonly overall = computed(() =>

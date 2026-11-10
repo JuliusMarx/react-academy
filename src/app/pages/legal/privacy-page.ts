@@ -22,6 +22,7 @@ export default class PrivacyPage {
 
   protected readonly text = computed(() => UI_TEXT[this.lang()]);
   protected readonly site = SITE;
+  protected readonly cloud = !!(SITE.cloud.url && SITE.cloud.key);
   protected readonly date = computed(() =>
     new Intl.DateTimeFormat(this.lang(), { dateStyle: 'long' }).format(Date.parse(SITE.privacyDate)),
   );

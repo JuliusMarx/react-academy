@@ -3,7 +3,7 @@ import { expect, test, type Page } from '@playwright/test';
 import { curriculum } from '../src/app/content/generated/curriculum';
 import placement from '../src/app/content/generated/placement/de';
 import quizzes from '../src/app/content/generated/quizzes/de';
-import { unlock } from './access';
+import { SITE } from '../src/app/core/site';
 
 // Everything is derived from the generated content, so the tests work for every Academy fork.
 const chapters = curriculum.de;
@@ -13,8 +13,6 @@ const firstUrl = `/de/${first.chapter}/${first.slug}`;
 const last = lessons[lessons.length - 1];
 const lastUrl = `/de/${last.chapter}/${last.slug}`;
 
-// The gate itself is tested in gate.spec.ts; here every page opens unlocked.
-test.beforeEach(({ page }) => unlock(page));
 
 /** The stored progress, whatever the fork calls its storage key. */
 async function storedProgress(page: Page) {
@@ -147,7 +145,6 @@ test('the transfer code moves progress and notes to another browser', async ({ p
 
   // A fresh browser context has no progress yet, so no confirmation is needed.
   const other = await browser.newPage();
-  await unlock(other);
   await other.goto('/de/');
   await other.getByText('Fortschritt verwalten').click();
   await other.getByRole('textbox', { name: 'Code vom anderen Gerät' }).fill(code);
@@ -204,8 +201,22 @@ test('lessons stay readable offline once the service worker has cached the cours
   await context.setOffline(false);
 });
 
+test('the account page offers the GitHub sign-in – or explains that accounts are off', async ({ page }) => {
+  await page.goto('/de/account');
+  const main = page.getByRole('main');
+  const nav = page.getByRole('navigation', { name: 'Kursnavigation' });
+  await expect(page.locator('main h1:visible').first()).toHaveText('Konto');
+  if (SITE.cloud.url) {
+    await expect(main.getByRole('button', { name: 'Mit GitHub anmelden' })).toBeVisible();
+    await expect(nav.getByRole('link', { name: 'Konto' })).toBeVisible();
+  } else {
+    await expect(main.getByText('Konten sind auf dieser Seite noch nicht eingerichtet.', { exact: false })).toBeVisible();
+    await expect(nav.getByRole('link', { name: 'Konto' })).toHaveCount(0);
+  }
+});
+
 test.describe('accessibility', () => {
-  const pages = ['/de/', firstUrl, lastUrl, '/de/placement', '/de/review', '/de/cheatsheet', '/de/glossary', '/de/notes', '/de/certificate', '/de/imprint', '/de/privacy', '/en/privacy', '/en/'];
+  const pages = ['/de/', firstUrl, lastUrl, '/de/placement', '/de/review', '/de/cheatsheet', '/de/glossary', '/de/notes', '/de/account', '/de/certificate', '/de/imprint', '/de/privacy', '/en/privacy', '/en/'];
   for (const colorScheme of ['light', 'dark'] as const) {
     for (const path of pages) {
       test(`${path} has no axe violations (${colorScheme})`, async ({ page }) => {
