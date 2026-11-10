@@ -2,7 +2,7 @@
 
 Eine interaktive Lernplattform für React, ähnlich wie W3Schools: kurze Lektionen, Codebeispiele zum Ausprobieren direkt im Browser und Quizze mit sofortigem Feedback. Inhalte auf Deutsch und Englisch.
 
-Konzept und Roadmap: [CONCEPT.md](CONCEPT.md)
+Konzept und Roadmap: [CONCEPT.md](CONCEPT.md) · Projektdokumentation mit Diagrammen: [docs/PROJEKT.md](docs/PROJEKT.md)
 
 ## Entwicklung
 
