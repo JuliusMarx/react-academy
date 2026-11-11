@@ -38,7 +38,7 @@ quiz:
 
 # Server Components und Frameworks
 
-Alles in diesem Kurs lief im Browser: Die App lädt, rendert und holt sich ihre Daten. React kann aber auch auf dem **Server** rendern. Das ist die Grundlage moderner React-Frameworks.
+Bisher lief in diesem Kurs alles im Browser: Die App lädt, rendert und holt sich ihre Daten. React kann aber auch auf dem **Server** rendern. Das ist die Grundlage moderner React-Frameworks.
 
 ## Server-Rendering
 
@@ -46,7 +46,7 @@ Beim **Server-Side Rendering** (SSR) erzeugt der Server für jede Anfrage fertig
 
 ## React Server Components
 
-**Server Components** gehen einen Schritt weiter: Sie laufen **nur** auf dem Server. Ihr Code und ihre Abhängigkeiten kommen nie im Browser an.
+**Server Components** gehen einen Schritt weiter: Sie laufen **nur** auf dem Server – oder schon beim Build. Ihr Code und ihre Abhängigkeiten kommen nie im Browser an.
 
 ```tsx
 // app/products/page.tsx – eine Server Component (Standard in Next.js)
@@ -113,4 +113,4 @@ Eine reine Vite-App wie in diesem Kurs ist weiterhin eine gute Wahl für Anwendu
 
 ## Wie geht es weiter?
 
-Du kennst jetzt das Fundament: Komponenten, State, Effekte, Hooks, Datenladen, Routing, Formulare, Styling, State Management und Tests. Alles, was Frameworks bieten, baut darauf auf. Ein guter nächster Schritt: Baue ein eigenes kleines Projekt – und probiere danach ein Framework wie Next.js oder React Router aus.
+Zwei Kapitel liegen noch vor dir, und beide setzen das Gelernte in die Praxis um. In Kapitel 13 machst du deine Komponenten barrierefrei: semantisches HTML, ARIA, Fokussteuerung und Ansagen. In Kapitel 14 baust du Schritt für Schritt eine Notizen-App, die Komponenten, Routen, Formulare und Tests zusammenbringt. Wenn du den Kurs abgeschlossen hast, lohnt sich ein Blick auf Frameworks wie Next.js oder React Router – alles, was sie bieten, baut auf diesem Fundament auf.

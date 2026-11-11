@@ -24,7 +24,7 @@ summary: |-
 
   > [!WARNING] Context doesn't replace every prop – pass data normally first or use `children`.
 quiz:
-  - question: "What problem does Context solve?"
+  - question: "What problem does context solve?"
     options: ["Having to pass props through many levels (prop drilling)","Slow components","Missing types","Loading data from the server"]
     answer: 0
   - question: "What value does `useContext(ThemeContext)` return when there is no provider above it?"

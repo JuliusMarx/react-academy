@@ -35,9 +35,9 @@ exercise:
   example: ex-query
   title: Notes with TanStack Query
   task: |-
-    `Notes` loads the notes with an effect. New notes are saved, but they don't show up.
+    `Notes` loads the notes with an Effect. New notes are saved, but they don't show up.
 
-    1. Replace the state and effect with `useQuery({ queryKey: ['notes'], queryFn: fetchNotes })`. Show `<p id="loading">Loading …</p>` in the meantime.
+    1. Replace the state and Effect with `useQuery({ queryKey: ['notes'], queryFn: fetchNotes })`. Show `<p id="loading">Loading …</p>` in the meantime.
     2. Save with `useMutation({ mutationFn: addNote, … })` and invalidate the `['notes']` query on success.
 
     The `QueryClientProvider` is already in `App.tsx`.
@@ -71,7 +71,7 @@ export default function App() {
 }
 ```
 
-## Fetching Data with useQuery
+## Fetching data with useQuery
 
 ```tsx
 import { useQuery } from '@tanstack/react-query';
@@ -93,7 +93,7 @@ function Todos() {
 
 That takes care of race conditions, caching, and loading states. On top of that, TanStack Query automatically refetches data when it's stale – for example when you return to the browser tab. You control how long data counts as fresh with `staleTime`.
 
-## Changing Data with useMutation
+## Changing data with useMutation
 
 ```tsx
 const queryClient = useQueryClient();
@@ -110,13 +110,13 @@ const mutation = useMutation({
 
 `invalidateQueries` marks the list as stale – it gets refetched, and all components that display it update.
 
-## When to Use What
+## When to use what
 
 | Situation | Tool |
 |---|---|
 | Server data in a client app | TanStack Query |
 | Data in a framework (Next.js, React Router) | its loaders or Server Components |
-| A single, simple request | `fetch` in an effect with cleanup |
+| A single, simple request | `fetch` in an Effect with cleanup |
 | UI state (open/closed, input values) | `useState` / `useReducer` |
 
 ::tryit{tanstack-query}

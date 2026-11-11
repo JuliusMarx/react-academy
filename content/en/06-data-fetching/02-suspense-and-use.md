@@ -4,8 +4,8 @@ minutes: 8
 summary: |-
   - `<Suspense fallback={…}>` shows a placeholder as long as any component inside is still waiting. Boundaries can be nested.
   - `use(promise)` reads the value of a promise; if it isn't settled yet, the component **suspends**.
-  - The component only describes the finished state – no loading state, no Effect, no state. A rejected promise goes to the nearest Error Boundary.
-  - Unlike hooks, `use` may be called in `if` blocks and loops, and it reads Context too.
+  - The component only describes the finished state – no loading state, no Effect, no state. A rejected promise goes to the nearest error boundary.
+  - Unlike hooks, `use` may be called in `if` blocks and loops, and it reads context too.
   - With `useTransition`, the old content stays visible while the new one loads; `isPending` tells you loading is in progress.
 
   ```tsx
@@ -22,7 +22,7 @@ summary: |-
   > [!WARNING] No `use(fetch(…))` in the same component – the promise must be cached, or it suspends forever.
 quiz:
   - question: "What happens when a component calls `use(promise)` and the promise hasn't resolved yet?"
-    options: ["It returns `undefined`", "It 'suspends' – the nearest `<Suspense>` boundary shows its fallback", "It throws an error that crashes the app", "It blocks and waits"]
+    options: ["It returns `undefined`", "It “suspends” – the nearest `<Suspense>` boundary shows its fallback", "It throws an error that crashes the app", "It blocks and waits"]
     answer: 1
   - question: "Why must the promise passed to `use()` not be created anew on every render?"
     options: ["Because promises are expensive","Because `use()` only accepts strings","Because every new promise suspends again – the component would never finish","It can be"]
@@ -47,7 +47,7 @@ exercise:
 
 # use() and Suspense
 
-With **Suspense**, you describe loading states declaratively: a component says "I'm still waiting", and a surrounding `<Suspense>` boundary shows a placeholder in the meantime.
+With **Suspense**, you describe loading states declaratively: a component says “I'm still waiting”, and a surrounding `<Suspense>` boundary shows a placeholder in the meantime.
 
 ## Suspense
 
@@ -74,14 +74,14 @@ function Profile({ userPromise }: { userPromise: Promise<User> }) {
 }
 ```
 
-No loading state, no effect, no state: the component only describes the finished state. If the promise is rejected, the error goes to the nearest **error boundary** (next lesson).
+No loading state, no Effect, no state: the component only describes the finished state. If the promise is rejected, the error goes to the nearest **error boundary** (next lesson).
 
 > [!WARNING]
 > Don't create the promise in the same component (`use(fetch(…))`). Every render would create a new promise, and the component would suspend endlessly. The promise must be **cached**: in a module cache as in the example, in a library, or as a prop from a Server Component.
 
 `use` is special: unlike Hooks, it can also be called inside `if` blocks and loops. It can also read context: `use(ThemeContext)`.
 
-## Transitions: Keeping the Old Content
+## Transitions: keeping the old content
 
 When you switch to data that is still loading, React replaces the visible content with the fallback again. Often it's nicer to keep the old content on screen until the new content is ready. To do that, you mark the update as a **transition**:
 

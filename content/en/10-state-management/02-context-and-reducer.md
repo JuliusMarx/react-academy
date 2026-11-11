@@ -34,7 +34,7 @@ quiz:
     explanation: "A clear error immediately shows that the provider is missing – instead of crashing later somewhere else with `Cannot read properties of null`."
 exercise:
   example: ex-cart-context
-  title: Favorites for the whole app
+  title: Favorites for the Whole App
   task: |-
     The header and the recipe list should share the same favorites.
 

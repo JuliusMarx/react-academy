@@ -16,7 +16,7 @@ summary: |-
   }, [roomId]);
   ```
 
-  > [!NOTE] Don't work around the double start with an "already started" flag – clean up properly instead.
+  > [!NOTE] Don't work around the double start with an “already started” flag – clean up properly instead.
 quiz:
   - question: "When does React call an Effect's cleanup function?"
     options: ["Only when the page is reloaded", "Before the Effect runs again and when the component is removed", "After every click", "Never automatically"]
@@ -42,7 +42,7 @@ exercise:
 
 Many Effects start something that keeps running: a timer, an event listener, a connection. It has to be stopped again when it is no longer needed. For that, the Effect returns a **cleanup function**.
 
-## The Cleanup Function
+## The cleanup function
 
 ```tsx
 useEffect(() => {
@@ -56,9 +56,9 @@ React calls the cleanup function
 - **before the Effect runs again**, because a dependency has changed, and
 - **when the component is removed** (unmount).
 
-That way every "start" is matched by exactly one "stop".
+That way every “start” is matched by exactly one “stop”.
 
-## Typical Pairs
+## Typical pairs
 
 | In the Effect | In the cleanup function |
 |---|---|
@@ -75,7 +75,7 @@ useEffect(() => {
 }, []);
 ```
 
-## Dependencies and Cleanup
+## Dependencies and cleanup
 
 When a dependency changes, React first cleans up with the **old** values and then starts the Effect with the **new** ones:
 
@@ -87,11 +87,11 @@ useEffect(() => {
 }, [roomId]);
 ```
 
-## StrictMode: Effects Run Twice
+## StrictMode: Effects run twice
 
 In development mode, `StrictMode` unmounts and remounts every component once after its first render: Effect → cleanup → Effect. If cleanup is missing, this makes it obvious right away – for example, because a timer runs twice as fast.
 
 > [!NOTE]
-> This is not a bug you should work around (for instance with an "already started" variable). Instead, make sure the cleanup function cleanly reverses the Effect. In the production build, the Effect runs only once.
+> This is not a bug you should work around (for instance with an “already started” variable). Instead, make sure the cleanup function cleanly reverses the Effect. In the production build, the Effect runs only once.
 
 ::tryit{effect-cleanup}

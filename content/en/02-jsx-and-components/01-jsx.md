@@ -39,7 +39,7 @@ quiz:
 
 **JSX** is a syntax extension for JavaScript that lets you write markup directly in your code. Vite compiles it into regular function calls. JSX looks like HTML, but it follows a few rules of its own.
 
-## Rule 1: One root element
+## Rule 1: one root element
 
 A component returns exactly *one* element. If you need several, wrap them in a `<div>` or, if no extra element should end up in the DOM, in a **Fragment**:
 
@@ -54,7 +54,7 @@ function Profile() {
 }
 ```
 
-## Rule 2: Close all tags
+## Rule 2: close all tags
 
 Tags without content need a slash: `<img />`, `<br />`, `<input />`.
 
@@ -90,7 +90,7 @@ function Card() {
 }
 ```
 
-Curly braces work as text between tags and as attribute values. In `style={{ … }}` there are two pairs: the outer one means "JavaScript goes here", and the inner one is an object.
+Curly braces work as text between tags and as attribute values. In `style={{ … }}` there are two pairs: the outer one means “JavaScript goes here”, and the inner one is an object.
 
 > [!NOTE]
 > Values in `{ }` are escaped automatically. A string containing `<script>` ends up as text on the page, not as HTML, which protects against XSS.

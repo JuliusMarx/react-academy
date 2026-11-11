@@ -5,7 +5,7 @@ summary: |-
   - `useActionState(action, initialState)` returns `[state, formAction, isPending]`.
   - The action receives the **previous state** and the `FormData`. Whatever it returns becomes the new state.
   - Pass the returned `formAction` to the form, not your own function. `isPending` is `true` while it runs.
-  - Return expected errors (invalid input) as state. Thrown errors go to the nearest Error Boundary.
+  - Return expected errors (invalid input) as state. Thrown errors go to the nearest error boundary.
   - React resets the form after **every** action. Return the inputs in the state and set them as `defaultValue` – but not passwords.
 
   ```tsx
@@ -38,7 +38,7 @@ quiz:
     answer: 1
 exercise:
   example: ex-action-state
-  title: Comments with validation
+  title: Comments with Validation
   task: |-
     1. Write `addComment` as an action for `useActionState`: `(previousState, formData) => nextState`.
        - If the comment is shorter than 3 characters, the comments stay the same and `error` becomes **Comment is too short**.

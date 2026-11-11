@@ -2,10 +2,10 @@
 title: Error Boundaries
 minutes: 7
 summary: |-
-  - Without an Error Boundary, an error during rendering removes the **entire** app from the screen.
-  - An Error Boundary catches errors from its children and shows a fallback – only for its part of the page.
+  - Without an error boundary, an error during rendering removes the **entire** app from the screen.
+  - An error boundary catches errors from its children and shows a fallback – only for its part of the page.
   - It's the one case where you still need a **class component**: `getDerivedStateFromError` sets the state, `componentDidCatch` logs.
-  - Resetting `error` to `null` renders the children again – handy for a "Try again" button.
+  - Resetting `error` to `null` renders the children again – handy for a “Try again” button.
   - Together with `<Suspense>` you cover both **still loading** and **failed**.
   - Not caught: errors in event handlers, in asynchronous code, and in the boundary itself.
 
@@ -52,7 +52,7 @@ exercise:
 
 When a component throws an error while rendering, React normally removes the **entire** app from the screen. An **error boundary** catches the error and shows a fallback instead – only for its part of the page.
 
-## Writing an Error Boundary
+## Writing an error boundary
 
 Error boundaries are the one case where you still need a **class component**:
 
@@ -82,9 +82,9 @@ class ErrorBoundary extends Component<Props, State> {
 
 - `getDerivedStateFromError` sets the state after an error.
 - `componentDidCatch` is the place for logging.
-- If you set `error` back to `null`, the boundary renders its children again – handy for a 'Try again' button.
+- If you set `error` back to `null`, the boundary renders its children again – handy for a “Try again” button.
 
-## Using It
+## Using it
 
 ```tsx
 <ErrorBoundary>
@@ -96,7 +96,7 @@ class ErrorBoundary extends Component<Props, State> {
 
 Place boundaries where a failure should be contained: around a widget, a page, a section. Together with Suspense, you cover both cases: **still loading** and **failed**.
 
-## What Error Boundaries Don't Catch
+## What error boundaries don't catch
 
 - Errors in **event handlers** – use `try/catch` plus state here.
 - **Asynchronous** code like `setTimeout` or a `fetch` whose error you don't pass on to React.

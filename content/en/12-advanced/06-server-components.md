@@ -29,7 +29,7 @@ quiz:
     options: ["Only in the browser", "On the server (or at build time) – their code never reaches the browser", "In a web worker", "In the database"]
     answer: 1
   - question: "What does `'use client'` at the top of a file mean?"
-    options: ["The file only runs on the server","The file is not built","From here on, Client Components begin, which are interactive in the browser – with state, effects, and event handlers","The component loads data"]
+    options: ["The file only runs on the server","The file is not built","From here on, Client Components begin, which are interactive in the browser – with state, Effects, and event handlers","The component loads data"]
     answer: 2
   - question: "What does the React team recommend for new multi-page apps?"
     options: ["Always go without a framework","jQuery","Only class components","A framework like Next.js"]
@@ -38,7 +38,7 @@ quiz:
 
 # Server Components and Frameworks
 
-Everything in this course ran in the browser: the app loads, renders, and fetches its own data. But React can also render on the **server**. That is the foundation of modern React frameworks.
+So far, everything in this course has run in the browser: the app loads, renders, and fetches its own data. But React can also render on the **server**. That is the foundation of modern React frameworks.
 
 ## Server rendering
 
@@ -46,7 +46,7 @@ With **server-side rendering** (SSR), the server produces finished HTML for ever
 
 ## React Server Components
 
-**Server Components** go one step further: they run **only** on the server. Their code and their dependencies never reach the browser.
+**Server Components** go one step further: they run **only** on the server – or already at build time. Their code and their dependencies never reach the browser.
 
 ```tsx
 // app/products/page.tsx – a Server Component (the default in Next.js)
@@ -66,7 +66,7 @@ export default async function ProductsPage() {
 }
 ```
 
-- Server Components may be **`async`** and load data directly – no effect, no loading state, no API in between.
+- Server Components may be **`async`** and load data directly – no Effect, no loading state, no API in between.
 - They have **no state and no event handlers**. Everything interactive lives in **Client Components**.
 
 ```tsx
@@ -85,7 +85,7 @@ export default function AddToCartButton({ id }: { id: number }) {
 
 ## Server Functions
 
-With `'use server'` you mark functions that run on the server but can be called from the client – for example as a form action (Chapter 8):
+With `'use server'` you mark functions that run on the server but can be called from the client – for example as a form action (chapter 8):
 
 ```tsx
 async function addToCart(formData: FormData) {
@@ -106,11 +106,11 @@ Server Components need a framework that brings the server and the bundler togeth
 | Framework | Highlights |
 |---|---|
 | **Next.js** | Server Components, App Router with file-based routes, Server Functions, widely used |
-| **React Router** (Framework Mode) | Loaders and actions as in Chapter 7, server rendering, file-based routes |
+| **React Router** (Framework Mode) | Loaders and actions as in chapter 7, server rendering, file-based routes |
 | **Expo** | React Native for iOS, Android, and the web |
 
 A plain Vite app like the one in this course is still a good choice for applications behind a login, tools, and dashboards – anywhere search engines and the very first load time matter less.
 
 ## What's next?
 
-You now know the foundation: components, state, effects, hooks, data fetching, routing, forms, styling, state management, and testing. Everything frameworks offer builds on it. A good next step: build a small project of your own – and then try out a framework like Next.js or React Router.
+Two chapters are still ahead, and both put what you have learned into practice. In chapter 13, you make your components accessible: semantic HTML, ARIA, focus management, and announcements. In chapter 14, you build a notes app step by step that brings components, routes, forms, and tests together. Once you have finished the course, frameworks like Next.js or React Router are worth a look – everything they offer builds on this foundation.

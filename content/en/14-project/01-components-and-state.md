@@ -50,7 +50,7 @@ Each lesson ends with the complete state of the project as a live example. So yo
 
 ## Plan first
 
-Before writing code, take a look at the finished UI. For the first step: a heading, a search field, a line "2 of 3 notes" and the list. Each note has a title, a text and two buttons.
+Before writing code, take a look at the finished UI. For the first step: a heading, a search field, a line “2 of 3 notes” and the list. Each note has a title, a text and two buttons.
 
 That gives you the components:
 
@@ -67,7 +67,7 @@ The rule from the State chapter: find the **minimal** state first, compute every
 | The notes | Yes | Change when pinning and deleting |
 | The search text | Yes | Changes when typing |
 | The filtered, sorted list | No | Can be computed from notes and search text |
-| "2 of 3 notes" | No | Two lengths – computable |
+| “2 of 3 notes” | No | Two lengths – computable |
 
 ## The data
 
@@ -155,13 +155,13 @@ export default function NoteItem({ note, onTogglePinned, onDelete }: Props) {
 }
 ```
 
-Two details from the Accessibility chapter: every note has a "Delete" button. To a screen reader they all sound the same – the `aria-label` says which note is meant. And the 📌 is decoration (`aria-hidden`); the button text "Unpin" says the same thing.
+Two details from the Accessibility chapter: every note has a “Delete” button. To a screen reader they all sound the same – the `aria-label` says which note is meant. And the 📌 is decoration (`aria-hidden`); the button text “Unpin” says the same thing.
 
 In `NoteList`, each `NoteItem` gets `key={note.id}`. The index would be wrong: the list gets sorted, filtered and shortened.
 
 ::tryit{project-step-1}
 
 > [!TIP]
-> Try it: pin "React ideas" – the note moves up. Search for "milk" and delete the note – the count is right immediately, because it's computed.
+> Try it: pin “React ideas” – the note moves up. Search for “milk” and delete the note – the count is right immediately, because it's computed.
 
-In the next lesson the app gets a detail page per note, and the data no longer comes from the code but from the "server".
+In the next lesson the app gets a detail page per note, and the data no longer comes from the code but from the “server”.

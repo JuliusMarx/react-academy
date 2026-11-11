@@ -32,7 +32,7 @@ quiz:
     answer: 1
 exercise:
   example: ex-project-tests
-  title: Tests for the note form
+  title: Tests for the Note Form
   task: |-
     In `NoteForm.test.tsx`, write at least two tests for the form from the last lesson. `onSave` is a fake function each time: `vi.fn(async (_draft: NoteDraft) => {})`.
 
@@ -163,7 +163,7 @@ The app is deliberately small. Ideas to extend it – each one practices a topic
 - **Instant pinning:** `useOptimistic` switches the button before the server answers.
 - **Focus after page changes:** focus the new page's heading, as in the Accessibility chapter.
 - **A real backend:** swap `api.ts` for `fetch` with `POST`/`PATCH`/`DELETE` – or use TanStack Query for caching and refetching.
-- **End-to-end tests:** check the whole flow "create a note, find it in the list, delete it" in a real browser with Playwright.
+- **End-to-end tests:** check the whole flow “create a note, find it in the list, delete it” in a real browser with Playwright.
 
 > [!TIP]
-> Start a new project (`npm create vite@latest`, template "React + TypeScript") and rebuild the app without looking. Wherever you get stuck, you know which lesson to revisit.
+> Start a new project (`npm create vite@latest`, template “React + TypeScript”) and rebuild the app without looking. Wherever you get stuck, you know which lesson to revisit.

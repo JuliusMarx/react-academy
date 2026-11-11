@@ -62,7 +62,7 @@ function Counter() {
 
 React runs the function **after rendering** – once the DOM has been updated. That way the Effect doesn't slow down what the user sees.
 
-## The Dependency Array
+## The dependency array
 
 Without a second argument, the Effect runs after *every* render. Usually you want to restrict that:
 
@@ -80,7 +80,7 @@ useEffect(() => {
 
 React compares each value with the one from the last render (`Object.is`). Only if one has changed does the Effect run again.
 
-## Don't Omit Dependencies
+## Don't omit dependencies
 
 The array must contain **every value from the component** that the Effect reads – props, state, and variables computed from them. If one is missing, the Effect works with stale values.
 
@@ -89,7 +89,7 @@ The array must contain **every value from the component** that the Effect reads 
 
 If you want an Effect to run *less often*, change the Effect's code – not the array. An updater function such as `setCount((c) => c + 1)` often helps, since then `count` doesn't need to be in the list.
 
-## Effects Are Not Event Handlers
+## Effects are not event handlers
 
 An Effect describes what a component should **stay in sync** with – for as long as it is displayed. What happens in response to a specific action (submitting a form, adding a product to the cart) belongs in the event handler.
 

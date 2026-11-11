@@ -39,7 +39,7 @@ quiz:
     answer: 3
 exercise:
   example: ex-redux
-  title: A todo slice
+  title: A Todo Slice
   task: |-
     Add three reducers in `src/todosSlice.ts` – thanks to Immer you may change `state` directly in them:
 

@@ -50,7 +50,7 @@ A `<div>` with `onClick` looks like a button, but it isn't one:
 |---|---|
 | reachable with Tab | no |
 | Enter and Space trigger it | no |
-| screen reader says "button" | no |
+| screen reader says “button” | no |
 | `disabled` blocks it | no |
 
 This applies to all elements: links to other pages are `<a href>`, choices are `<select>` or `<input type="checkbox">`, forms are `<form>`. You could rebuild all that with `role`, `tabIndex` and keyboard handlers – but only with a lot of effort and room for mistakes.
@@ -104,7 +104,7 @@ Every `<img>` needs `alt`:
 <img src={ornament} alt="" />
 ```
 
-For informative images, `alt` describes the content – not "image of …". Decorative images get an **empty** `alt=""`, so screen readers skip them. Without any `alt`, some read out the file name.
+For informative images, `alt` describes the content – not “image of …”. Decorative images get an **empty** `alt=""`, so screen readers skip them. Without any `alt`, some read out the file name.
 
 ## Wrapper divs that break structure
 

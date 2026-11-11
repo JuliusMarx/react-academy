@@ -38,7 +38,7 @@ exercise:
 
     Remove the Effect and the extra state. Calculate `visible` and the summary directly during rendering.
   checks:
-    filters: The filter **ap** shows Apple and Grape, "2 of 4 shown"
+    filters: The filter **ap** shows Apple and Grape, “2 of 4 shown”
     new-items: New items appear immediately
     no-effect: "`App.tsx` works without `useEffect` and without extra state"
 ---
@@ -47,7 +47,7 @@ exercise:
 
 Effects are an escape hatch from React – for synchronizing with external systems. Many Effects you see in practice are unnecessary: they make code slower, more convoluted, and more error-prone. Here are the most common cases and what to do instead.
 
-## Derive Values Instead of Synchronizing Them
+## Derive values instead of synchronizing them
 
 ```tsx
 // ✗ Unnecessary: extra state plus an Effect
@@ -62,9 +62,9 @@ const fullName = `${firstName} ${lastName}`;
 
 The Effect version first renders with the old value and then immediately renders again. The calculated version is always up to date – and shorter.
 
-If a calculation is really expensive, remember the result with `useMemo` (Chapter 5) instead of copying it into state.
+If a calculation is really expensive, remember the result with `useMemo` (chapter 5) instead of copying it into state.
 
-## Reset State with a key
+## Reset state with a key
 
 If a component should start over when something changes, give it a `key`:
 
@@ -74,7 +74,7 @@ If a component should start over when something changes, give it a `key`:
 
 When `userId` changes, React recreates `Profile` – along with its state. You don't need an Effect that resets each piece of state individually.
 
-## Events Belong in Event Handlers
+## Events belong in event handlers
 
 ```tsx
 // ✗ The Effect reacts to the click indirectly
@@ -91,17 +91,17 @@ function handleBuy() {
 
 The question is: *why* should the code run? Because the user did something → event handler. Because the component is displayed and needs to stay in sync with something → Effect.
 
-## Avoid Chains of Effects
+## Avoid chains of Effects
 
 Effects that set state, which triggers the next Effect, are hard to follow. Calculate as much as possible during rendering and bundle changes together in the event handler.
 
-## When an Effect Is Right
+## When an Effect is right
 
 - Timers, intervals, animations
 - Browser APIs such as `resize`, `IntersectionObserver`, `document.title`
 - Connections (WebSocket, chat) and subscriptions
 - Integrating non-React libraries (maps, charts)
 
-Fetching data is also an Effect – but you will usually use a library or `use()` with Suspense for that. More on this in Chapter 6.
+Fetching data is also an Effect – but you will usually use a library or `use()` with Suspense for that. More on this in chapter 6.
 
 ::tryit{no-effect}

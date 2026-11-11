@@ -20,7 +20,7 @@ summary: |-
   }
   ```
 
-  > [!TIP] If you'd have to pass props through many levels, Context helps (chapter 5).
+  > [!TIP] If you'd have to pass props through many levels, context helps (chapter 5).
 quiz:
   - question: "Two sibling components should display and change the same value. Where does the state belong?"
     options: ["In both components, kept in sync", "In the closest common parent component", "In a global variable", "In `localStorage`"]

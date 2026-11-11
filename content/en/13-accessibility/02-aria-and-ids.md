@@ -3,7 +3,7 @@ title: ARIA and IDs
 minutes: 9
 summary: |-
   - ARIA adds roles (`role`), states and properties (`aria-*`) for screen readers. In JSX you write `aria-*` just like in HTML, with a dash: `aria-expanded={open}`.
-  - First rule: if there is a native element, use it. ARIA only changes what gets announced – focus and keyboard support are up to you. "No ARIA is better than bad ARIA."
+  - First rule: if there is a native element, use it. ARIA only changes what gets announced – focus and keyboard support are up to you. “No ARIA is better than bad ARIA.”
   - Useful: `aria-label` for icon buttons, `aria-describedby` for hints and errors, `aria-expanded` for expanding and collapsing, `aria-invalid` for invalid fields, `aria-hidden` for decorative icons.
   - `useId()` generates a unique ID per component instance – for `htmlFor`, `aria-describedby` and friends. Fixed IDs like `"email"` collide as soon as the component is on the page twice.
   - For several IDs, call `useId()` once and append to it: `` `${id}-hint` ``. Don't use it for `key`s and don't rely on its format.
@@ -37,7 +37,7 @@ quiz:
     explanation: "Keys come from your data. `useId` is for IDs that link elements to each other."
 exercise:
   example: ex-text-field
-  title: An accessible text field
+  title: An Accessible Text Field
   task: |-
     `TextField` appears twice in the form – with the fixed ID `"field"`, both labels point to the first input. You can see the hint and the error, but a screen reader doesn't announce them.
 

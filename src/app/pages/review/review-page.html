@@ -6,7 +6,7 @@
     @if (ready()) {
       @if (due().length) {
         <p class="status">{{ text().reviewDue(due().length) }}</p>
-        <button type="button" class="button" (click)="start(due())">{{ text().reviewStart }} →</button>
+        <button type="button" class="button" (click)="start(due())">{{ text().reviewStart }} <span aria-hidden="true">→</span></button>
       } @else if (allKeys().length) {
         <p class="status">{{ text().reviewNothingDue }} {{ text().reviewUpcoming(allKeys().length, nextInDays()) }}</p>
         <button type="button" class="button secondary" (click)="start(allKeys())">{{ text().reviewPracticeNow }}</button>
@@ -54,7 +54,12 @@
             <span [innerHTML]="card.question.explanation | safeHtml"></span>
           }
         </p>
-        <button type="button" class="button" (click)="next()">{{ isLast() ? text().evaluate : text().next + ' →' }}</button>
+        <button type="button" class="button" (click)="next()">@if (isLast()) {
+          {{ text().evaluate }}
+        } @else {
+          {{ text().next }} <span aria-hidden="true">→</span>
+        }
+        </button>
       }
     </div>
   } @else {

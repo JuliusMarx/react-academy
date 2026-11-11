@@ -32,7 +32,7 @@ quiz:
     explanation: "That is why the component must sit inside the form. It doesn't work in the same component that renders the `<form>`."
 exercise:
   example: ex-form-status
-  title: A save button
+  title: A Save Button
   task: |-
     Write `SubmitButton` so that it reads the status of the surrounding form with `useFormStatus()` (from `react-dom`):
 

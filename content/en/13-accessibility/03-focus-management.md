@@ -1,12 +1,12 @@
 ---
-title: Managing focus
+title: Managing Focus
 minutes: 9
 summary: |-
   - Everything must work with the keyboard. The Tab order follows the DOM. `tabIndex={0}` adds an element to the order, `tabIndex={-1}` makes it focusable only via `focus()`. Avoid positive values.
   - Focus must be visible: style `:focus-visible`, never `outline: none` without a replacement.
   - With a ref and `ref.current?.focus()` you move focus to where things continue after an action – especially when the focused element disappears.
   - Client-side routers like React Router don't move focus after a page change. A common approach: focus the `<h1>` with `tabIndex={-1}`.
-  - `<dialog>` with `showModal()` does the hard part: top layer, rest of the page inert, Escape closes, focus moves in and back out on close. In React, open it via a ref and an effect; `onClose` keeps the state in sync.
+  - `<dialog>` with `showModal()` does the hard part: top layer, rest of the page inert, Escape closes, focus moves in and back out on close. In React, open it via a ref and an Effect; `onClose` keeps the state in sync.
   - `inert` (a boolean attribute in React 19) blocks an area for mouse, keyboard and screen readers.
 
   ```tsx
@@ -26,13 +26,13 @@ quiz:
   - question: "What does `tabIndex={-1}` mean?"
     options: ["The element comes first in the Tab order","The element can't be focused at all anymore","The element can be focused via `focus()`, but can't be reached with Tab","The element is hidden from screen readers"]
     answer: 2
-  - question: "After clicking \"Delete\", the button disappears together with its list item. Where should focus go?"
+  - question: "After clicking “Delete”, the button disappears together with its list item. Where should focus go?"
     options: ["Into the address bar","Nowhere, the browser takes care of it","To the `<body>` element","Via a ref to a sensible place, e.g. the list's heading or the next item"]
     answer: 3
     explanation: "When the focused element disappears, focus lands on `<body>` – keyboard users then have to start from the top."
 ---
 
-# Managing focus
+# Managing Focus
 
 If you use the keyboard or a screen reader, you're always at one spot: the **focus**. On classic web pages the browser resets it on every page load. In a React app the page changes without the browser noticing – so you sometimes have to take care of focus yourself.
 
@@ -73,7 +73,7 @@ With a ref and `focus()` you send focus to where things continue. Typical cases:
 const inputRef = useRef<HTMLInputElement>(null);
 const [editing, setEditing] = useState(false);
 
-// The field only exists after rendering – so focus it in an effect
+// The field only exists after rendering – so focus it in an Effect
 useEffect(() => {
   if (editing) inputRef.current?.focus();
 }, [editing]);
@@ -116,7 +116,7 @@ A modal dialog needs a lot: top layer, rest of the page blocked, Escape closes, 
 | Escape closes | yes | no |
 | focus moves inside | yes | no |
 
-The `open` prop only opens the dialog as **non-modal**. So in React you call `showModal()` via a ref in an effect:
+The `open` prop only opens the dialog as **non-modal**. So in React you call `showModal()` via a ref in an Effect:
 
 ```tsx
 function ConfirmDialog({ open, onClose, children }: Props) {

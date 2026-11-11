@@ -7,7 +7,7 @@ summary: |-
   - The action may be async. React runs it as a transition, so the page stays responsive.
   - When the action finishes, React resets the form: uncontrolled fields are empty again or back to their `defaultValue`.
   - You only need state per field if you want to react while typing (live preview, character counter).
-  - A button can have its own action with `formAction={fn}`, e.g. for "Delete".
+  - A button can have its own action with `formAction={fn}`, e.g. for “Delete”.
 
   ```tsx
   function NewTodo() {
@@ -35,7 +35,7 @@ quiz:
     answer: 0
 exercise:
   example: ex-form-action
-  title: A newsletter form
+  title: A Newsletter Form
   task: |-
     The form still uses `onSubmit`, `preventDefault` and a controlled field. Convert it to a form action:
 

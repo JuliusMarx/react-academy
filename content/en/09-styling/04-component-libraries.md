@@ -14,6 +14,7 @@ summary: |-
   <Dialog.Root>
     <Dialog.Trigger>Open</Dialog.Trigger>
     <Dialog.Portal>
+      {/* renders the dialog at the end of <body> – more on portals in chapter 12 */}
       <Dialog.Overlay className="fixed inset-0 bg-black/40" />
       <Dialog.Content className="rounded-xl bg-white p-6">
         <Dialog.Title>Settings</Dialog.Title>
@@ -38,7 +39,7 @@ quiz:
 
 Buttons and cards are quick to build. A dialog, a dropdown menu or a date picker that work properly with keyboard and screen reader, however, are a lot of work. That's what libraries are for.
 
-## Three Kinds
+## Three kinds
 
 | Kind | Examples | You get … |
 |---|---|---|
@@ -46,7 +47,7 @@ Buttons and cards are quick to build. A dialog, a dropdown menu or a date picker
 | Headless | Radix UI, React Aria, Headless UI, Base UI | behavior, keyboard control and ARIA – without a look |
 | Copy-and-paste | shadcn/ui | the components' source code (usually Radix + Tailwind) directly in your project |
 
-## Headless: Behavior Without a Look
+## Headless: behavior without a look
 
 A headless library takes care of the hard parts – trapping focus, closing on Escape, arrow keys moving through the menu, the right ARIA attributes – and leaves the styling to you, e.g. with Tailwind:
 
@@ -56,6 +57,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 <Dialog.Root>
   <Dialog.Trigger className="rounded bg-sky-700 px-3 py-1 text-white">Open</Dialog.Trigger>
   <Dialog.Portal>
+    {/* renders the dialog at the end of <body> – more on portals in chapter 12 */}
     <Dialog.Overlay className="fixed inset-0 bg-black/40" />
     <Dialog.Content className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl bg-white p-6">
       <Dialog.Title>Settings</Dialog.Title>
@@ -70,7 +72,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 
 **shadcn/ui** isn't a classic library: a command like `npx shadcn@latest add dialog` copies the component into your project as source code. You own the code and can change anything – in return, it doesn't update itself.
 
-## What Fits?
+## What fits?
 
 - **Quickly building an internal application**: a fully styled library like MUI or Mantine.
 - **Your own design, but accessible**: headless components or shadcn/ui.

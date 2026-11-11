@@ -4,7 +4,7 @@ minutes: 9
 summary: |-
   - In **Data Mode** you describe routes as objects with `createBrowserRouter([...])` and render `<RouterProvider router={router} />`. Create the router once, outside any component.
   - `RouterProvider` comes from `react-router/dom`, everything else from `react-router`.
-  - A `loader` fetches the data **before** the route renders. The component reads it with `useLoaderData<typeof loader>()` – no effect, no loading state.
+  - A `loader` fetches the data **before** the route renders. The component reads it with `useLoaderData<typeof loader>()` – no Effect, no loading state.
   - While loading, `useNavigation().state` is `'loading'`.
   - If a loader throws, the route's `errorElement` appears (otherwise the nearest parent's). `throw data('…', { status: 404 })` creates an error response; `useRouteError()` reads it.
 
@@ -26,7 +26,7 @@ summary: |-
   > [!TIP] For small apps, `BrowserRouter` (Declarative Mode) is enough. If the router should also load data, use Data Mode.
 quiz:
   - question: "When does a route's `loader` run?"
-    options: ["After the component has rendered, like an effect","Only on the server","Only on the first load of the app","Before the route renders – the component gets the data immediately"]
+    options: ["After the component has rendered, like an Effect","Only on the server","Only on the first load of the app","Before the route renders – the component gets the data immediately"]
     answer: 3
   - question: "In React Router 8, where do you import `RouterProvider` from for the browser?"
     options: ["`react-router/dom`","`react-router`","`react-dom`","`react-router-dom`"]
@@ -50,7 +50,7 @@ exercise:
 
 # Data with Loaders
 
-So far, each page loads its own data after it has rendered – with an effect, a loading state and everything. React Router can take that over: in **Data Mode**, each route gets a **loader** that fetches the data *before* the page appears.
+So far, each page loads its own data after it has rendered – with an Effect, a loading state and everything. React Router can take that over: in **Data Mode**, each route gets a **loader** that fetches the data *before* the page appears.
 
 ## Data Mode
 
@@ -96,7 +96,7 @@ function UserPage() {
 }
 ```
 
-When someone clicks a link, React Router starts the loader and only shows the new page once the data is there. The component needs no loading state, no effect and no race-condition handling – the router takes care of that. With `useLoaderData<typeof userLoader>()`, TypeScript even knows the type of the data.
+When someone clicks a link, React Router starts the loader and only shows the new page once the data is there. The component needs no loading state, no Effect and no race-condition handling – the router takes care of that. With `useLoaderData<typeof userLoader>()`, TypeScript even knows the type of the data.
 
 While loading, `useNavigation().state` has the value `'loading'` – good for a global loading indicator.
 

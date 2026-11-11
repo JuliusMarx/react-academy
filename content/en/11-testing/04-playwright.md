@@ -52,7 +52,7 @@ export default defineConfig({
 });
 ```
 
-## A Test
+## A test
 
 ```ts
 // e2e/todos.spec.ts
@@ -70,11 +70,11 @@ test('adds a new todo', async ({ page }) => {
 
 You already know the locators: `getByRole`, `getByLabel` and `getByText` work just like in Testing Library.
 
-## Auto-Waiting
+## Auto-waiting
 
 With every action, Playwright waits until the element is visible, enabled and stable. Assertions like `expect(…).toBeVisible()` or `toHaveText()` also retry until they pass (up to 5 seconds by default). That's why you almost never need your own `waitForTimeout` pauses – they only make tests slow and flaky.
 
-## Running Tests
+## Running tests
 
 | Command | Effect |
 |---|---|
@@ -86,7 +86,7 @@ With every action, Playwright waits until the element is visible, enabled and st
 > [!NOTE]
 > Playwright needs real browsers and therefore doesn't run in this course's browser editor. Try it in a local Vite project.
 
-## Which Tests, and How Many?
+## Which tests, and how many?
 
 - **Many component tests**: fast, precise, and they show directly where the bug is.
 - **A few end-to-end tests** for the most important flows: signing in, ordering, saving.

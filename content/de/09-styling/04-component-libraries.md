@@ -14,6 +14,7 @@ summary: |-
   <Dialog.Root>
     <Dialog.Trigger>Öffnen</Dialog.Trigger>
     <Dialog.Portal>
+      {/* rendert den Dialog ans Ende von <body> – mehr zu Portalen in Kapitel 12 */}
       <Dialog.Overlay className="fixed inset-0 bg-black/40" />
       <Dialog.Content className="rounded-xl bg-white p-6">
         <Dialog.Title>Einstellungen</Dialog.Title>
@@ -56,6 +57,7 @@ import * as Dialog from '@radix-ui/react-dialog';
 <Dialog.Root>
   <Dialog.Trigger className="rounded bg-sky-700 px-3 py-1 text-white">Öffnen</Dialog.Trigger>
   <Dialog.Portal>
+    {/* rendert den Dialog ans Ende von <body> – mehr zu Portalen in Kapitel 12 */}
     <Dialog.Overlay className="fixed inset-0 bg-black/40" />
     <Dialog.Content className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl bg-white p-6">
       <Dialog.Title>Einstellungen</Dialog.Title>

@@ -10,6 +10,7 @@ summary: |-
 
   ```tsx
   import clsx from 'clsx';
+  import type { CSSProperties } from 'react';
 
   <button className={clsx('tab', { active: isActive, disabled: !enabled })}>…</button>
 
@@ -92,6 +93,8 @@ Inline-Styles eignen sich für **Werte, die zur Laufzeit entstehen**: Breiten, P
 Ein guter Mittelweg: Das Styling steht im CSS, nur der Wert kommt aus React.
 
 ```tsx
+import type { CSSProperties } from 'react';
+
 <p className="swatch" style={{ '--swatch': color } as CSSProperties}>…</p>
 ```
 

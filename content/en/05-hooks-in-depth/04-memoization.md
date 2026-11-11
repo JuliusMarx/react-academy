@@ -7,7 +7,7 @@ summary: |-
   - `useMemo(fn, deps)` only recomputes when a dependency changes – for expensive calculations or stable values for `memo` children.
   - `useCallback(fn, deps)` keeps the same function; it equals `useMemo(() => fn, deps)`.
   - Measure with the React DevTools Profiler first, then optimize. Often moving state down or using `children` is enough.
-  - The **React Compiler** adds memoization automatically at build time – if your code follows the rules of React.
+  - The **React Compiler** adds memoization automatically at build time – if your code follows the Rules of React.
 
   ```tsx
   const ProductList = memo(function ProductList({ products, onSelect }: Props) {
@@ -31,7 +31,7 @@ quiz:
     answer: 0
     explanation: "With `useCallback` you keep the same function as long as its dependencies don't change."
   - question: "What does the React Compiler do?"
-    options: ["It translates JSX into HTML", "It adds memoization automatically, so you usually don't need `memo`, `useMemo` and `useCallback` by hand", "It replaces TypeScript", "It makes effects unnecessary"]
+    options: ["It translates JSX into HTML", "It adds memoization automatically, so you usually don't need `memo`, `useMemo` and `useCallback` by hand", "It replaces TypeScript", "It makes Effects unnecessary"]
     answer: 1
 exercise:
   example: ex-memo
@@ -66,7 +66,7 @@ const ProductList = memo(function ProductList({ products, onSelect }: Props) {
 });
 ```
 
-"The same" means: each prop is compared with the previous one using `Object.is`. For numbers and strings this works out of the box – for objects, arrays and functions only if it is the **same** object.
+“The same” means: each prop is compared with the previous one using `Object.is`. For numbers and strings this works out of the box – for objects, arrays and functions only if it is the **same** object.
 
 ## useMemo: remember values
 

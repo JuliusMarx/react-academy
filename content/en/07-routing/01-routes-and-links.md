@@ -52,7 +52,7 @@ exercise:
 
 # Routes and Links
 
-A React app is a single HTML page. To still have multiple "pages" with their own URLs – `/`, `/about`, `/products/42` – you need a **router**. The most widely used one is **React Router**.
+A React app is a single HTML page. To still have multiple “pages” with their own URLs – `/`, `/about`, `/products/42` – you need a **router**. The most widely used one is **React Router**.
 
 ## Installing
 
@@ -118,7 +118,7 @@ nav a.active {
 <Route path="/home" element={<Navigate to="/" replace />} />
 ```
 
-`replace` replaces the current entry in the browser history, so "Back" doesn't land on the redirect again.
+`replace` replaces the current entry in the browser history, so “Back” doesn't land on the redirect again.
 
 > [!WARNING]
 > If someone opens `/about` directly (or reloads), the browser asks the server for that address. The server must then serve `index.html`, otherwise you get a 404. On Netlify, a rule `/* /index.html 200` takes care of this; Vite does it automatically in the dev server.

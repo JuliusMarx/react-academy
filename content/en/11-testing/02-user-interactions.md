@@ -19,7 +19,7 @@ summary: |-
   });
   ```
 
-  > [!TIP] Test behavior ("after the click, 'Saved' is shown"), not intermediate steps like "`setSaved` was called".
+  > [!TIP] Test behavior (“after the click, ‘Saved’ is shown”), not intermediate steps like “`setSaved` was called”.
 quiz:
   - question: "Why use `userEvent` instead of `fireEvent`?"
     options: ["`fireEvent` no longer exists", "`userEvent` simulates a real interaction with all its events (focus, key presses, click) – `fireEvent` only fires a single event", "`userEvent` is synchronous", "There is no difference"]
@@ -72,7 +72,7 @@ it('counts clicks', async () => {
 - All actions are **asynchronous**. Don't forget the `await`, or you'll assert before the action has finished.
 - Like in the browser, a click fires all the events: pointer, focus, `mousedown`, `mouseup`, `click`.
 
-## The Most Important Actions
+## The most important actions
 
 | Action | Simulates |
 |---|---|
@@ -85,7 +85,7 @@ it('counts clicks', async () => {
 
 `fireEvent` from Testing Library, by contrast, fires only a single event. It's faster but less realistic – only use it when `userEvent` can't do something.
 
-## Waiting for Changes
+## Waiting for changes
 
 If something only appears after an asynchronous action, use **`findBy…`**. It waits for up to one second:
 

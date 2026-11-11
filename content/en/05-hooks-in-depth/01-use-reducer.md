@@ -34,7 +34,7 @@ quiz:
     answer: 3
     explanation: "A reducer is a pure function: it calculates the new state from the old state and an action – without mutating anything, without network requests, without randomness."
   - question: "When is `useReducer` worth using instead of `useState`?"
-    options: ["When many event handlers change the same state in different ways","Always","Only for numbers","Only with Context"]
+    options: ["When many event handlers change the same state in different ways","Always","Only for numbers","Only with context"]
     answer: 0
 exercise:
   example: ex-reducer

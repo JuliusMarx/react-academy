@@ -33,7 +33,7 @@ quiz:
     answer: 2
 exercise:
   example: ex-zustand
-  title: A todo store
+  title: A Todo Store
   task: |-
     Implement the three actions in `src/store.ts` with `set()`. Never modify the existing todos – create new ones.
 

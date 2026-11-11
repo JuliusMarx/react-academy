@@ -1,5 +1,5 @@
 ---
-title: What is React?
+title: What Is React?
 minutes: 6
 summary: |-
   - React is a JavaScript library for building user interfaces, developed at Meta and open source.
@@ -28,7 +28,7 @@ quiz:
     explanation: "React is declarative: you describe the result, and React brings the DOM up to date on its own."
 ---
 
-# What is React?
+# What Is React?
 
 **React** is a JavaScript library for building user interfaces. It was developed at Meta (Facebook), is open source, and is one of the most widely used technologies for modern web apps.
 
@@ -55,7 +55,7 @@ function Counter() {
 }
 ```
 
-When `count` changes, React calls the function again and updates exactly the parts of the DOM that changed. You don't have to worry about the "how".
+When `count` changes, React calls the function again and updates exactly the parts of the DOM that changed. You don't have to worry about the “how”.
 
 ## React is a library
 

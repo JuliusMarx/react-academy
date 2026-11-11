@@ -37,7 +37,7 @@ exercise:
     The dialog is rendered inside `<main>` – there, `overflow: hidden` clips it.
 
     1. Render it into `document.body` with `createPortal` (from `react-dom`).
-    2. **Escape** calls `onClose` – via a `keydown` listener on `window` in an effect, with cleanup.
+    2. **Escape** calls `onClose` – via a `keydown` listener on `window` in an Effect, with cleanup.
   checks:
     renders-in-body: The dialog ends up in `document.body`, not in `#root`
     close-button: "**Close** closes the dialog"
@@ -85,6 +85,6 @@ A dialog needs more than the right position:
 - Focus should not leave the dialog when tabbing (*focus trap*).
 
 > [!TIP]
-> The HTML `<dialog>` element with `showModal()` already handles focus, Escape, and the top layer by itself – no portal needed. For more complex cases, headless libraries like Radix UI help (Chapter 9).
+> The HTML `<dialog>` element with `showModal()` already handles focus, Escape, and the top layer by itself – no portal needed. For more complex cases, headless libraries like Radix UI help (chapter 9).
 
 ::tryit{portals}

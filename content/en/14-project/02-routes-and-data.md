@@ -4,7 +4,7 @@ minutes: 10
 summary: |-
   - The notes now live in `public/api/notes.json`. The dev server delivers the file like a GET endpoint; `api.ts` wraps `fetch` in `getNotes()` and `getNote(id)`.
   - Two pages in **Data Mode**: `/` shows the list, `/notes/:id` one note. `Layout` with `<Outlet />` is the shared parent route.
-  - Data is loaded in **loaders** and read with `useLoaderData<typeof loader>()` – no effect, no loading state per page. `useNavigation().state === 'loading'` shows a global hint.
+  - Data is loaded in **loaders** and read with `useLoaderData<typeof loader>()` – no Effect, no loading state per page. `useNavigation().state === 'loading'` shows a global hint.
   - The route objects live in `routes.tsx`; `App.tsx` only turns them into `createBrowserRouter(routes)`. That way tests can put the same routes into a memory router.
   - URL params are strings: `Number(params.id)`. If the note doesn't exist, the loader throws `data('Note not found', { status: 404 })` and the `errorElement` appears.
   - The search text stays local state in `NotesPage` – it belongs to this page, not to the data.
@@ -45,7 +45,7 @@ quiz:
 
 So far the notes live in the code. In a real app they come from a server – and each note has its own address that you can share and bookmark. In this step the app gets both.
 
-## Data from the "server"
+## Data from the “server”
 
 As in the Data Fetching chapter, a JSON file sits in the project's `public` folder. The dev server delivers it at `/api/notes.json` – to the app it looks like a GET endpoint:
 
@@ -198,7 +198,7 @@ export default function NotePage() {
 }
 ```
 
-`ErrorPage` shows the error response with `useRouteError()` and `isRouteErrorResponse()`, e.g. "404 – Note not found". Because the detail route has its own `errorElement`, the error appears inside the layout and the navigation stays.
+`ErrorPage` shows the error response with `useRouteError()` and `isRouteErrorResponse()`, e.g. “404 – Note not found”. Because the detail route has its own `errorElement`, the error appears inside the layout and the navigation stays.
 
 ::tryit{project-step-2}
 

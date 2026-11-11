@@ -29,7 +29,7 @@ quiz:
   - question: "Why do you also check `res.ok` when using `fetch`?"
     options: ["`fetch` doesn't throw on HTTP errors like 404", "Because `res.json()` is slower otherwise", "It isn't necessary", "Only for POST requests"]
     answer: 0
-  - question: "What is a drawback of fetching data directly in effects?"
+  - question: "What is a drawback of fetching data directly in Effects?"
     options: ["It doesn't work with TypeScript", "No caching – every component fetches again, and you have to handle loading states, errors, and race conditions yourself", "Effects can't call `fetch`", "There is none"]
     answer: 1
 exercise:
@@ -50,9 +50,9 @@ exercise:
 
 # Fetching Data in Effects
 
-The simplest way to get data from the server: a `fetch` in an effect. Along the way you'll meet the problems that every data-fetching solution has to solve – including the libraries you'll use later.
+The simplest way to get data from the server: a `fetch` in an Effect. Along the way you'll meet the problems that every data-fetching solution has to solve – including the libraries you'll use later.
 
-## Loading, Loading State, Error
+## Loading, loading state, error
 
 ```tsx
 function Profile({ userId }: { userId: number }) {
@@ -85,7 +85,7 @@ You have to represent three states: **loading**, **error**, **done**.
 > [!NOTE]
 > Watch out when testing with the Vite dev server: by default it answers unknown paths with `index.html` and status **200** (SPA fallback). A missing JSON file then doesn't give you a 404 but a parse error. In the example, `appType: 'mpa'` in `vite.config.ts` turns this off.
 
-## Race Conditions
+## Race conditions
 
 If `userId` quickly changes from 1 to 2, two requests run at the same time. If the response for user 1 arrives *last*, it overwrites the correct user 2. The solution is a cleanup function that discards stale responses:
 
@@ -96,7 +96,7 @@ useEffect(() => {
     if (!ignore) setUser(data);
   });
   return () => {
-    ignore = true; // this effect is outdated
+    ignore = true; // this Effect is outdated
   };
 }, [userId]);
 ```
@@ -116,7 +116,7 @@ useEffect(() => {
 }, [userId]);
 ```
 
-## The Limits of This Approach
+## The limits of this approach
 
 For small apps, this is enough. For larger ones, quite a bit is missing:
 

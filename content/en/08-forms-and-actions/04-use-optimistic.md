@@ -35,7 +35,7 @@ quiz:
     answer: 0
 exercise:
   example: ex-optimistic
-  title: Optimistic todos
+  title: Optimistic Todos
   task: |-
     New todos only appear once the server responds after 0.6 seconds. Make them appear immediately:
 
@@ -97,7 +97,7 @@ function Messages() {
 The optimistic value only applies **while the action is running**. Once it finishes, `useOptimistic` shows the real state again:
 
 - **Success**: you have updated the real state in the meantime – the entry stays, now without “sending”.
-- **Failure**: the real state hasn't changed – the optimistic entry disappears on its own. Catch the error in the action with `try`/`catch` and show a message – otherwise it goes to the nearest Error Boundary.
+- **Failure**: the real state hasn't changed – the optimistic entry disappears on its own. Catch the error in the action with `try`/`catch` and show a message – otherwise it goes to the nearest error boundary.
 
 No cleanup is needed on failure.
 

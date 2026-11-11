@@ -104,6 +104,6 @@ import Avatar from './Avatar';
 Both are common. What matters is that you stay consistent within a project.
 
 > [!WARNING]
-> Never define components *inside* other components. They would be recreated on every render, so React sees a "new" component each time and discards its state.
+> Never define components *inside* other components. They would be recreated on every render, so React sees a “new” component each time and discards its state.
 
 ::tryit{first-component}

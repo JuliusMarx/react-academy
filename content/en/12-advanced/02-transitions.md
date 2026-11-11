@@ -96,6 +96,6 @@ While the new page renders, the old one stays usable, and `isPending` shows that
 |---|---|
 | You call the setter yourself (tab switch, navigation) | `useTransition` / `startTransition` |
 | The value comes from outside, e.g. as a prop or from an input | `useDeferredValue` |
-| Loading data without replacing the old content with a fallback | `startTransition` (Chapter 6) |
+| Loading data without replacing the old content with a fallback | `startTransition` (chapter 6) |
 
 ::tryit{transitions}

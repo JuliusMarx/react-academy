@@ -10,6 +10,7 @@ summary: |-
 
   ```tsx
   import clsx from 'clsx';
+  import type { CSSProperties } from 'react';
 
   <button className={clsx('tab', { active: isActive, disabled: !enabled })}>…</button>
 
@@ -45,7 +46,7 @@ exercise:
 
 React doesn't dictate how you style. The foundation is plain CSS – you connect it via `className` or set styles directly with `style`.
 
-## CSS Files and className
+## CSS files and className
 
 With Vite you import CSS files directly into a component. They then apply to the whole page:
 
@@ -59,7 +60,7 @@ function Alert({ children }: { children: string }) {
 
 `className` takes a string. Separate multiple classes with spaces: `className="alert alert-danger"`.
 
-## Applying Classes Conditionally
+## Applying classes conditionally
 
 You often set classes depending on props or state:
 
@@ -77,7 +78,7 @@ import clsx from 'clsx';
 <button className={clsx('tab', { active: isActive, disabled: !enabled })}>…</button>
 ```
 
-## Inline Styles
+## Inline styles
 
 The `style` attribute takes an **object**. You write properties in camelCase, and numbers become pixels (except for unitless properties like `opacity`, `zIndex` or `lineHeight`):
 
@@ -87,11 +88,13 @@ The `style` attribute takes an **object**. You write properties in camelCase, an
 
 Inline styles suit **values that arise at runtime**: widths, positions, a color from your data. For everything else, classes are better – `:hover`, `:focus` and media queries don't work with inline styles at all.
 
-## CSS Variables
+## CSS variables
 
 A good middle ground: the styling lives in CSS, and only the value comes from React.
 
 ```tsx
+import type { CSSProperties } from 'react';
+
 <p className="swatch" style={{ '--swatch': color } as CSSProperties}>…</p>
 ```
 

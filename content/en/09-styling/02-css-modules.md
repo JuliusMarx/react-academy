@@ -48,7 +48,7 @@ exercise:
 
 **CSS Modules** solve the biggest problem of global CSS: name clashes. Every class applies only to the file that imports it.
 
-## How It Works
+## How it works
 
 Vite treats a file whose name ends in **`.module.css`** as a CSS Module:
 
@@ -81,7 +81,7 @@ export default function Card({ title, children }: CardProps) {
 
 Vite turns `.card` into a unique name like `_card_1a2b3_1`. Another file can also define `.title` – the two never get in each other's way.
 
-## Multiple Classes and Variants
+## Multiple classes and variants
 
 ```tsx
 <button className={`${styles.button} ${styles[variant]}`}>…</button>
@@ -89,7 +89,7 @@ Vite turns `.card` into a unique name like `_card_1a2b3_1`. Another file can als
 
 With `styles[variant]` you pick a class matching a prop. For many conditions, `clsx` helps here too.
 
-## Global Exceptions
+## Global exceptions
 
 If you do need a global selector inside a module, for example for a class from a third-party library, mark it with `:global`:
 

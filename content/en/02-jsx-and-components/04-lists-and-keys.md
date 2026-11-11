@@ -20,7 +20,7 @@ summary: |-
   }
   ```
 
-  > [!WARNING] With `key={index}`, state "wanders" to the wrong element when you reorder or delete items.
+  > [!WARNING] With `key={index}`, state “wanders” to the wrong element when you reorder or delete items.
 quiz:
   - question: "What is the `key` for in list items?"
     options: ["React uses it to tell which element is which when the list changes","It is output as an HTML attribute","It sorts the list","It only matters for TypeScript"]
@@ -80,7 +80,7 @@ When a list changes (an item is added, removed, or the order changes), React nee
 - The best choice is an **ID from the data**.
 
 > [!WARNING]
-> The index (`map((f, i) => <li key={i}>`) only works for lists that never get reordered or changed. Otherwise state "moves" to the wrong element. Try it in the example: type a note, reverse the list, then repeat with `key={index}`.
+> The index (`map((f, i) => <li key={i}>`) only works for lists that never get reordered or changed. Otherwise state “moves” to the wrong element. Try it in the example: type a note, reverse the list, then repeat with `key={index}`.
 
 `Math.random()` as a key is even worse: React then rebuilds all elements on every render.
 

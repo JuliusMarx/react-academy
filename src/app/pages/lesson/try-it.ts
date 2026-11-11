@@ -13,7 +13,9 @@ type State = 'idle' | 'loading' | 'ready' | 'error';
   template: `
     @if (state() === 'idle' || state() === 'error') {
       <div class="teaser">
-        <button type="button" class="button" (click)="open()">{{ label() ?? text().tryIt }}</button>
+        <button type="button" class="button" (click)="open()">
+          {{ label() ?? text().tryIt }} <span aria-hidden="true">▶</span>
+        </button>
         <p>{{ state() === 'error' ? text().tryItError : (hint() ?? text().tryItHint) }}</p>
       </div>
     }
@@ -23,6 +25,7 @@ type State = 'idle' | 'loading' | 'ready' | 'error';
     <div #frame class="frame" [class.visible]="state() === 'loading' || state() === 'ready'"></div>
     <button type="button" class="new-tab" (click)="openInNewTab()">
       {{ text().openInStackblitz }} <span aria-hidden="true">↗</span>
+      <span class="visually-hidden">{{ text().opensNewTab }}</span>
     </button>
   `,
   styles: `

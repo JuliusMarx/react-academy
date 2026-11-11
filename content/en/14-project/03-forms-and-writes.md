@@ -33,7 +33,7 @@ quiz:
     answer: 3
 exercise:
   example: ex-project-form
-  title: The note form
+  title: The Note Form
   task: |-
     So far the form saves everything – even empty titles – and gives no feedback. Complete `NoteForm.tsx`:
 

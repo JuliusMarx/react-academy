@@ -51,7 +51,7 @@ exercise:
 
 Many components depend on something you don't want to be real in a test: a callback prop from the parent component, a server, the current time. For these, you substitute **mocks** – stand-ins that record how they were called.
 
-## Mock Functions with vi.fn
+## Mock functions with vi.fn
 
 For callback props, you pass a mock function and then check how it was called:
 
@@ -99,7 +99,7 @@ it('loads the user', async () => {
 
 With a response like `new Response('{}', { status: 500 })`, you can test the error case too. After each test, restore the original – with `vi.restoreAllMocks()` in `afterEach` or the `restoreMocks: true` option in the Vitest config.
 
-## Replacing Whole Modules
+## Replacing whole modules
 
 In real Vitest projects, you can replace an entire module with mocks using `vi.mock('./api')`. For network requests, **MSW** (Mock Service Worker) is popular: it intercepts requests at the network level, so your code runs exactly as it does in production.
 

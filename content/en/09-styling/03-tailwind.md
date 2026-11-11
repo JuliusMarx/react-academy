@@ -81,7 +81,7 @@ export default defineConfig({
 
 That's all Tailwind 4 needs – no `tailwind.config.js`, no PostCSS. You define custom colors and spacing directly in CSS with `@theme`.
 
-## Variants: States and Breakpoints
+## Variants: states and breakpoints
 
 A prefix applies a class only under a certain condition:
 
@@ -97,7 +97,7 @@ A prefix applies a class only under a certain condition:
 
 Without a prefix, a class always applies – so first for small screens. `md:grid-cols-2` adds two columns from medium width upward.
 
-## Applying Classes Conditionally
+## Applying classes conditionally
 
 > [!WARNING]
 > Tailwind scans your source code for **complete** class names. It doesn't find assembled names like `` `bg-${color}-100` `` – the class is then missing from the CSS. Write out every variant:
@@ -111,7 +111,7 @@ const colors = {
 <span className={`rounded-full px-3 py-1 ${colors[status]}`}>…</span>
 ```
 
-## Avoiding Repetition
+## Avoiding repetition
 
 Long class lists feel unfamiliar at first. When a combination repeats, the answer in React is usually: **turn it into a component** (`<Button>`, `<Badge>`) – not your own CSS classes.
 

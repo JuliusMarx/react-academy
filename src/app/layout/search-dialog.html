@@ -16,7 +16,7 @@
         (input)="onInput(field.value)"
         (keydown)="onKeydown($event)"
       />
-      <button type="button" class="close" [attr.aria-label]="text().close" (click)="close()">Esc</button>
+      <button type="button" class="close" [attr.aria-label]="text().close + ' (Esc)'" (click)="close()">Esc</button>
     </div>
 
     <ul id="search-results" role="listbox" [attr.aria-label]="text().searchResults">

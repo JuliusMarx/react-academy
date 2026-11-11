@@ -86,7 +86,7 @@ afterEach(() => cleanup());
 > [!NOTE]
 > In this course's examples, the tests run right in the preview, in a small Vitest-compatible runner. You write them exactly as you would in a real project.
 
-## Your First Test
+## Your first test
 
 ```tsx
 import { render, screen } from '@testing-library/react';
@@ -105,7 +105,7 @@ describe('Greeting', () => {
 - **`render`** renders the component into a real or simulated DOM.
 - **`screen`** queries the whole page, **`expect`** checks the result.
 
-## Query Like a User
+## Query like a user
 
 Testing Library follows a clear idea: test what users see and do – not how the component is built internally. That's why you query elements the way a person would find them. In this order:
 

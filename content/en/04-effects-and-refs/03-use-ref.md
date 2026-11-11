@@ -51,7 +51,7 @@ exercise:
 
 Sometimes a component needs a value that persists across renders but should **not trigger a re-render** – or direct access to a DOM element. That is what **refs** are for.
 
-## A Ref Is a Box
+## A ref is a box
 
 ```tsx
 import { useRef } from 'react';
@@ -82,7 +82,7 @@ function stop() {
 > [!WARNING]
 > Don't read or write `ref.current` during rendering (except to initialize it once). The result would be unpredictable. Refs belong in event handlers and Effects.
 
-## DOM Elements
+## DOM elements
 
 If you pass a ref to an element's `ref` attribute, React sets `current` to the DOM element:
 
@@ -103,7 +103,7 @@ During the first render, `current` is still `null` – the element only exists a
 
 Typical uses: focusing, scrolling (`scrollIntoView`), measuring size, playing media, integrating libraries such as maps or charts.
 
-## Refs on Your Own Components
+## Refs on your own components
 
 Since React 19, `ref` is a **regular prop** on function components. You no longer need `forwardRef`:
 

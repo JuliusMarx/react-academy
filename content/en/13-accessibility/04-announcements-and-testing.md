@@ -1,8 +1,8 @@
 ---
-title: Announcing changes and testing
+title: Announcing Changes and Testing
 minutes: 9
 summary: |-
-  - When something changes without focus moving there ("Saved", "12 results"), a screen reader only notices through a **live region**.
+  - When something changes without focus moving there (“Saved”, “12 results”), a screen reader only notices through a **live region**.
   - `role="status"` announces politely, when nothing else is going on. `role="alert"` interrupts – only for important, urgent messages. In general: `aria-live="polite"` or `"assertive"`.
   - The region has to be in the DOM before its text changes. So always render it and only swap the content – don't insert it together with the message.
   - In tests, query with `getByRole` and a name: what Testing Library can't find this way, screen readers often can't either. Check focus with `toHaveFocus()` and `user.tab()`.
@@ -26,9 +26,9 @@ quiz:
     answer: 3
 ---
 
-# Announcing changes and testing
+# Announcing Changes and Testing
 
-Sighted users notice when "Saved" appears somewhere. A screen reader, however, only reads where the focus is. For messages that show up elsewhere, there are **live regions**. And to keep it all working, you test it.
+Sighted users notice when “Saved” appears somewhere. A screen reader, however, only reads where the focus is. For messages that show up elsewhere, there are **live regions**. And to keep it all working, you test it.
 
 ## Live regions
 
@@ -36,7 +36,7 @@ A live region is an element whose changes the screen reader announces by itself:
 
 | Markup | Announcement | Used for |
 |---|---|---|
-| `role="status"` | politely, when nothing else is going on | "Saved", "12 results", progress |
+| `role="status"` | politely, when nothing else is going on | “Saved”, “12 results”, progress |
 | `role="alert"` | immediately, interrupting | errors that matter right now |
 | `aria-live="polite"` | like `status` | general regions |
 | `aria-live="assertive"` | like `alert` | use sparingly |
