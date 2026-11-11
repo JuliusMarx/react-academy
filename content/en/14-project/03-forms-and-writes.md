@@ -2,7 +2,7 @@
 title: Forms and Saving
 minutes: 11
 summary: |-
-  - `api.ts` becomes a small fake server: it reads `notes.json` once, writes (`createNote`, `setPinned`, `deleteNote`) change a copy in memory – with an artificial delay, like over the network.
+  - `api.ts` becomes a small fake server: it reads `notes.json` once; writes (`createNote`, `setPinned`, `deleteNote`) change a copy in memory – with an artificial delay, like over the network.
   - New route `notes/new` with `NewNotePage`: it saves through the API and then calls `await navigate(…)` to go to the new note – the detail page's loader finds it.
   - `NoteForm` uses `useActionState`: trim the input, validate it, return errors as state and show them in `<p role="alert">`. `isPending` disables the button.
   - React resets the form after **every** action – also after an error. So return the draft in the state and set it as `defaultValue`.
@@ -57,7 +57,7 @@ The app can read – now it should write: create notes, pin them, delete them. T
 
 ## A fake server
 
-You can't write to a static file. So `api.ts` becomes a small fake server, like in the examples of the previous chapters: it reads `notes.json` once, after that all functions work with a copy in memory. An artificial delay makes loading states visible.
+You can't write to a static file. So `api.ts` becomes a small fake server, like in the examples of the previous chapters: it reads `notes.json` once; after that, all functions work with a copy in memory. An artificial delay makes loading states visible.
 
 ```ts
 // api.ts

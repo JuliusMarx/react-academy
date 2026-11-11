@@ -4,7 +4,7 @@ minutes: 8
 summary: |-
   - A colon turns a segment into a parameter: `path="/products/:id"`. With `?` a segment becomes optional (`/:lang?/about`).
   - `useParams()` returns the parameters as an object – always as **strings**. Convert for numbers: `Number(id)`.
-  - Expect that nothing may exist for the ID, and show a suitable message then.
+  - Expect that nothing may exist for the ID, and show a suitable message in that case.
   - `useNavigate()` navigates in code, e.g. after saving. `navigate(-1)` goes back, `{ replace: true }` replaces the history entry.
   - `useSearchParams()` works like `useState`, except the value lives after the `?` in the URL – ideal for filters and sorting.
 
@@ -38,7 +38,7 @@ quiz:
     answer: 2
 exercise:
   example: ex-params
-  title: A product page
+  title: A Product Page
   task: |-
     1. In `ProductPage`, read the `id` with `useParams()` and show the matching product – not always the first one.
     2. For an unknown ID, show `<p id="not-found">Product not found</p>`.

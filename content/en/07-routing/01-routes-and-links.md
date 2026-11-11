@@ -15,7 +15,7 @@ summary: |-
   <BrowserRouter>
     <nav>
       <NavLink to="/">Home</NavLink>
-      <NavLink to="/about">About</NavLink>
+      <NavLink to="/about">About us</NavLink>
     </nav>
     <Routes>
       <Route path="/" element={<Home />} />
@@ -39,7 +39,7 @@ quiz:
     answer: 0
 exercise:
   example: ex-routes
-  title: A website with three pages
+  title: A Website with Three Pages
   task: |-
     1. Wrap everything in `<BrowserRouter>` and show the pages with `<Routes>`/`<Route>`: `/` → `Home`, `/about` → `About`, `/contact` → `Contact`, everything else → `NotFound`.
     2. Turn the three navigation entries into `<NavLink>`s so the current one gets the class `active`.

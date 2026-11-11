@@ -39,7 +39,7 @@ quiz:
     answer: 2
 exercise:
   example: ex-nested
-  title: A dashboard with a layout
+  title: A Dashboard with a Layout
   task: |-
     Every dashboard page renders its own header – and `Settings` forgot it.
 

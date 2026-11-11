@@ -78,7 +78,7 @@ function Post() {
 - `lazy` macht daraus eine Komponente. Beim ersten Rendern **suspendiert** sie, bis der Code da ist.
 - Die nächste `<Suspense>`-Grenze zeigt solange ihr Fallback.
 
-Die Datei muss die Komponente als **Default-Export** bereitstellen. Wichtig: `lazy` gehört auf oberste Ebene eines Moduls, nie in eine Komponente – sonst würde bei jedem Rendern eine neue Komponente entstehen.
+Die Datei muss die Komponente als **Default-Export** bereitstellen. Wichtig: `lazy` gehört auf die oberste Ebene eines Moduls, nie in eine Komponente – sonst würde bei jedem Rendern eine neue Komponente entstehen.
 
 ## Was lohnt sich?
 

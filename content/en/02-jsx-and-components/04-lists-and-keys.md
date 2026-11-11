@@ -1,5 +1,5 @@
 ---
-title: Lists and keys
+title: Lists and Keys
 minutes: 8
 summary: |-
   - You create lists with `map`: each data item becomes a JSX element. To filter, call `filter` first.
@@ -31,7 +31,7 @@ quiz:
     explanation: "Random values change on every render, and the index changes when you sort or delete. An ID stays stable."
 exercise:
   example: ex-lists
-  title: A product list
+  title: A Product List
   task: |-
     1. Render an `<li>` for each product inside `<ul id="products">`, with name and price, e.g. **Coffee – 3.50 €**. Don't forget the `key`.
     2. Products that are out of stock additionally show `<span className="sold-out">sold out</span>`.
@@ -42,7 +42,7 @@ exercise:
     empty-state: After **Clear**, **No products** appears
 ---
 
-# Lists and keys
+# Lists and Keys
 
 In React, you create lists with the array method **`map`**: each data item becomes a JSX element.
 

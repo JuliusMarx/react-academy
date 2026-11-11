@@ -10,7 +10,7 @@ summary: |-
 
   ```tsx
   function Welcome() {
-    return <p>Welcome to the React Academy!</p>;
+    return <p>Welcome to React Academy!</p>;
   }
 
   export default function App() {

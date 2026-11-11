@@ -10,7 +10,10 @@
           Dein Lernfortschritt wird in deinem Browser gespeichert. Nur wenn du dich freiwillig anmeldest (mit GitHub oder
           E-Mail), wird er zusätzlich in deinem Konto bei Supabase gespeichert.
         </li>
-        <li>Seitenaufrufe werden ohne Cookies und ohne Kennung gezählt, damit ich sehe, welche Lektionen genutzt werden.</li>
+        <li>
+          Seitenaufrufe werden ohne Cookies gezählt, damit ich sehe, welche Lektionen genutzt werden – anonym, nur bei
+          Angemeldeten mit dem Konto verknüpft.
+        </li>
       } @else {
         <li>Es gibt keine Benutzerkonten, keine Cookies, kein Tracking und keine Werbung.</li>
         <li>Dein Lernfortschritt wird nur in deinem Browser gespeichert und nie an mich übertragen.</li>
@@ -48,16 +51,22 @@
     <ul>
       <li>
         <code>{{ site.storagePrefix }}.progress</code> – deinen Lernfortschritt: erledigte Lektionen, Quiz-Ergebnisse, gelöste
-        Übungen, Fragen zum Wiederholen und, falls du eins erstellst, den Namen auf dem Zertifikat,
+        Übungen, Fragen zum Wiederholen, Notizen, Lesezeichen, die zuletzt geöffnete Lektion und, falls du eins erstellst,
+        den Namen auf dem Zertifikat,
       </li>
       <li><code>{{ site.storagePrefix }}.theme</code> – helles oder dunkles Farbschema,</li>
       <li><code>{{ site.storagePrefix }}.reading-mode</code> – ob du die Kurzfassung oder den ganzen Text liest.</li>
     </ul>
     <p>
-      Diese Daten bleiben auf deinem Gerät und werden nicht an mich oder Dritte übertragen. Die Speicherung ist für die
-      Funktionen nötig, die du ausdrücklich nutzt (§ 25 Abs. 2 Nr. 2 TDDDG). Du kannst alles jederzeit löschen: über
-      „Fortschritt verwalten“ → „Zurücksetzen“ auf der <a [routerLink]="['/', lang()]">Startseite</a> oder über die
-      Einstellungen deines Browsers.
+      Ohne Konto bleiben diese Daten auf deinem Gerät und werden nicht an mich oder Dritte übertragen. Die Speicherung ist
+      für die Funktionen nötig, die du ausdrücklich nutzt (§ 25 Abs. 2 Nr. 2 TDDDG). Du kannst die Daten jederzeit
+      löschen: den Lernfortschritt über „Fortschritt verwalten“ → „Zurücksetzen“ auf der
+      <a [routerLink]="['/', lang()]">Startseite</a>, alle Daten über die Einstellungen deines Browsers.
+    </p>
+    <p>
+      Damit die Lektionen auch offline lesbar sind, legt ein <em>Service Worker</em> die Dateien der Website (Seiten, Skripte,
+      Bilder) im Cache-Speicher deines Browsers ab. Darin stehen keine persönlichen Daten; auch das dient einer Funktion
+      der Seite (§ 25 Abs. 2 Nr. 2 TDDDG) und lässt sich über die Browser-Einstellungen löschen.
     </p>
 
     @if (cloud) {
@@ -68,7 +77,7 @@
         @if (site.cloud.emails) {
           Dann bekommst du eine E-Mail zur Bestätigung und, falls du es anforderst, zum Zurücksetzen des Passworts.
         }
-        Das Passwort wird nur verschlüsselt (als Hash) gespeichert. Meldest du dich mit GitHub
+        Das Passwort wird nicht im Klartext, sondern nur als Hash gespeichert. Meldest du dich mit GitHub
         an, übermittelt GitHub (GitHub, Inc., USA) deinen GitHub-Namen, deinen Anzeigenamen, deine E-Mail-Adresse und die
         Adresse deines Profilbilds an Supabase. Gespeichert werden diese Angaben und dein Lernfortschritt (erledigte
         Lektionen, Quiz-Ergebnisse, gelöste Übungen, Fragen zum Wiederholen, Notizen, Lesezeichen und gegebenenfalls der
@@ -140,7 +149,10 @@
           Your learning progress is stored in your browser. Only if you choose to sign in (with GitHub or email) is it also
           stored in your account at Supabase.
         </li>
-        <li>Page views are counted without cookies or an identifier, so I can see which lessons are used.</li>
+        <li>
+          Page views are counted without cookies, so I can see which lessons are used – anonymously, linked to the account
+          only for signed-in visitors.
+        </li>
       } @else {
         <li>There are no user accounts, no cookies, no tracking and no ads.</li>
         <li>Your learning progress is stored only in your browser and never sent to me.</li>
@@ -176,15 +188,22 @@
     <ul>
       <li>
         <code>{{ site.storagePrefix }}.progress</code> – your learning progress: completed lessons, quiz results, solved
-        exercises, questions to review and, if you create one, the name on the certificate,
+        exercises, questions to review, notes, bookmarks, the lesson you opened last and, if you create one, the name on
+        the certificate,
       </li>
       <li><code>{{ site.storagePrefix }}.theme</code> – light or dark color scheme,</li>
       <li><code>{{ site.storagePrefix }}.reading-mode</code> – whether you read the summary or the full text.</li>
     </ul>
     <p>
-      This data stays on your device and is not sent to me or anyone else. Storing it is necessary for the features you
-      explicitly use (§ 25 (2) no. 2 TDDDG). You can delete it at any time: via "Manage progress" → "Reset" on the
-      <a [routerLink]="['/', lang()]">home page</a> or in your browser settings.
+      Without an account, this data stays on your device and is not sent to me or anyone else. Storing it is necessary
+      for the features you explicitly use (§ 25 (2) no. 2 TDDDG). You can delete it at any time: your learning progress
+      via "Manage progress" → "Reset" on the <a [routerLink]="['/', lang()]">home page</a>, all of it in your browser
+      settings.
+    </p>
+    <p>
+      So the lessons can be read offline, a <em>service worker</em> keeps the site's files (pages, scripts, images) in your
+      browser's cache storage. It contains no personal data; this too serves a feature of the site (§ 25 (2) no. 2 TDDDG)
+      and can be cleared in your browser settings.
     </p>
 
     @if (cloud) {
@@ -195,7 +214,7 @@
         @if (site.cloud.emails) {
           You then get an email to confirm it and, if you ask for it, to reset your password.
         }
-        The password is stored only in encrypted form (as a hash). If you sign in with GitHub, GitHub (GitHub, Inc., USA)
+        The password is never stored in plain text, only as a hash. If you sign in with GitHub, GitHub (GitHub, Inc., USA)
         sends your GitHub username, display name, email address and the address of your profile picture to Supabase. These
         details and your learning progress (completed lessons, quiz results, solved
         exercises, questions to review, notes, bookmarks and, if created, the name on the certificate) are stored so you can
@@ -248,7 +267,8 @@
     <p>
       You have the right to access, rectification, erasure and restriction of processing of your data, to data
       portability and to object to processing based on legitimate interests (Art. 15–21 GDPR). Just write to the address
-      above. You can also lodge a complaint with a data protection supervisory authority (Art. 77 GDPR).
+      above. You can also lodge a complaint with a data protection supervisory authority (Art. 77 GDPR), for example the one
+      in your federal state.
     </p>
 
     <p class="note">Last updated: {{ date() }}</p>

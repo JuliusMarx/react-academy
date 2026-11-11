@@ -63,7 +63,7 @@ export const GLOSSARY: GlossaryEntry[] = [
     term: 'key',
     text: {
       de: 'Eindeutige Kennung für Listeneinträge, damit React sie beim erneuten Rendern wiedererkennt.',
-      en: 'Unique identifier for list items, so React recognises them between renders.',
+      en: 'Unique identifier for list items, so React recognizes them between renders.',
     },
     lessons: ['jsx-and-components/lists-and-keys'],
   },
@@ -135,7 +135,7 @@ export const GLOSSARY: GlossaryEntry[] = [
     term: 'useEffect',
     text: {
       de: 'Synchronisiert eine Komponente mit etwas außerhalb von React, z. B. Timern, Abos oder dem DOM.',
-      en: 'Synchronises a component with something outside React, such as timers, subscriptions or the DOM.',
+      en: 'Synchronizes a component with something outside React, such as timers, subscriptions or the DOM.',
     },
     lessons: ['effects-and-refs/use-effect', 'effects-and-refs/you-might-not-need-an-effect'],
   },

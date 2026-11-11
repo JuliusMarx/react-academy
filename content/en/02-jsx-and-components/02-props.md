@@ -39,7 +39,7 @@ quiz:
     answer: 2
 exercise:
   example: ex-props
-  title: A team badge
+  title: A Team Badge
   task: |-
     1. `UserBadge` should use its props: the name in `<strong>`, the role in `<span className="role">`.
     2. If no role is passed, the badge shows **Member**.
@@ -77,7 +77,7 @@ function ProductCard({ name, price, onSale = false }: ProductCardProps) {
   return (
     <article>
       <h2>{name}</h2>
-      <p>{price.toFixed(2)} € {onSale && <strong>Sale!</strong>}</p>
+      <p>{price.toFixed(2)} € {onSale && <strong>On sale!</strong>}</p>
     </article>
   );
 }

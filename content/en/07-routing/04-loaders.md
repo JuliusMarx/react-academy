@@ -36,7 +36,7 @@ quiz:
     answer: 1
 exercise:
   example: ex-loader
-  title: Recipes with a loader
+  title: Recipes with a Loader
   task: |-
     1. Write a `loader` for `recipes/:id` that calls `getRecipe(Number(params.id))`. If there is no recipe, throw `data('Recipe not found', { status: 404 })`.
     2. `RecipePage` reads the recipe with `useLoaderData()` and shows `<h2 id="title">` with the title and `<p id="minutes">` with the time (e.g. **40 min**).

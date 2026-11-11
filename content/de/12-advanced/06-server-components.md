@@ -29,7 +29,7 @@ quiz:
     options: ["Nur im Browser", "Auf dem Server (oder beim Build) – ihr Code kommt gar nicht im Browser an", "In einem Web Worker", "In der Datenbank"]
     answer: 1
   - question: "Wofür steht `'use client'` am Anfang einer Datei?"
-    options: ["Die Datei läuft nur auf dem Server","Die Datei wird nicht gebaut","Ab hier beginnen Client-Komponenten, die im Browser interaktiv sind – mit State, Effekten und Event-Handlern","Die Komponente lädt Daten"]
+    options: ["Die Datei läuft nur auf dem Server","Die Datei wird nicht gebaut","Ab hier beginnen Client Components, die im Browser interaktiv sind – mit State, Effekten und Event-Handlern","Die Komponente lädt Daten"]
     answer: 2
   - question: "Was empfiehlt das React-Team für neue Apps mit mehreren Seiten?"
     options: ["Immer ohne Framework","jQuery","Nur Klassenkomponenten","Ein Framework wie Next.js"]

@@ -1,5 +1,5 @@
 ---
-title: Conditional rendering
+title: Conditional Rendering
 minutes: 6
 summary: |-
   - JSX has no `if` – you use plain JavaScript.
@@ -28,7 +28,7 @@ quiz:
     explanation: "`null` renders nothing (so do `false` and `undefined`). A `0`, on the other hand, would be shown as a number."
 ---
 
-# Conditional rendering
+# Conditional Rendering
 
 JSX has no `if` of its own. You use regular JavaScript. Three patterns cover almost everything.
 

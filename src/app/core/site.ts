@@ -27,7 +27,7 @@ export const SITE = {
     emails: false,
   },
   /** Date of the privacy policy, shown at its end. */
-  privacyDate: '2026-11-10',
+  privacyDate: '2026-11-11',
 };
 
 /** Link to a new GitHub issue about a lesson, with title and body filled in. */

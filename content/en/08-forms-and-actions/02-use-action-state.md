@@ -83,7 +83,7 @@ function Newsletter() {
 ```
 
 - The action receives the **previous state** and the **`FormData`**. Whatever it returns becomes the new state.
-- You pass the form not your own function, but the returned **`formAction`**.
+- You don't pass your own function to the form, but the returned **`formAction`**.
 - **`isPending`** is `true` while the action is running.
 
 ## Return errors instead of throwing

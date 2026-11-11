@@ -6,7 +6,7 @@ summary: |-
   - `<textarea>` und `<select>` funktionieren genauso mit `value`.
   - Bei Checkboxen und Radiobuttons heißt das Attribut `checked`, im Handler liest du `e.target.checked`.
   - Gültigkeit ist ein abgeleiteter Wert: Berechne sie beim Rendern, statt sie in eigenem State zu speichern.
-  - Brauchst du den Wert erst beim Absenden, reicht ein unkontrolliertes Feld mit `defaultValue` und `FormData`.
+  - Brauchst du den Wert erst beim Absenden, reicht oft ein unkontrolliertes Feld mit `defaultValue` und `FormData`.
 
   ```tsx
   function NameForm() {

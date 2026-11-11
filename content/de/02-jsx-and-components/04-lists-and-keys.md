@@ -73,7 +73,7 @@ Zum Filtern nimmst du vorher `filter`:
 
 ## Warum key?
 
-Ändert sich eine Liste – ein Eintrag kommt dazu, wird gelöscht oder die Reihenfolge ändert sich –, muss React wissen, welches Element welches ist. Daran erkennt React, was es wiederverwenden kann und wo es State (z. B. den Inhalt eines Eingabefelds) hingehört.
+Ändert sich eine Liste – ein Eintrag kommt dazu, wird gelöscht oder die Reihenfolge ändert sich –, muss React wissen, welches Element welches ist. Daran erkennt React, was es wiederverwenden kann und wo State (z. B. der Inhalt eines Eingabefelds) hingehört.
 
 - Der `key` muss unter Geschwistern **eindeutig** sein.
 - Er muss **stabil** bleiben – bei jedem Rendern derselbe Wert für dasselbe Element.

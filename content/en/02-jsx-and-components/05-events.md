@@ -74,7 +74,7 @@ function handleSubmit(e: SubmitEvent<HTMLFormElement>) {
 
 <form onSubmit={handleSubmit}>
   <input name="city" />
-  <button type="submit">Submit</button>
+  <button type="submit">Send</button>
 </form>
 ```
 

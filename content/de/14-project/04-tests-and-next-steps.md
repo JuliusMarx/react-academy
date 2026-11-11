@@ -163,7 +163,7 @@ Die App ist bewusst klein. Ideen, um sie auszubauen – jede übt ein Thema aus 
 - **Sofort pinnen:** `useOptimistic` schaltet den Button um, bevor der Server antwortet.
 - **Fokus nach Seitenwechseln:** Die Überschrift der neuen Seite fokussieren, wie im Kapitel über Barrierefreiheit.
 - **Ein echtes Backend:** `api.ts` gegen `fetch` mit `POST`/`PATCH`/`DELETE` tauschen – oder TanStack Query für Caching und Neuladen nutzen.
-- **Ende-zu-Ende-Tests:** Mit Playwright den ganzen Ablauf „Notiz anlegen, in der Liste finden, löschen“ im echten Browser prüfen.
+- **End-to-End-Tests:** Mit Playwright den ganzen Ablauf „Notiz anlegen, in der Liste finden, löschen“ im echten Browser prüfen.
 
 > [!TIP]
 > Fang mit einem neuen Projekt an (`npm create vite@latest`, Vorlage „React + TypeScript“) und bau die App ohne Vorlage nach. Wo du hängen bleibst, weißt du, welche Lektion du dir noch einmal ansehen solltest.

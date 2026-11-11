@@ -38,7 +38,7 @@ quiz:
   - question: "`/notes/99` gibt es nicht und der Loader wirft `data('Note not found', { status: 404 })`. Was sieht man?"
     options: ["Eine leere Seite","Eine Fehlermeldung in der Konsole, sonst nichts","Die Liste aller Notizen","Das `errorElement` der Route – innerhalb des Layouts, die Navigation bleibt stehen"]
     answer: 3
-    explanation: "Die Detail-Route hat ein eigenes `errorElement`. Es erscheint im `<Outlet />` von `Layout`. Ohne eigenes würde das der Eltern-Route das ganze Layout ersetzen."
+    explanation: "Die Detail-Route hat ein eigenes `errorElement`. Es erscheint im `<Outlet />` von `Layout`. Ohne ein eigenes würde das `errorElement` der Eltern-Route das ganze Layout ersetzen."
 ---
 
 # Routen und Daten laden

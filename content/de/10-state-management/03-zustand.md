@@ -49,7 +49,7 @@ exercise:
 
 # Zustand
 
-**Zustand** ist eine kleine State-Management-Bibliothek mit sehr wenig Zeremonie: kein Provider, keine Actions-Typen, kein Boilerplate. Ein Store ist einfach ein Hook.
+**Zustand** ist eine kleine State-Management-Bibliothek mit sehr wenig Zeremonie: kein Provider, keine Action-Typen, kein Boilerplate. Ein Store ist einfach ein Hook.
 
 ## Einen Store anlegen
 
